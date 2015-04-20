@@ -1,0 +1,17 @@
+# file: shippable.yml
+
+# language setting
+language: node_js
+
+# version numbers, testing against two versions of node
+node_js:
+  - 0.10
+  - 0.11
+
+# Install dependencies
+before_script:
+  - npm install
+
+# Running test
+script:
+  - npm test
