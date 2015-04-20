@@ -1,0 +1,24 @@
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700");
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
+
+html, body {
+  background-color: #1d1f20;
+  font-family: "Open Sans";
+  font-size: 14px;
+  color: White;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.propertyEditorWrapper {
+  /*position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 400px;
+  padding: 20px;*/
+  width: 400px;
+  float: left;
+  margin: 20px;
+}
