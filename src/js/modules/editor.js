@@ -73,7 +73,6 @@
         return true;
       } else {
         this.PJS.disableControlButtons();
-        console.warn(this.errors);
         return false;
       }
     };

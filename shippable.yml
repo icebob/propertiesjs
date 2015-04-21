@@ -3,6 +3,9 @@
 # language setting
 language: node_js
 
+#specify the build_image
+build_image: shippableimages/ubuntu1404_nodejs
+
 # version numbers, testing against two versions of node
 node_js:
   - 0.10.35
@@ -19,4 +22,4 @@ script:
 
 # Copy coverage report to shippable folder
 after_script:
-  - cp ./coverage/cobertura.txt ./shippable/codecoverage/
+  - cp ./coverage/coverage.xml ./shippable/codecoverage/

@@ -65,7 +65,7 @@ module.exports = class PJSEditor
 			# Validate error
 			@PJS.disableControlButtons()
 
-			console.warn @errors
+			# console.warn @errors
 			return false
 
 	doChangeEvents: (newValue)->
