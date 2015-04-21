@@ -1,0 +1,29 @@
+{
+  "name": "propertiesjs",
+  "version": "1.1.0",
+  "authors": [
+    "Icebob"
+  ],
+  "description": "Javascript properties editor for browsers",
+  "main": [
+    "dist/propertiesJS.js",
+    "dist/propertiesJS.css"
+  ],  
+  "license": "MIT",
+  "homepage": "https://github.com/icebob/propertiesjs",
+  "keywords": [
+    "javascript",
+    "properties",
+    "editor",
+    "js"
+  ],  
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "coverage",
+    "test_reports"
+  ]
+}
