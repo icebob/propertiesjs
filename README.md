@@ -1,4 +1,5 @@
 # PropertiesJS [![NPM version](https://img.shields.io/npm/v/propertiesjs.svg)](https://www.npmjs.com/package/propertiesjs)
+[![Build Status](https://img.shields.io/travis/icebob/propertiesjs.svg)](https://travis-ci.org/icebob/propertiesjs)
 [![Build Status](https://api.shippable.com/projects/55354923edd7f2c052c9acd1/badge?branchName=master)](https://app.shippable.com/projects/55354923edd7f2c052c9acd1/builds/latest)
 [![Dependency Status](https://img.shields.io/david/icebob/propertiesjs.svg)](https://david-dm.org/icebob/propertiesjs)
 [![Codacy Badge](https://www.codacy.com/project/badge/7c7e3a15825f411f8dd395a8893fc08e)](https://www.codacy.com/app/mereg-norbert/propertiesjs)
