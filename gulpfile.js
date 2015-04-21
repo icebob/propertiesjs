@@ -148,7 +148,7 @@ var testFiles = [
 ];
 
 // Test task with karma
-gulp.task("test", ["sass", "coffee", "coffee:test"], function() {
+gulp.task("test", ["coffee", "coffee:test"], function() {
 
 	return gulp.src(testFiles, {read: false})
 		.pipe($.karma({

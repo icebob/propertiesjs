@@ -5,13 +5,18 @@ language: node_js
 
 # version numbers, testing against two versions of node
 node_js:
-  - 0.10
-  - 0.11
+  - 0.10.35
+#  - 0.11
 
-# Install dependencies
+# Create directories for test and coverage reports
 before_script:
-  - npm install
+  - mkdir -p shippable/testresults
+  - mkdir -p shippable/codecoverage
 
 # Running test
 script:
   - npm test
+
+# Copy coverage report to shippable folder
+after_script:
+  - cp ./coverage/cobertura.txt ./shippable/codecoverage/

@@ -51,7 +51,7 @@ module.exports = function(config) {
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
-
+    
     coverageReporter: {
       dir : 'coverage/',
       reporters: [
@@ -60,6 +60,7 @@ module.exports = function(config) {
         { type: 'cobertura', subdir: '.', file: 'cobertura.txt' }
       ]
     },
+
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
