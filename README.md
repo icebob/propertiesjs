@@ -87,3 +87,5 @@ PropertiesJS is available under the [MIT license](https://tldrlegal.com/license/
 Copyright (C) 2015 Icebob
 
 [![@icebob](https://img.shields.io/badge/github-icebob-green.svg)](https://github.com/icebob) [![@icebob](https://img.shields.io/badge/twitter-Icebobcsi-blue.svg)](https://twitter.com/Icebobcsi)
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/icebob/propertiesjs/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
