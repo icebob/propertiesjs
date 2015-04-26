@@ -2,6 +2,7 @@
 
 var path            = require('path');
 var fs 				= require('fs');
+var exec 			= require('child_process').exec;
 
 var browserSync     = require('browser-sync');
 var reload          = browserSync.reload;
@@ -284,5 +285,13 @@ gulp.task('release', function (done) {
         'npm publish'
     ].join('\n');
 
-    exec(execute, done());
+    console.log("1");
+    exec(execute, function( error, stdout, stderr) 
+	{
+		console.log(stdout);
+		if ( error != null ) {
+			console.log(stderr);
+		}
+		done();
+	});
 });
