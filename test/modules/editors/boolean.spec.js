@@ -46,7 +46,7 @@ describe("Test PJSBooleanEditor", function() {
     expect(helper.text()).to.be.equal("No");
     return expect(objs[0][editor.fieldName]).to.be["false"];
   });
-  return it("check PJSBooleanEditor with 2 object", function() {
+  it("check PJSBooleanEditor with 2 object", function() {
     var editor, helper, input, settings, tr;
     schema.editors = testData.getEditors(schema.editors, ["active"]);
     pjs = new PJS(".propertyEditor", schema, objs.slice(0, 2));
@@ -70,5 +70,18 @@ describe("Test PJSBooleanEditor", function() {
     expect(helper.text()).to.be.equal("No");
     expect(objs[0][editor.fieldName]).to.be["false"];
     return expect(objs[1][editor.fieldName]).to.be["false"];
+  });
+  return it("check PJSBooleanEditor with new object", function() {
+    var editor, helper, input, settings, tr;
+    schema.editors = testData.getEditors(schema.editors, ["active"]);
+    pjs = new PJS(".propertyEditor", schema, null);
+    editor = pjs.editors[0];
+    settings = editor.settings;
+    tr = pe.find("tbody tr:eq(0)");
+    helper = tr.find(".helper");
+    input = tr.find("input");
+    expect(pjs.objectHandler.objs).to.be.length(1);
+    expect(editor.getInputValue()).to.be["true"];
+    return expect(helper.text()).to.be.equal("Yes");
   });
 });

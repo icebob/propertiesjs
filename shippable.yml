@@ -3,10 +3,12 @@
 # language setting
 language: node_js
 
-# version numbers, testing against two versions of node
+# version numbers, testing against some versions of node and iojs
 node_js:
-  - 0.10.35
-#  - 0.11
+  - "0.10"
+  - "0.11"
+  - "0.12"
+  - "iojs"
 
 # Create directories for test and coverage reports
 before_script:

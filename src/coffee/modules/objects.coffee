@@ -59,6 +59,7 @@ module.exports = class PJSObjectHandler
 			if not val? and @objs.length is 1 and defValue?
 				@setObjectValueByPath obj, field, defValue
 				res = defValue
+				return false
 
 			# Összefésülni a meglévő értékekkel.
 			# Tömb esetén intersection

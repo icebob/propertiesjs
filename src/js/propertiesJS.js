@@ -48,7 +48,7 @@
       if (this.schema === void 0) {
         throw new Error("Schema is missing!");
       }
-      if (objs === void 0) {
+      if (objs == null) {
         objs = {};
       }
       this.liveEdit = this.schema.liveEdit !== false;

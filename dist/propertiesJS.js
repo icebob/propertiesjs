@@ -1,12 +1,12 @@
 /**
- * properties.js - Javascript properties editor for browsers
- * @version v1.1.0
+ * propertiesjs - Javascript properties editor for browsers
+ * @version v1.1.1
  * @link https://github.com/icebob/propertiesjs
  * @license MIT
  * Copyright (c) 2015 Icebob
  * 
  * 
- * Build Date: Mon Apr 20 2015 16:35:09 GMT+0200 (Közép-európai nyári idő )
+ * Build Date: Sun Apr 26 2015 16:29:31 GMT+0200 (Central Europe Daylight Time)
  * 
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -60,7 +60,7 @@
       if (this.schema === void 0) {
         throw new Error("Schema is missing!");
       }
-      if (objs === void 0) {
+      if (objs == null) {
         objs = {};
       }
       this.liveEdit = this.schema.liveEdit !== false;
@@ -284,7 +284,7 @@
 
 }).call(this);
 
-},{"./modules/editors":26,"./modules/objects":33,"./modules/ui":34,"event-emitter":2,"jquery":17,"lodash":18}],2:[function(require,module,exports){
+},{"./modules/editors":26,"./modules/objects":34,"./modules/ui":35,"event-emitter":2,"jquery":17,"lodash":18}],2:[function(require,module,exports){
 'use strict';
 
 var d        = require('d')
@@ -25156,7 +25156,6 @@ return jQuery;
         return true;
       } else {
         this.PJS.disableControlButtons();
-        console.warn(this.errors);
         return false;
       }
     };
@@ -25650,6 +25649,10 @@ return jQuery;
 
   module.exports["email"] = require("./text");
 
+  module.exports["url"] = require("./text");
+
+  module.exports["tel"] = require("./text");
+
   module.exports["password"] = require("./text");
 
   module.exports["textarea"] = require("./textarea");
@@ -25660,9 +25663,11 @@ return jQuery;
 
   module.exports["color"] = require("./color");
 
+  module.exports["slider"] = require("./slider");
+
 }).call(this);
 
-},{"./boolean":21,"./button":22,"./checklist":23,"./color":24,"./date":25,"./label":27,"./number":28,"./select":29,"./text":30,"./textarea":31,"./timestamp":32}],27:[function(require,module,exports){
+},{"./boolean":21,"./button":22,"./checklist":23,"./color":24,"./date":25,"./label":27,"./number":28,"./select":29,"./slider":30,"./text":31,"./textarea":32,"./timestamp":33}],27:[function(require,module,exports){
 (function() {
   var $, PJSEditor, PJSLabelEditor, _,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -25755,7 +25760,7 @@ return jQuery;
 
 }).call(this);
 
-},{"./text":30,"jquery":17,"lodash":18}],29:[function(require,module,exports){
+},{"./text":31,"jquery":17,"lodash":18}],29:[function(require,module,exports){
 (function() {
   var $, PJSEditor, PJSSelectEditor, _,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -25836,6 +25841,42 @@ return jQuery;
 
 },{"../editor":20,"jquery":17,"lodash":18}],30:[function(require,module,exports){
 (function() {
+  var $, PJSNumberEditor, PJSSliderEditor, _, moment,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  _ = require("lodash");
+
+  $ = require("jquery");
+
+  moment = require("moment");
+
+  PJSNumberEditor = require("./number");
+
+  module.exports = PJSSliderEditor = (function(superClass) {
+    extend(PJSSliderEditor, superClass);
+
+    function PJSSliderEditor() {
+      return PJSSliderEditor.__super__.constructor.apply(this, arguments);
+    }
+
+    PJSSliderEditor.prototype.createInput = function() {
+      PJSSliderEditor.__super__.createInput.apply(this, arguments);
+      this.input.attr("type", "range");
+      if (this.settings.step != null) {
+        this.input.attr("step", this.settings.step);
+      }
+      return this.input;
+    };
+
+    return PJSSliderEditor;
+
+  })(PJSNumberEditor);
+
+}).call(this);
+
+},{"./number":28,"jquery":17,"lodash":18,"moment":19}],31:[function(require,module,exports){
+(function() {
   var $, PJSEditor, PJSTextEditor, _,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
@@ -25905,7 +25946,7 @@ return jQuery;
 
 }).call(this);
 
-},{"../editor":20,"jquery":17,"lodash":18}],31:[function(require,module,exports){
+},{"../editor":20,"jquery":17,"lodash":18}],32:[function(require,module,exports){
 (function() {
   var $, PJSEditor, PJSTextAreaEditor, _,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -25961,7 +26002,7 @@ return jQuery;
 
 }).call(this);
 
-},{"../editor":20,"jquery":17,"lodash":18}],32:[function(require,module,exports){
+},{"../editor":20,"jquery":17,"lodash":18}],33:[function(require,module,exports){
 (function() {
   var $, PJSEditor, PJSLabelEditor, PJSTimestampEditor, _, moment,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -26009,7 +26050,7 @@ return jQuery;
 
 }).call(this);
 
-},{"../editor":20,"./label":27,"jquery":17,"lodash":18,"moment":19}],33:[function(require,module,exports){
+},{"../editor":20,"./label":27,"jquery":17,"lodash":18,"moment":19}],34:[function(require,module,exports){
 (function() {
   var PJSObjectHandler, _,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -26081,6 +26122,7 @@ return jQuery;
           if ((val == null) && _this.objs.length === 1 && (defValue != null)) {
             _this.setObjectValueByPath(obj, field, defValue);
             res = defValue;
+            return false;
           }
           if (res === null) {
             res = val;
@@ -26139,7 +26181,7 @@ return jQuery;
 
 }).call(this);
 
-},{"lodash":18}],34:[function(require,module,exports){
+},{"lodash":18}],35:[function(require,module,exports){
 (function() {
   var $;
 
@@ -26147,11 +26189,13 @@ return jQuery;
 
   module.exports = {
     getContainer: function(c) {
-      if (typeof c === "string") {
-        return $(c);
-      } else {
-        return c;
+      if (c != null) {
+        c = typeof c === "string" ? $(c) : c;
+        if (!c.hasClass("propertyEditor")) {
+          c.addClass("propertyEditor");
+        }
       }
+      return c;
     },
     generatePJSTable: function(PJS) {
       var tables, tbody, tfoot, thead;

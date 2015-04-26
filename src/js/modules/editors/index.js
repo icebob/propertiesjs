@@ -15,6 +15,10 @@
 
   module.exports["email"] = require("./text");
 
+  module.exports["url"] = require("./text");
+
+  module.exports["tel"] = require("./text");
+
   module.exports["password"] = require("./text");
 
   module.exports["textarea"] = require("./textarea");
@@ -24,5 +28,7 @@
   module.exports["number"] = require("./number");
 
   module.exports["color"] = require("./color");
+
+  module.exports["slider"] = require("./slider");
 
 }).call(this);

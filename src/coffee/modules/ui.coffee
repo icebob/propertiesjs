@@ -2,7 +2,11 @@ $ = require "jquery"
 
 module.exports = 
 
-	getContainer: (c) -> if typeof c is "string" then $(c) else c
+	getContainer: (c) -> 
+		if c?
+			c = if typeof c is "string" then $(c) else c
+			c.addClass("propertyEditor") unless c.hasClass("propertyEditor")
+		return c
 
 	generatePJSTable: (PJS) ->
 

@@ -35,6 +35,11 @@ describe("Test UI helper methods", function() {
     expect(ui.getContainer($(".propertyEditor"))).to.be.Array;
     return expect(ui.getContainer($(".propertyEditor"))).to.be.length(1);
   });
+  it("check getContainer class name added", function() {
+    $(".propertyEditor").removeClass().addClass("testEditor");
+    expect(ui.getContainer(".testEditor")).to.be.length(1);
+    return expect(ui.getContainer(".propertyEditor")).to.be.length(1);
+  });
   it("check generatePJSTable", function() {
     var objs, ref, ref1, schema, table, tbody, tfoot, thead;
     ref = testData.clone(), objs = ref[0], schema = ref[1];

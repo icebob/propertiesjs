@@ -147,6 +147,16 @@ module.exports.schema = {
 			maxLength: 500
 			rows: 3	
 		,
+			field: "ratings"
+			title: "Ratings"
+			type: "slider"
+			required: false
+			multiEdit: true
+			default: 1
+			minValue: 1
+			maxValue: 5	
+			step: 1
+		,
 			field: "nativeLang"
 			title: "Native language"
 			type: "select"
@@ -238,6 +248,7 @@ module.exports.objects = [
 			glasses: true
 			foot: 42
 		description: "First user"
+		ratings: 5
 		nativeLang: "en"
 		sex: "Male"
 		skills: ["Javascript", "Coffeescript", "AngularJS"]
@@ -260,6 +271,7 @@ module.exports.objects = [
 			height: 165
 			glasses: false			
 			foot: 42
+		ratings: 3
 		nativeLang: "de"
 		sex: "Male"
 		skills: ["Javascript", "AngularJS", "ReactJS"]
@@ -283,6 +295,7 @@ module.exports.objects = [
 			glasses: true
 			foot: 42
 		description: "Last user"
+		ratings: 5
 		nativeLang: "en"
 		sex: "Male"
 	},
@@ -302,6 +315,7 @@ module.exports.objects = [
 			glasses: false
 			foot: 42
 		description: "Woman"
+		ratings: 1
 		nativeLang: "de"
 		sex: "Female"
 

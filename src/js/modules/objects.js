@@ -69,6 +69,7 @@
           if ((val == null) && _this.objs.length === 1 && (defValue != null)) {
             _this.setObjectValueByPath(obj, field, defValue);
             res = defValue;
+            return false;
           }
           if (res === null) {
             res = val;

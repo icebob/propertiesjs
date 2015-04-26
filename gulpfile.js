@@ -13,8 +13,22 @@ var glob 			= require('glob');
 
 var gulp            = require('gulp');
 var $ 				= require('gulp-load-plugins')({
-						pattern: ['gulp-*']
+						pattern: ['gulp-*', 'del']
 					});
+
+var banner = ['/**',
+  ' * <%= pkg.name %> - <%= pkg.description %>',
+  ' * @version v<%= pkg.version %>',
+  ' * @link <%= pkg.homepage %>',
+  ' * @license <%= pkg.license %>',
+  ' * Copyright (c) <%= new Date().getFullYear() %> Icebob',
+  ' * ',
+  ' * ',
+  ' * Build Date: <%= new Date().toString() %>',
+  ' * ',
+  ' */',
+  ''].join('\n');
+
 
 // Browser-sync task
 gulp.task('browser-sync', function() {
@@ -29,10 +43,14 @@ gulp.task('browser-sync', function() {
 	});
 });
 
-// Sass task
-gulp.task('sass', function () {
+gulp.task('clean:css', function(done) {
+  $.del('src/css/**', done);
+});
 
-	gulp.src('src/scss/*.scss')
+// Sass task
+gulp.task('sass', ['clean:css'], function () {
+
+	return gulp.src('src/scss/*.scss')
 		.pipe($.plumber())
 		.pipe($.compass({
 			project: path.join(__dirname, "src"),
@@ -44,10 +62,27 @@ gulp.task('sass', function () {
 		.on('error', $.util.log));
 });
 
+// Sass task
+gulp.task('sass:min', ['clean:css'], function () {
+
+	return gulp.src('src/scss/*.scss')
+		.pipe($.plumber())
+		//.pipe($.rename('propertiesJS.min.css'))
+		.pipe($.compass({
+			project: path.join(__dirname, "src"),
+			css: 'css',
+			sass: 'scss',
+			sourcemap: true,
+			style: 'compressed',
+			cache: false
+		})
+		.on('error', $.util.log));
+});
+
 // Sass demo task
 gulp.task('sass:demo', function () {
 
-	gulp.src('demo/*.scss')
+	return gulp.src('demo/*.scss')
 		.pipe($.plumber())
 		.pipe($.compass({
 			project: __dirname,
@@ -185,22 +220,14 @@ gulp.task('karma', ["sass", "coffee", "coffee:test"], function() {
  */
 
 var pkg = require('./package.json');
-var banner = ['/**',
-  ' * <%= pkg.name %> - <%= pkg.description %>',
-  ' * @version v<%= pkg.version %>',
-  ' * @link <%= pkg.homepage %>',
-  ' * @license <%= pkg.license %>',
-  ' * Copyright (c) <%= new Date().getFullYear() %> Icebob',
-  ' * ',
-  ' * ',
-  ' * Build Date: <%= new Date().toString() %>',
-  ' * ',
-  ' */',
-  ''].join('\n');
 
-gulp.task('build', ["sass", "coffee"], function () {
+gulp.task('build', ["sass:min", "coffee"], function () {
 
 	gulp.src('src/css/*.css')
+		.pipe($.header(banner, { pkg : pkg } ))
+		.pipe(gulp.dest("dist"));
+
+	gulp.src('src/css/*.map')
 		.pipe(gulp.dest("dist"));
 
 	// set up the browserify instance on a task basis
@@ -228,11 +255,34 @@ gulp.task('build', ["sass", "coffee"], function () {
 /**
  * Bump version
  */
-
-gulp.task('bump', [], function () {
-  var bumpType = $.util.env.type || 'patch'; // major.minor.patch
+function bump(type) {
+  var bumpType = type || 'patch'; // major.minor.patch
 
   return gulp.src(['./package.json', './bower.json'])
     .pipe($.bump({ type: bumpType }))
     .pipe(gulp.dest('./'));
+}
+
+gulp.task('bump-patch', [], function () { return bump('patch') });
+gulp.task('bump-minor', [], function () { return bump('minor') });
+gulp.task('bump-major', [], function () { return bump('major') });
+
+/**
+ * Release to Github & npm
+ */
+gulp.task('release', function (done) {
+
+    var pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
+    var tag = 'v' + pkg.version;
+    var message = 'Release ' + tag;
+    var execute = [
+        'git add .',
+        'git commit -m "Release ' + tag + '"',
+        'git tag ' + tag + ' -m "Release ' + tag + '"',
+        'git push -u origin master',
+        'git push -u origin master --tags',
+        'npm publish'
+    ].join('\n');
+
+    exec(execute, done());
 });

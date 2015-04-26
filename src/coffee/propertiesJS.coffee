@@ -33,7 +33,7 @@ module.exports = class PJS
 		# Validation
 		if c is undefined then throw new Error("Container is missing!")
 		if @schema is undefined then throw new Error("Schema is missing!")
-		if objs is undefined
+		unless objs?
 			objs = {} # Create a new empty object with default values
 
 		@liveEdit = @schema.liveEdit isnt false

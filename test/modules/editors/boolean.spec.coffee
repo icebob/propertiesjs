@@ -80,3 +80,18 @@ describe "Test PJSBooleanEditor", ->
 		expect(objs[0][editor.fieldName]).to.be.false
 		expect(objs[1][editor.fieldName]).to.be.false
 
+
+	it "check PJSBooleanEditor with new object", ->
+		schema.editors = testData.getEditors schema.editors, ["active"]
+		pjs = new PJS ".propertyEditor", schema, null
+		
+		# 0. editor (active)
+		editor = pjs.editors[0]
+		settings = editor.settings
+		tr = pe.find "tbody tr:eq(0)"
+		helper = tr.find ".helper"
+		input = tr.find "input"
+
+		expect(pjs.objectHandler.objs).to.be.length 1
+		expect(editor.getInputValue()).to.be.true
+		expect(helper.text()).to.be.equal "Yes"

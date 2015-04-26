@@ -10,7 +10,6 @@ sinon				= require "sinon"
 sinonChai			= require "sinon-chai"
 expect 				= chai.expect
 chai.use sinonChai
-
 ###
 
 describe "Test UI helper methods", ->
@@ -32,6 +31,11 @@ describe "Test UI helper methods", ->
 
 		expect(ui.getContainer($(".propertyEditor"))).to.be.Array
 		expect(ui.getContainer($(".propertyEditor"))).to.be.length 1		
+
+	it "check getContainer class name added", ->
+		$(".propertyEditor").removeClass().addClass("testEditor")
+		expect(ui.getContainer(".testEditor")).to.be.length 1
+		expect(ui.getContainer(".propertyEditor")).to.be.length 1
 
 	it "check generatePJSTable", ->
 		[objs, schema] = testData.clone()

@@ -5,11 +5,13 @@
 
   module.exports = {
     getContainer: function(c) {
-      if (typeof c === "string") {
-        return $(c);
-      } else {
-        return c;
+      if (c != null) {
+        c = typeof c === "string" ? $(c) : c;
+        if (!c.hasClass("propertyEditor")) {
+          c.addClass("propertyEditor");
+        }
       }
+      return c;
     },
     generatePJSTable: function(PJS) {
       var tables, tbody, tfoot, thead;
