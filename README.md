@@ -9,9 +9,14 @@ PropertiesJS is a javascript property editor, writtern in [Coffeescript](http://
 [![](https://img.shields.io/gratipay/icebob.svg)](https://gratipay.com/icebob)
 
 ## Demo
-[Codepen demo](http://codepen.io/icebob/full/WvezpR/)
+[Codepen demo #1](http://codepen.io/icebob/full/WvezpR/)
 
 [![Screenshot](https://pbs.twimg.com/media/CC-6yPEWEAAf8ku.png)](http://codepen.io/icebob/full/WvezpR/)
+
+[Codepen demo #2](http://codepen.io/icebob/full/ZGYMWx/)
+
+[![Screenshot](https://pbs.twimg.com/media/CDq8pKxWYAAVm5v.png)](http://codepen.io/icebob/full/ZGYMWx/)
+
 
 ## Features
 - multiple object editing
