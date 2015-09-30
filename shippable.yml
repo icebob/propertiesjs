@@ -6,6 +6,7 @@ language: node_js
 # version numbers, testing against some versions of node and iojs
 node_js:
   - "0.12"
+  - "4.1"
 
 # Create directories for test and coverage reports
 before_script:
