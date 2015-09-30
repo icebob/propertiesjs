@@ -49,7 +49,8 @@
           if (o[k] !== void 0) {
             o = o[k];
           } else {
-            return;
+            o[k] = {};
+            o = o[k];
           }
         } else {
           o[k] = val;

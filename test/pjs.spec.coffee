@@ -67,7 +67,7 @@ describe "Test PJS in NON Live mode", ->
 		pe = $ ".propertyEditor"
 
 
-	it "check live mode functions with save", (done)->
+	it "check non live mode functions with save", (done)->
 		pjs = new PJS ".propertyEditor", schema, objs[0] 
 
 		expect(pjs).to.be.exist
@@ -75,7 +75,7 @@ describe "Test PJS in NON Live mode", ->
 		expect(pjs.objectHandler.objs[0]).to.be.equal objs[0]
 		expect(pjs.schema).to.be.deep.equal schema
 
-		editor = pjs.editors[0]
+		editor = pjs.editors[1]
 		prevValue = objs[0][editor.fieldName]
 
 		editor.valueChanged "111"
@@ -90,6 +90,31 @@ describe "Test PJS in NON Live mode", ->
 			done()
 
 		pe.find("button.save").click()
+
+	it "check non live mode functions with subeditor (body.weight) with save", (done)->
+		pjs = new PJS ".propertyEditor", schema, objs[0] 
+
+		expect(pjs).to.be.exist
+		expect(pjs.container).to.be.length 1
+		expect(pjs.objectHandler.objs[0]).to.be.equal objs[0]
+		expect(pjs.schema).to.be.deep.equal schema
+
+		editor = pjs.editors[11]
+		prevValue = objs[0].body.weight
+
+		expect(pjs.workObject.body.weight).to.be.equal prevValue
+		editor.valueChanged "123"
+		expect(objs[0].body.weight).to.be.equal prevValue
+		expect(pjs.workObject.body.weight).to.be.equal "123"
+
+		pjs.on "save", (resObj) ->
+
+			expect(objs[0].body.weight).to.be.equal "123"
+			expect(pjs.workObject).to.be.equal resObj
+
+			done()
+
+		pe.find("button.save").click()		
 
 
 	it "check live mode functions with cancel", (done)->

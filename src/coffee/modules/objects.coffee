@@ -21,6 +21,7 @@ module.exports = class PJSObjectHandler
 			if o[k] isnt undefined
 				o = o[k]
 			else
+				# Missing parent property. Exit
 				return null
 			++i
 		return o	
@@ -38,10 +39,14 @@ module.exports = class PJSObjectHandler
 			k = a[i]
 			if i < n - 1
 				if o[k] isnt undefined
+					# Found parent property. Step in
 					o = o[k] 
 				else
-					return
+					# Create missing property (new level)
+					o[k] = {}
+					o = o[k]
 			else
+				# Set final property value
 				o[k] = val
 				return
 			
