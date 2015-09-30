@@ -136,10 +136,16 @@ module.exports = class PJS
 		#LiveEdit
 		if @liveEdit is false
 			# Save button event handler
-			tfoot.find("button.save").on "click", => @onSave()
+			tfoot.find("button.save").on "click", (e)=> 
+				e.preventDefault()
+				@onSave()
+				return false
 
 			# Cancel button event handler
-			tfoot.find("button.cancel").on "click", => @onCancel()
+			tfoot.find("button.cancel").on "click", (e)=> 
+				e.preventDefault()
+				@onCancel()
+				return false
 
 			@disableControlButtons()
 		

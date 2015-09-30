@@ -130,13 +130,17 @@
       }
       if (this.liveEdit === false) {
         tfoot.find("button.save").on("click", (function(_this) {
-          return function() {
-            return _this.onSave();
+          return function(e) {
+            e.preventDefault();
+            _this.onSave();
+            return false;
           };
         })(this));
         tfoot.find("button.cancel").on("click", (function(_this) {
-          return function() {
-            return _this.onCancel();
+          return function(e) {
+            e.preventDefault();
+            _this.onCancel();
+            return false;
           };
         })(this));
         this.disableControlButtons();
