@@ -32,7 +32,7 @@ describe "Test PJSNumberEditor", ->
 		expect(input.attr("max")).to.be.unDefined
 
 		expect(editor.valueChanged(60)).to.be.true
-		expect(pjs.objectHandler.objs[0][settings.field]).to.be.Number
+		expect(pjs.objectHandler.objs[0][settings.field]).to.be.a('Number')
 		expect(pjs.objectHandler.objs[0][settings.field]).to.be.equal 60
 
 		expect(editor.valueChanged(-2)).to.be.false
@@ -41,6 +41,8 @@ describe "Test PJSNumberEditor", ->
 		expect(editor.valueChanged("Hello")).to.be.false
 		expect(editor.errors).to.be.length 1
 
+		editor.setInputValue("4567")
+		expect(editor.getInputValue()).to.be.a('Number')
 
 		describe "Validation event", ->
 			it "check validation-error event", (done) ->
@@ -86,6 +88,7 @@ describe "Test PJSNumberEditor", ->
 		expect(editor.errors).to.be.length 0
 
 		input.val(111).trigger("change")
-		expect(pjs.objectHandler.getObjectValueByPath(pjs.objectHandler.objs[0], editor.fieldName)).to.be.equal 111.toString()
+		expect(pjs.objectHandler.getObjectValueByPath(pjs.objectHandler.objs[0], editor.fieldName)).to.be.equal 111
+		expect(pjs.objectHandler.getObjectValueByPath(pjs.objectHandler.objs[0], editor.fieldName)).to.be.a('Number')
 
 

@@ -27,6 +27,10 @@
       return this.input;
     };
 
+    PJSNumberEditor.prototype.getInputValue = function() {
+      return parseFloat(this.input.val());
+    };
+
     PJSNumberEditor.prototype.innerValidate = function(value) {
       var val;
       val = parseFloat(value);

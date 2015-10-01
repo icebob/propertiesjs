@@ -12,6 +12,8 @@ module.exports = class PJSNumberEditor extends PJSTextEditor
 
 		return @input
 
+	getInputValue: -> parseFloat @input.val()
+
 	innerValidate: (value) ->
 		val = parseFloat value
 		if isNaN(val) 
