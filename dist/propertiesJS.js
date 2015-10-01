@@ -6,7 +6,7 @@
  * Copyright (c) 2015 Icebob
  * 
  * 
- * Build Date: Wed Sep 30 2015 16:36:30 GMT+0200 (Közép-európai nyári idő )
+ * Build Date: Thu Oct 01 2015 14:14:36 GMT+0200 (Közép-európai nyári idő )
  * 
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -25738,6 +25738,10 @@ return jQuery;
         this.input.attr("max", this.settings.maxValue);
       }
       return this.input;
+    };
+
+    PJSNumberEditor.prototype.getInputValue = function() {
+      return parseFloat(this.input.val());
     };
 
     PJSNumberEditor.prototype.innerValidate = function(value) {
