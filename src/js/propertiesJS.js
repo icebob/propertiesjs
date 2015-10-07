@@ -60,73 +60,7 @@
       this.objectHandler = new PJSObjectHandler(objs);
       ref = ui.generatePJSTable(this), table = ref[0], thead = ref[1], tbody = ref[2], tfoot = ref[3];
       if (this.schema.editors && this.schema.editors.length > 0) {
-        $.each(this.schema.editors, (function(_this) {
-          return function(i, editorSchema) {
-            var EditorClass, editor, editorCell, input, nameCell, ref1, tr, value;
-            if (objs.length > 1 && editorSchema.multiEdit === false) {
-              return;
-            }
-            ref1 = ui.generateEditorRow(_this, editorSchema), tr = ref1[0], nameCell = ref1[1], editorCell = ref1[2];
-            EditorClass = PJSEditors[editorSchema.type];
-            if (EditorClass) {
-              editor = new EditorClass(_this, editorSchema, tr, nameCell, editorCell);
-              input = editor.createInput(tr);
-              if (input != null) {
-                if (editorSchema.type !== "button") {
-                  value = _this.objectHandler.getValueFromObjects(editor.fieldName, editorSchema["default"]);
-                  _this.objectHandler.setObjectValueByPath(_this.workObject, editor.fieldName, value);
-                  editor.setInputValue(value);
-                }
-                editorCell.append(input);
-                if (editorSchema.hint != null) {
-                  editorCell.find(".hint").text(editorSchema.hint);
-                }
-                editorCell.find(".hint").insertAfter(editorCell.children().last());
-                editorCell.find(".errors").insertAfter(editorCell.children().last());
-                if (editorSchema.disabled === true) {
-                  editor.disable();
-                }
-                if (_.isFunction(editorSchema.disabled)) {
-                  if (editorSchema.disabled(editor, objs) === true) {
-                    editor.disable();
-                  }
-                }
-                _this.editors.push(editor);
-              } else {
-                return;
-              }
-            } else {
-              console.warn("Invalid editor type: " + editorSchema.type);
-            }
-
-            /*
-            				switch editor.type
-            					 * Color -> spectrum
-            					when "color"
-            						input = $("<input/>").attr("type", "text").appendTo td
-            						input.attr("required", "required") if editor.required?
-            						
-            						 * Helper span
-            						helper = $("<span/>").addClass("helper").appendTo td
-            						setHelperText = (value) -> helper.text value || ""
-            						
-            						 * Set value
-            						value = getObjectsValue editor.field
-            						input.val value
-            						setHelperText value
-            						
-            						 * Spectrum init
-            						input.spectrum
-            							 * Event handlers
-            							change: (color) ->
-            								value = color.toHexString()
-            								setHelperText color.toHexString()
-            								valueChanged value
-             */
-            tr.appendTo(tbody);
-            return true;
-          };
-        })(this));
+        this.createEditors(this.schema.editors, objs, tbody);
       }
       if (this.liveEdit === false) {
         tfoot.find("button.save").on("click", (function(_this) {
@@ -149,6 +83,96 @@
       this.clearChangedFlag();
       return this;
     }
+
+    PJS.prototype.createEditors = function(editors, objs, tbody, groupField) {
+      return $.each(editors, (function(_this) {
+        return function(i, editorSchema) {
+          var EditorClass, editor, editorCell, input, nameCell, ref, ref1, tr, value;
+          if (editorSchema.type === "group") {
+            ref = ui.generateGroupRow(_this, editorSchema), tr = ref[0], nameCell = ref[1], editorCell = ref[2];
+            nameCell.on("click", function() {
+              if (tr.hasClass("collapsed")) {
+                tbody.find("tr[data-group=" + editorSchema.field + "]").show();
+                return tr.removeClass("collapsed");
+              } else {
+                tbody.find("tr[data-group=" + editorSchema.field + "]").hide();
+                return tr.addClass("collapsed");
+              }
+            });
+            tr.appendTo(tbody);
+            if (editorSchema.editors && editorSchema.editors.length > 0) {
+              _this.createEditors(editorSchema.editors, objs, tbody, editorSchema.field);
+            }
+            return;
+          }
+          if (objs.length > 1 && editorSchema.multiEdit === false) {
+            return;
+          }
+          ref1 = ui.generateEditorRow(_this, editorSchema), tr = ref1[0], nameCell = ref1[1], editorCell = ref1[2];
+          if (groupField != null) {
+            tr.attr("data-group", groupField);
+          }
+          EditorClass = PJSEditors[editorSchema.type];
+          if (EditorClass) {
+            editor = new EditorClass(_this, editorSchema, tr, nameCell, editorCell);
+            input = editor.createInput(tr);
+            if (input != null) {
+              if (editorSchema.type !== "button") {
+                value = _this.objectHandler.getValueFromObjects(editor.fieldName, editorSchema["default"]);
+                _this.objectHandler.setObjectValueByPath(_this.workObject, editor.fieldName, value);
+                editor.setInputValue(value);
+              }
+              editorCell.append(input);
+              if (editorSchema.hint != null) {
+                editorCell.find(".hint").text(editorSchema.hint);
+              }
+              editorCell.find(".hint").insertAfter(editorCell.children().last());
+              editorCell.find(".errors").insertAfter(editorCell.children().last());
+              if (editorSchema.disabled === true) {
+                editor.disable();
+              }
+              if (_.isFunction(editorSchema.disabled)) {
+                if (editorSchema.disabled(editor, objs) === true) {
+                  editor.disable();
+                }
+              }
+              _this.editors.push(editor);
+            } else {
+              return;
+            }
+          } else {
+            console.warn("Invalid editor type: " + editorSchema.type);
+          }
+
+          /*
+          			switch editor.type
+          				 * Color -> spectrum
+          				when "color"
+          					input = $("<input/>").attr("type", "text").appendTo td
+          					input.attr("required", "required") if editor.required?
+          					
+          					 * Helper span
+          					helper = $("<span/>").addClass("helper").appendTo td
+          					setHelperText = (value) -> helper.text value || ""
+          					
+          					 * Set value
+          					value = getObjectsValue editor.field
+          					input.val value
+          					setHelperText value
+          					
+          					 * Spectrum init
+          					input.spectrum
+          						 * Event handlers
+          						change: (color) ->
+          							value = color.toHexString()
+          							setHelperText color.toHexString()
+          							valueChanged value
+           */
+          tr.appendTo(tbody);
+          return true;
+        };
+      })(this));
+    };
 
     PJS.prototype.valueChanged = function(editor, newValue) {
       this.setChangedFlag();

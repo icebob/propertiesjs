@@ -68,3 +68,25 @@ module.exports =
 		editorCell.append $("<div/>").addClass("hint")
 
 		return [tr, nameCell, editorCell]
+
+
+	generateGroupRow: (PJS, editor) ->
+
+		tr = $("<tr/>").attr "data-field", editor.field
+		tr.addClass("group")
+		nameCell = $("<td/>").text editor.title
+		nameCell.append $("<span />").addClass "arrow"
+		
+		# Tooltip text with question mark
+		if editor.toolTip?
+			nameCell.prepend $("<span/>").addClass("toolTip").attr("data-title", editor.toolTip)
+		
+		
+		tr.append nameCell
+		tr.addClass("featured") if editor.featured is true
+		tr.addClass("readonly") if editor.readonly is true
+		tr.addClass(editor.type)
+			
+		editorCell = $("<td/>").addClass(editor.type).appendTo tr
+
+		return [tr, nameCell, editorCell]		

@@ -46,6 +46,26 @@
       editorCell.append($("<div/>").addClass("errors"));
       editorCell.append($("<div/>").addClass("hint"));
       return [tr, nameCell, editorCell];
+    },
+    generateGroupRow: function(PJS, editor) {
+      var editorCell, nameCell, tr;
+      tr = $("<tr/>").attr("data-field", editor.field);
+      tr.addClass("group");
+      nameCell = $("<td/>").text(editor.title);
+      nameCell.append($("<span />").addClass("arrow"));
+      if (editor.toolTip != null) {
+        nameCell.prepend($("<span/>").addClass("toolTip").attr("data-title", editor.toolTip));
+      }
+      tr.append(nameCell);
+      if (editor.featured === true) {
+        tr.addClass("featured");
+      }
+      if (editor.readonly === true) {
+        tr.addClass("readonly");
+      }
+      tr.addClass(editor.type);
+      editorCell = $("<td/>").addClass(editor.type).appendTo(tr);
+      return [tr, nameCell, editorCell];
     }
   };
 

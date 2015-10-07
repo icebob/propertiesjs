@@ -72,13 +72,6 @@ propertiesSchema = {
 				if value is "1963-03-07"
 					return "Invalid date!"
 		,
-			field: "settings.isActor"
-			title: "Is an actor?"
-			type: "boolean"
-			required: true
-			default: false
-			multiEdit: true	
-		,
 			field: "status"
 			title: "Status"
 			type: "boolean"
@@ -93,12 +86,6 @@ propertiesSchema = {
 			required: false
 			readonly: true
 		, 
-			field: "settings.themeColor"
-			title: "Color of theme"
-			type: "color"
-			required: false
-			multiEdit: true	
-		,
 			field: "skills"
 			title: "Skills"
 			type: "checklist"
@@ -117,25 +104,43 @@ propertiesSchema = {
 				"Corrupt"
 			]
 		,
-			field: "settings.motto"
-			title: "Motto"
-			type: "textarea"
-			required: false
-			multiEdit: true
-			placeHolder: "What do you think?"
-			rows: 3
-		,
-			field: "settings.nativeLang"
-			title: "Native language"
-			type: "select"
-			required: true
-			multiEdit: true
-			values: [
-				{ id: "en", name: "English" }
-				{ id: "de", name: "Deutsch" }
-				{ id: "it", name: "Italiano" }
-				{ id: "es", name: "Español" }
-				{ id: "fr", name: "Français" }
+			type: "group"
+			field: "settings"
+			title: "Other settings",
+			editors: [
+				field: "settings.isActor"
+				title: "Is an actor?"
+				type: "boolean"
+				required: true
+				default: false
+				multiEdit: true	
+			,
+				field: "settings.themeColor"
+				title: "Color of theme"
+				type: "color"
+				required: false
+				multiEdit: true	
+			,
+				field: "settings.motto"
+				title: "Motto"
+				type: "textarea"
+				required: false
+				multiEdit: true
+				placeHolder: "What do you think?"
+				rows: 3
+			,
+				field: "settings.nativeLang"
+				title: "Native language"
+				type: "select"
+				required: true
+				multiEdit: true
+				values: [
+					{ id: "en", name: "English" }
+					{ id: "de", name: "Deutsch" }
+					{ id: "it", name: "Italiano" }
+					{ id: "es", name: "Español" }
+					{ id: "fr", name: "Français" }
+				]
 			]
 		,
 			field: "sendMessage"

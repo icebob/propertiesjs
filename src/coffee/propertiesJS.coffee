@@ -51,87 +51,7 @@ module.exports = class PJS
 		
 		# Create editors
 		if @schema.editors and @schema.editors.length > 0
-			$.each @schema.editors, (i, editorSchema) =>
-				
-				# Skip if disabled multiedit
-				if objs.length > 1 and editorSchema.multiEdit is false then return
-				
-				# Create table rows for editor
-				[tr, nameCell, editorCell] = ui.generateEditorRow @, editorSchema
-
-				EditorClass = PJSEditors[editorSchema.type]
-				if EditorClass
-					# Create editor
-					editor = new EditorClass @, editorSchema, tr, nameCell, editorCell
-
-					# Create input
-					input = editor.createInput(tr)
-					if input?
-
-						if editorSchema.type isnt "button"
-							# Lekérni az objektumokból az értéket
-							value = @objectHandler.getValueFromObjects editor.fieldName, editorSchema.default
-							# Beállítani a munka objektumnak
-							@objectHandler.setObjectValueByPath @workObject, editor.fieldName, value												
-							# Beállítani az input-nak
-							editor.setInputValue value
-
-						# Add input to cell
-						editorCell.append input
-
-						# Set hint for editor
-						editorCell.find(".hint").text editorSchema.hint if editorSchema.hint?
-						editorCell.find(".hint").insertAfter editorCell.children().last()
-
-						# Move errors div to back
-						editorCell.find(".errors").insertAfter editorCell.children().last()
-
-						# Disable if neccessary
-						if editorSchema.disabled is true
-							editor.disable()
-
-						if _.isFunction(editorSchema.disabled)
-							editor.disable() if editorSchema.disabled(editor, objs) is true
-							
-						# Add to editors
-						@editors.push editor
-					else
-						return
-
-				else
-					console.warn "Invalid editor type: " + editorSchema.type
-
-				###
-				switch editor.type
-					# Color -> spectrum
-					when "color"
-						input = $("<input/>").attr("type", "text").appendTo td
-						input.attr("required", "required") if editor.required?
-						
-						# Helper span
-						helper = $("<span/>").addClass("helper").appendTo td
-						setHelperText = (value) -> helper.text value || ""
-						
-						# Set value
-						value = getObjectsValue editor.field
-						input.val value
-						setHelperText value
-						
-						# Spectrum init
-						input.spectrum
-							# Event handlers
-							change: (color) ->
-								value = color.toHexString()
-								setHelperText color.toHexString()
-								valueChanged value
-					
-					
-				###
-
-				# Add editor cell to tr to tbody
-				tr.appendTo tbody
-					
-				return true
+			@createEditors @schema.editors, objs, tbody
 		
 		#LiveEdit
 		if @liveEdit is false
@@ -155,6 +75,111 @@ module.exports = class PJS
 		@clearChangedFlag()
 
 		return @
+
+	createEditors: (editors, objs, tbody, groupField) ->
+		$.each editors, (i, editorSchema) =>
+			
+			if editorSchema.type is "group"
+				[tr, nameCell, editorCell] = ui.generateGroupRow @, editorSchema
+				nameCell.on "click", ->
+					if tr.hasClass "collapsed"
+						tbody.find("tr[data-group=#{editorSchema.field}]").show()
+						tr.removeClass "collapsed"
+					else
+						tbody.find("tr[data-group=#{editorSchema.field}]").hide()
+						tr.addClass "collapsed"
+
+				tr.appendTo tbody
+
+				# Create editors from group
+				if editorSchema.editors and editorSchema.editors.length > 0
+					@createEditors editorSchema.editors, objs, tbody, editorSchema.field
+
+				return
+
+			# Skip if disabled multiedit
+			if objs.length > 1 and editorSchema.multiEdit is false then return
+			
+			# Create table rows for editor
+			[tr, nameCell, editorCell] = ui.generateEditorRow @, editorSchema
+
+			# TODO: move to UI
+			tr.attr "data-group", groupField if groupField?
+
+			EditorClass = PJSEditors[editorSchema.type]
+			if EditorClass
+				# Create editor
+				editor = new EditorClass @, editorSchema, tr, nameCell, editorCell
+
+				# Create input
+				input = editor.createInput(tr)
+				if input?
+
+					if editorSchema.type isnt "button"
+						# Lekérni az objektumokból az értéket
+						value = @objectHandler.getValueFromObjects editor.fieldName, editorSchema.default
+						# Beállítani a munka objektumnak
+						@objectHandler.setObjectValueByPath @workObject, editor.fieldName, value												
+						# Beállítani az input-nak
+						editor.setInputValue value
+
+					# Add input to cell
+					editorCell.append input
+
+					# Set hint for editor
+					editorCell.find(".hint").text editorSchema.hint if editorSchema.hint?
+					editorCell.find(".hint").insertAfter editorCell.children().last()
+
+					# Move errors div to back
+					editorCell.find(".errors").insertAfter editorCell.children().last()
+
+					# Disable if neccessary
+					if editorSchema.disabled is true
+						editor.disable()
+
+					if _.isFunction(editorSchema.disabled)
+						editor.disable() if editorSchema.disabled(editor, objs) is true
+						
+					# Add to editors
+					@editors.push editor
+				else
+					return
+
+			else
+				console.warn "Invalid editor type: " + editorSchema.type
+
+			###
+			switch editor.type
+				# Color -> spectrum
+				when "color"
+					input = $("<input/>").attr("type", "text").appendTo td
+					input.attr("required", "required") if editor.required?
+					
+					# Helper span
+					helper = $("<span/>").addClass("helper").appendTo td
+					setHelperText = (value) -> helper.text value || ""
+					
+					# Set value
+					value = getObjectsValue editor.field
+					input.val value
+					setHelperText value
+					
+					# Spectrum init
+					input.spectrum
+						# Event handlers
+						change: (color) ->
+							value = color.toHexString()
+							setHelperText color.toHexString()
+							valueChanged value
+				
+				
+			###
+
+			# Add editor cell to tr to tbody
+			tr.appendTo tbody
+				
+			return true
+
 
 	valueChanged: (editor, newValue) ->
 

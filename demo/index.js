@@ -79,13 +79,6 @@ propertiesSchema = {
         }
       }
     }, {
-      field: "settings.isActor",
-      title: "Is an actor?",
-      type: "boolean",
-      required: true,
-      "default": false,
-      multiEdit: true
-    }, {
       field: "status",
       title: "Status",
       type: "boolean",
@@ -100,12 +93,6 @@ propertiesSchema = {
       required: false,
       readonly: true
     }, {
-      field: "settings.themeColor",
-      title: "Color of theme",
-      type: "color",
-      required: false,
-      multiEdit: true
-    }, {
       field: "skills",
       title: "Skills",
       type: "checklist",
@@ -115,35 +102,55 @@ propertiesSchema = {
       rows: 6,
       values: ["Chemist", "Teacher", "Student", "Lawyer", "Dealer", "Clever", "Unmindful", "Corrupt"]
     }, {
-      field: "settings.motto",
-      title: "Motto",
-      type: "textarea",
-      required: false,
-      multiEdit: true,
-      placeHolder: "What do you think?",
-      rows: 3
-    }, {
-      field: "settings.nativeLang",
-      title: "Native language",
-      type: "select",
-      required: true,
-      multiEdit: true,
-      values: [
+      type: "group",
+      field: "settings",
+      title: "Other settings",
+      editors: [
         {
-          id: "en",
-          name: "English"
+          field: "settings.isActor",
+          title: "Is an actor?",
+          type: "boolean",
+          required: true,
+          "default": false,
+          multiEdit: true
         }, {
-          id: "de",
-          name: "Deutsch"
+          field: "settings.themeColor",
+          title: "Color of theme",
+          type: "color",
+          required: false,
+          multiEdit: true
         }, {
-          id: "it",
-          name: "Italiano"
+          field: "settings.motto",
+          title: "Motto",
+          type: "textarea",
+          required: false,
+          multiEdit: true,
+          placeHolder: "What do you think?",
+          rows: 3
         }, {
-          id: "es",
-          name: "Español"
-        }, {
-          id: "fr",
-          name: "Français"
+          field: "settings.nativeLang",
+          title: "Native language",
+          type: "select",
+          required: true,
+          multiEdit: true,
+          values: [
+            {
+              id: "en",
+              name: "English"
+            }, {
+              id: "de",
+              name: "Deutsch"
+            }, {
+              id: "it",
+              name: "Italiano"
+            }, {
+              id: "es",
+              name: "Español"
+            }, {
+              id: "fr",
+              name: "Français"
+            }
+          ]
         }
       ]
     }, {
