@@ -6,7 +6,7 @@
  * Copyright (c) 2015 Icebob
  * 
  * 
- * Build Date: Wed Oct 07 2015 17:17:43 GMT+0200 (Közép-európai nyári idő )
+ * Build Date: Wed Oct 07 2015 18:23:58 GMT+0200 (Central Europe Daylight Time)
  * 
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -104,16 +104,19 @@
             ref = ui.generateGroupRow(_this, editorSchema), tr = ref[0], nameCell = ref[1], editorCell = ref[2];
             nameCell.on("click", function() {
               if (tr.hasClass("collapsed")) {
-                tbody.find("tr[data-group=" + editorSchema.field + "]").show();
-                return tr.removeClass("collapsed");
+                tr.removeClass("collapsed");
+                return tbody.find("tr[data-group=" + editorSchema.field + "]").show();
               } else {
-                tbody.find("tr[data-group=" + editorSchema.field + "]").hide();
-                return tr.addClass("collapsed");
+                tr.addClass("collapsed");
+                return tbody.find("tr[data-group=" + editorSchema.field + "]").hide();
               }
             });
             tr.appendTo(tbody);
             if (editorSchema.editors && editorSchema.editors.length > 0) {
               _this.createEditors(editorSchema.editors, objs, tbody, editorSchema.field);
+            }
+            if (editorSchema.collapsed === true) {
+              tbody.find("tr[data-group=" + editorSchema.field + "]").hide();
             }
             return;
           }
@@ -26279,6 +26282,9 @@ return jQuery;
       }
       if (editor.readonly === true) {
         tr.addClass("readonly");
+      }
+      if (editor.collapsed === true) {
+        tr.addClass("collapsed");
       }
       tr.addClass(editor.type);
       editorCell = $("<td/>").addClass(editor.type).appendTo(tr);

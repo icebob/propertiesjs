@@ -107,6 +107,7 @@ propertiesSchema = {
 			type: "group"
 			field: "settings"
 			title: "Other settings",
+			collapsed: false,
 			editors: [
 				field: "settings.isActor"
 				title: "Is an actor?"

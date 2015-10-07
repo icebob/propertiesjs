@@ -395,22 +395,29 @@ $buttonPJSBgColor: lighten($bgColor, 15%);
 			} // .disabled
 
 			&.group {
+				background-color: rgba(White, 0.1);
+
 				td:nth-child(1) {
 					position: relative;
 					font-weight: 600;
 					padding-right: 20px;
+					padding-bottom: 7px;
 					cursor: pointer;
 					@include user-select(none);
+					text-align: left;
 
 					.arrow {
-						position: absolute;
+						/*position: absolute;
 						right: 2px;
-						top: 6px;
+						top: 6px;*/
 						width: 16px;
-						height: 16px;					
+						height: 10px;					
+					    display: inline-block;
+    					margin-left: 4px;
 
 						background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAGdJREFUOI3tzjsOwjAURNGDUqSgTxU5K2AVrJtswjUsgHSR0qdxAZZFPrS+3ZvRzBsqf9MUtBtazJk+oMe0VTriiZCFX8nbpENMgfARjsn74vKj5IFruhfc8d6zIF9S/Hyk5HS4spMVeFcOjszaOwMAAAAASUVORK5CYII=');
 						background-repeat: no-repeat;
+						background-position: center;
 
 					} // .arrow
 				}

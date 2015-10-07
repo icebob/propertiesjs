@@ -80,20 +80,28 @@ module.exports = class PJS
 		$.each editors, (i, editorSchema) =>
 			
 			if editorSchema.type is "group"
+				# Generate group TR
 				[tr, nameCell, editorCell] = ui.generateGroupRow @, editorSchema
+
+				# Expand/collapse event handler
 				nameCell.on "click", ->
 					if tr.hasClass "collapsed"
-						tbody.find("tr[data-group=#{editorSchema.field}]").show()
+						# Expand
 						tr.removeClass "collapsed"
+						tbody.find("tr[data-group=#{editorSchema.field}]").show()
 					else
-						tbody.find("tr[data-group=#{editorSchema.field}]").hide()
+						# Collapse
 						tr.addClass "collapsed"
+						tbody.find("tr[data-group=#{editorSchema.field}]").hide()
 
 				tr.appendTo tbody
 
 				# Create editors from group
 				if editorSchema.editors and editorSchema.editors.length > 0
 					@createEditors editorSchema.editors, objs, tbody, editorSchema.field
+
+				if editorSchema.collapsed is true
+					tbody.find("tr[data-group=#{editorSchema.field}]").hide()
 
 				return
 

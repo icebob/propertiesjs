@@ -85,6 +85,7 @@ module.exports =
 		tr.append nameCell
 		tr.addClass("featured") if editor.featured is true
 		tr.addClass("readonly") if editor.readonly is true
+		tr.addClass("collapsed") if editor.collapsed is true
 		tr.addClass(editor.type)
 			
 		editorCell = $("<td/>").addClass(editor.type).appendTo tr

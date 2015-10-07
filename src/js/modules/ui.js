@@ -63,6 +63,9 @@
       if (editor.readonly === true) {
         tr.addClass("readonly");
       }
+      if (editor.collapsed === true) {
+        tr.addClass("collapsed");
+      }
       tr.addClass(editor.type);
       editorCell = $("<td/>").addClass(editor.type).appendTo(tr);
       return [tr, nameCell, editorCell];

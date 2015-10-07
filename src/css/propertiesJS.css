@@ -288,24 +288,32 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+.propertyEditor table tr.group, .propertyEditorOld table tr.group {
+  background-color: rgba(255, 255, 255, 0.1);
+}
 .propertyEditor table tr.group td:nth-child(1), .propertyEditorOld table tr.group td:nth-child(1) {
   position: relative;
   font-weight: 600;
   padding-right: 20px;
+  padding-bottom: 7px;
   cursor: pointer;
   -moz-user-select: -moz-none;
   -ms-user-select: none;
   -webkit-user-select: none;
   user-select: none;
+  text-align: left;
 }
 .propertyEditor table tr.group td:nth-child(1) .arrow, .propertyEditorOld table tr.group td:nth-child(1) .arrow {
-  position: absolute;
+  /*position: absolute;
   right: 2px;
-  top: 6px;
+  top: 6px;*/
   width: 16px;
-  height: 16px;
+  height: 10px;
+  display: inline-block;
+  margin-left: 4px;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAGdJREFUOI3tzjsOwjAURNGDUqSgTxU5K2AVrJtswjUsgHSR0qdxAZZFPrS+3ZvRzBsqf9MUtBtazJk+oMe0VTriiZCFX8nbpENMgfARjsn74vKj5IFruhfc8d6zIF9S/Hyk5HS4spMVeFcOjszaOwMAAAAASUVORK5CYII=");
   background-repeat: no-repeat;
+  background-position: center;
 }
 .propertyEditor table tr.group.collapsed .arrow, .propertyEditorOld table tr.group.collapsed .arrow {
   -moz-transform: rotateX(180deg);

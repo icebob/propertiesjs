@@ -92,16 +92,19 @@
             ref = ui.generateGroupRow(_this, editorSchema), tr = ref[0], nameCell = ref[1], editorCell = ref[2];
             nameCell.on("click", function() {
               if (tr.hasClass("collapsed")) {
-                tbody.find("tr[data-group=" + editorSchema.field + "]").show();
-                return tr.removeClass("collapsed");
+                tr.removeClass("collapsed");
+                return tbody.find("tr[data-group=" + editorSchema.field + "]").show();
               } else {
-                tbody.find("tr[data-group=" + editorSchema.field + "]").hide();
-                return tr.addClass("collapsed");
+                tr.addClass("collapsed");
+                return tbody.find("tr[data-group=" + editorSchema.field + "]").hide();
               }
             });
             tr.appendTo(tbody);
             if (editorSchema.editors && editorSchema.editors.length > 0) {
               _this.createEditors(editorSchema.editors, objs, tbody, editorSchema.field);
+            }
+            if (editorSchema.collapsed === true) {
+              tbody.find("tr[data-group=" + editorSchema.field + "]").hide();
             }
             return;
           }
