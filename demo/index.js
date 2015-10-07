@@ -79,13 +79,6 @@ propertiesSchema = {
         }
       }
     }, {
-      field: "settings.isActor",
-      title: "Is an actor?",
-      type: "boolean",
-      required: true,
-      "default": false,
-      multiEdit: true
-    }, {
       field: "status",
       title: "Status",
       type: "boolean",
@@ -100,12 +93,6 @@ propertiesSchema = {
       required: false,
       readonly: true
     }, {
-      field: "settings.themeColor",
-      title: "Color of theme",
-      type: "color",
-      required: false,
-      multiEdit: true
-    }, {
       field: "skills",
       title: "Skills",
       type: "checklist",
@@ -115,35 +102,93 @@ propertiesSchema = {
       rows: 6,
       values: ["Chemist", "Teacher", "Student", "Lawyer", "Dealer", "Clever", "Unmindful", "Corrupt"]
     }, {
-      field: "settings.motto",
-      title: "Motto",
-      type: "textarea",
-      required: false,
-      multiEdit: true,
-      placeHolder: "What do you think?",
-      rows: 3
-    }, {
-      field: "settings.nativeLang",
-      title: "Native language",
-      type: "select",
-      required: true,
-      multiEdit: true,
-      values: [
+      type: "group",
+      field: "settings",
+      title: "Other settings",
+      collapsed: false,
+      editors: [
         {
-          id: "en",
-          name: "English"
+          field: "settings.isActor",
+          title: "Is an actor?",
+          type: "boolean",
+          required: true,
+          "default": false,
+          multiEdit: true
         }, {
-          id: "de",
-          name: "Deutsch"
+          field: "settings.themeColor",
+          title: "Color of theme",
+          type: "color",
+          required: false,
+          multiEdit: true
         }, {
-          id: "it",
-          name: "Italiano"
+          field: "settings.motto",
+          title: "Motto",
+          type: "textarea",
+          required: false,
+          multiEdit: true,
+          placeHolder: "What do you think?",
+          rows: 3
         }, {
-          id: "es",
-          name: "Español"
+          field: "settings.nativeLang",
+          title: "Native language",
+          type: "select",
+          required: true,
+          multiEdit: true,
+          values: [
+            {
+              id: "en",
+              name: "English"
+            }, {
+              id: "de",
+              name: "Deutsch"
+            }, {
+              id: "it",
+              name: "Italiano"
+            }, {
+              id: "es",
+              name: "Español"
+            }, {
+              id: "fr",
+              name: "Français"
+            }
+          ]
+        }
+      ]
+    }, {
+      type: "group",
+      field: "body",
+      title: "Body properties",
+      collapsed: true,
+      editors: [
+        {
+          field: "body.weight",
+          title: "Body weight",
+          type: "number",
+          required: false,
+          multiEdit: true,
+          minValue: 1,
+          maxValue: 200
         }, {
-          id: "fr",
-          name: "Français"
+          field: "body.height",
+          title: "Body height",
+          type: "number",
+          required: false,
+          multiEdit: true,
+          minValue: 50,
+          maxValue: 250
+        }, {
+          field: "body.glasses",
+          title: "Wear glasses",
+          type: "boolean",
+          required: true,
+          "default": false,
+          multiEdit: true
+        }, {
+          field: "body.foot",
+          title: "Body foot",
+          type: "number",
+          required: false,
+          multiEdit: true
         }
       ]
     }, {

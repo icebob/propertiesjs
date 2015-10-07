@@ -24,9 +24,12 @@
       tables = [$("<table/>").append(thead), $("<table/>").append(tbody), $("<table/>").append(tfoot)];
       return [tables, thead, tbody, tfoot];
     },
-    generateEditorRow: function(PJS, editor) {
+    generateEditorRow: function(PJS, editor, groupField) {
       var editorCell, nameCell, tr;
       tr = $("<tr/>").attr("data-field", editor.field);
+      if (groupField != null) {
+        tr.addClass("group-" + groupField);
+      }
       nameCell = $("<td/>").text(editor.title);
       if (editor.toolTip != null) {
         nameCell.prepend($("<span/>").addClass("toolTip").attr("data-title", editor.toolTip));
@@ -45,6 +48,29 @@
       editorCell = $("<td/>").addClass(editor.type).appendTo(tr);
       editorCell.append($("<div/>").addClass("errors"));
       editorCell.append($("<div/>").addClass("hint"));
+      return [tr, nameCell, editorCell];
+    },
+    generateGroupRow: function(PJS, editor) {
+      var editorCell, nameCell, tr;
+      tr = $("<tr/>").attr("data-field", editor.field);
+      tr.addClass("group");
+      nameCell = $("<td/>").text(editor.title);
+      nameCell.append($("<span />").addClass("arrow"));
+      if (editor.toolTip != null) {
+        nameCell.prepend($("<span/>").addClass("toolTip").attr("data-title", editor.toolTip));
+      }
+      tr.append(nameCell);
+      if (editor.featured === true) {
+        tr.addClass("featured");
+      }
+      if (editor.readonly === true) {
+        tr.addClass("readonly");
+      }
+      if (editor.collapsed === true) {
+        tr.addClass("collapsed");
+      }
+      tr.addClass(editor.type);
+      editorCell = $("<td/>").addClass(editor.type).appendTo(tr);
       return [tr, nameCell, editorCell];
     }
   };

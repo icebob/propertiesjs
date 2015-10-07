@@ -104,39 +104,44 @@ module.exports.schema = {
 			required: true
 			default: false
 			multiEdit: true
+		,	
+			type: "group"
+			field: "body"
+			title: "Body properties",
+			editors: [
+				field: "body.weight"
+				title: "Body weight"
+				type: "number"
+				required: false
+				multiEdit: true
+				minValue: 1
+				maxValue: 200
+			,
+				field: "body.height"
+				title: "Body height"
+				type: "number"
+				required: false
+				multiEdit: true
+				minValue: 50
+				maxValue: 250	
+			,
+				field: "body.glasses"
+				title: "Wear glasses"
+				type: "boolean"
+				required: true
+				default: false
+				multiEdit: true	
+			,
+				field: "body.foot"
+				title: "Body foot"
+				type: "number"
+				required: false
+				multiEdit: true
+			]
 		,
 			field: "themeColor"
 			title: "Theme color"
 			type: "color"
-		,
-			field: "body.weight"
-			title: "Body weight"
-			type: "number"
-			required: false
-			multiEdit: true
-			minValue: 1
-			maxValue: 200
-		,
-			field: "body.height"
-			title: "Body height"
-			type: "number"
-			required: false
-			multiEdit: true
-			minValue: 50
-			maxValue: 250	
-		,
-			field: "body.glasses"
-			title: "Wear glasses"
-			type: "boolean"
-			required: true
-			default: false
-			multiEdit: true	
-		,
-			field: "body.foot"
-			title: "Body foot"
-			type: "number"
-			required: false
-			multiEdit: true
 		,
 			field: "description"
 			title: "Description"
@@ -196,7 +201,7 @@ module.exports.schema = {
 				"SASS/SCSS"
 				"Less"
 			]
-		,		
+		,
 			field: "created"
 			title: "Created at"
 			type: "timestamp"
@@ -338,4 +343,15 @@ module.exports.createDivs = (title)->
 	).appendTo $("body")
 
 module.exports.getEditors = (editors, fields) ->
-	_.filter editors, (v) -> fields.indexOf(v.field) isnt -1 
+	res = []
+
+	_.each editors, (v) -> 
+		if fields.indexOf(v.field) isnt -1 then res.push v
+
+		if v.type is "group"
+			subRes = module.exports.getEditors v.editors, fields
+			res = res.concat subRes
+
+		return
+
+	return res

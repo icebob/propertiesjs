@@ -25,6 +25,7 @@ PropertiesJS is a javascript property editor, writtern in [Coffeescript](http://
 - support validation
 - change, save, validate event
 - call object functions with buttons
+- grouping
 - ...etc
 
 ## Dependencies

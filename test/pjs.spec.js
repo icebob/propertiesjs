@@ -100,7 +100,7 @@ describe("Test PJS in NON Live mode", function() {
     expect(pjs.container).to.be.length(1);
     expect(pjs.objectHandler.objs[0]).to.be.equal(objs[0]);
     expect(pjs.schema).to.be.deep.equal(schema);
-    editor = pjs.editors[11];
+    editor = pjs.editors[10];
     prevValue = objs[0].body.weight;
     expect(pjs.workObject.body.weight).to.be.equal(prevValue);
     editor.valueChanged("123");
@@ -187,6 +187,36 @@ describe("Test PJS windowTitles", function() {
     expect(pjs).to.be.exist;
     expect($(".propertyEditor").find("thead .subTitle")).to.be.length(1);
     return expect($(".propertyEditor").find("thead .subTitle").text()).to.be.equal("This is a subtitle");
+  });
+});
+
+describe("Test PJS grouping", function() {
+  var objs, pe, pjs, schema;
+  pjs = null;
+  objs = null;
+  schema = null;
+  pe = null;
+  before(function() {
+    return testData.createDivs(this.test.parent.title);
+  });
+  beforeEach(function() {
+    var ref;
+    ref = testData.clone(), objs = ref[0], schema = ref[1];
+    return pe = $(".propertyEditor");
+  });
+  it("check group item", function() {
+    var group;
+    group = testData.getEditors(schema.editors, ["body"]);
+    return expect(group).to.be.length(1);
+  });
+  return it("check group row in DOM", function() {
+    var group, tr;
+    pjs = new PJS(".propertyEditor", schema, objs[0]);
+    group = testData.getEditors(schema.editors, ["body"])[0];
+    expect(pjs).to.be.exist;
+    tr = $(".propertyEditor").find("tbody tr.group");
+    expect(tr).to.be.length(1);
+    return expect($(".propertyEditor").find("tbody tr.group-body")).to.be.length(group.editors.length);
   });
 });
 
