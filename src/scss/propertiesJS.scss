@@ -82,11 +82,14 @@ $buttonPJSBgColor: lighten($bgColor, 15%);
 				
 				th {
 					padding: 6px 10px;
-					font-weight: bold;
 					text-align: left;			
-					@extend %textShadow;
 					
-					span {
+					.title {
+						font-weight: bold;
+						@extend %textShadow;
+					}
+					
+					.subTitle {
 						font-weight: normal;
 						font-style: italic;
 						padding-left: 10px;
@@ -231,8 +234,8 @@ $buttonPJSBgColor: lighten($bgColor, 15%);
 
 				} // textarea
 
-				&.timestamp .value {
-					padding: 7px 0px;
+				&.timestamp .value, &.label .value {
+					padding: 5px 0px;
 					display: block;					
 
 				} // .timestamp

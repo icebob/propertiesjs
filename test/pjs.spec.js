@@ -159,6 +159,37 @@ describe("Test PJS in NON Live mode", function() {
   });
 });
 
+describe("Test PJS windowTitles", function() {
+  var objs, pe, pjs, schema;
+  pjs = null;
+  objs = null;
+  schema = null;
+  pe = null;
+  before(function() {
+    return testData.createDivs(this.test.parent.title);
+  });
+  beforeEach(function() {
+    var ref;
+    ref = testData.clone(), objs = ref[0], schema = ref[1];
+    schema.liveEdit = true;
+    schema.windowTitle = "New other title";
+    schema.windowSubTitle = "This is a subtitle";
+    return pe = $(".propertyEditor");
+  });
+  it("check title from schema", function() {
+    pjs = new PJS(".propertyEditor", schema, objs[0]);
+    expect(pjs).to.be.exist;
+    expect($(".propertyEditor").find("thead .title")).to.be.length(1);
+    return expect($(".propertyEditor").find("thead .title").text()).to.be.equal("New other title");
+  });
+  return it("check subTitle from schema", function() {
+    pjs = new PJS(".propertyEditor", schema, objs[0]);
+    expect(pjs).to.be.exist;
+    expect($(".propertyEditor").find("thead .subTitle")).to.be.length(1);
+    return expect($(".propertyEditor").find("thead .subTitle").text()).to.be.equal("This is a subtitle");
+  });
+});
+
 describe("Test jQuery plugin mode", function() {
   before(function() {
     return testData.createDivs(this.test.parent.title);

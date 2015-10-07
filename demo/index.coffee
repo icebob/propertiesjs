@@ -1,8 +1,14 @@
 # --- PROPERTIES SCHEMA ---
 
 propertiesSchema = {
+	title: "Breaking Bad properties"
 	liveEdit: true
 	editors: [		
+			field: "id"
+			title: "ID"
+			type: "label"
+			multiEdit: true
+		,
 			field: "name"
 			title: "Name"
 			type: "text"
@@ -47,7 +53,7 @@ propertiesSchema = {
 			required: false
 			multiEdit: true
 			pattern: "^[237]0/[0-9]{3}-[0-9]{4}$"
-			hint: "Format: [20/30/70]-000-0000"
+			hint: "Format: [20/30/70]000-0000"
 		,
 			field: "born"
 			title: "Born"
@@ -167,6 +173,7 @@ propertiesSchema = {
 
 # --- TEST OBJECTS ---
 obj1 = 
+	id: 1
 	name: "Walter White"
 	userName: "Heisenberg"
 	realName: "Brian Cranston"
@@ -182,6 +189,7 @@ obj1 =
 	sendMessage: () -> alert "Send message to Heisenberg"
 		
 obj2 = 
+	id: 2
 	name: "Jesse Pinkman"
 	userName: "jessy"
 	realName: "Aaron Paul"
@@ -196,6 +204,7 @@ obj2 =
 		motto: "You're my free pass...!"		
 		
 obj3 = 
+	id: 3
 	name: "Saul Goodman"
 	userName: "saul"
 	realName: "James Morgan McGill"

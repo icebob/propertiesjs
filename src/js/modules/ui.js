@@ -15,7 +15,7 @@
     },
     generatePJSTable: function(PJS) {
       var tables, tbody, tfoot, thead;
-      thead = $("<thead/>").append($("<tr/>").append($("<th/>").text(PJS.schema.windowTitle || "Properties").append($("<span/>").text(PJS.objectHandler.objs.length + " selected object(s)"))));
+      thead = $("<thead/>").append($("<tr/>").append($("<th/>").append([$("<span/>").addClass("title").text(PJS.schema.windowTitle || "Properties"), $("<span/>").addClass("subTitle").text(PJS.schema.windowSubTitle || (PJS.objectHandler.objs.length + " selected object(s)"))])));
       tbody = $("<tbody/>");
       tfoot = $("<tfoot/>");
       if (PJS.liveEdit === false) {

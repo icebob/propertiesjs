@@ -13,8 +13,11 @@ module.exports =
 		# Table header
 		thead = $("<thead/>").append( 
 			$("<tr/>").append(
-				$("<th/>").text(PJS.schema.windowTitle || "Properties").append $("<span/>").text("#{PJS.objectHandler.objs.length} selected object(s)")
-			)
+				$("<th/>").append([ 
+					$("<span/>").addClass("title").text(PJS.schema.windowTitle || "Properties"),
+					$("<span/>").addClass("subTitle").text(PJS.schema.windowSubTitle || "#{PJS.objectHandler.objs.length} selected object(s)")
+				])
+			)	
 		)
 		# Table body
 		tbody = $("<tbody/>")

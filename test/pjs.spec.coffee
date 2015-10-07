@@ -173,6 +173,36 @@ describe "Test PJS in NON Live mode", ->
 		expect(btn.hasClass("disabled")).to.be.false
 
 
+describe "Test PJS windowTitles", ->
+
+	pjs = null
+	objs = null
+	schema = null
+	pe = null
+
+	before -> testData.createDivs(@test.parent.title)
+
+	beforeEach -> 
+		[objs, schema] = testData.clone()
+		schema.liveEdit = true
+		schema.windowTitle = "New other title" 
+		schema.windowSubTitle = "This is a subtitle" 
+		pe = $ ".propertyEditor"
+
+
+	it "check title from schema", ->
+		pjs = new PJS ".propertyEditor", schema, objs[0] 
+
+		expect(pjs).to.be.exist
+		expect($(".propertyEditor").find("thead .title")).to.be.length 1
+		expect($(".propertyEditor").find("thead .title").text()).to.be.equal "New other title"
+
+	it "check subTitle from schema", ->
+		pjs = new PJS ".propertyEditor", schema, objs[0] 
+
+		expect(pjs).to.be.exist
+		expect($(".propertyEditor").find("thead .subTitle")).to.be.length 1
+		expect($(".propertyEditor").find("thead .subTitle").text()).to.be.equal "This is a subtitle"
 
 describe "Test jQuery plugin mode", ->
 

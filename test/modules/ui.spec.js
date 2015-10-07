@@ -60,6 +60,8 @@ describe("Test UI helper methods", function() {
     ref1 = ui.generatePJSTable(pjs), table = ref1[0], thead = ref1[1], tbody = ref1[2], tfoot = ref1[3];
     expect(table).to.be.exist;
     expect(thead).to.be.exist;
+    expect(thead.find(".title")).to.be.length(1);
+    expect(thead.find(".subTitle")).to.be.length(1);
     expect(tbody).to.be.exist;
     expect(tfoot).to.be.exist;
     expect(tfoot.find("button.save")).to.be.length(1);
