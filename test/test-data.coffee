@@ -104,11 +104,7 @@ module.exports.schema = {
 			required: true
 			default: false
 			multiEdit: true
-		,
-			field: "themeColor"
-			title: "Theme color"
-			type: "color"
-		,
+		,	
 			type: "group"
 			field: "body"
 			title: "Body properties",
@@ -142,6 +138,10 @@ module.exports.schema = {
 				required: false
 				multiEdit: true
 			]
+		,
+			field: "themeColor"
+			title: "Theme color"
+			type: "color"
 		,
 			field: "description"
 			title: "Description"
@@ -201,7 +201,7 @@ module.exports.schema = {
 				"SASS/SCSS"
 				"Less"
 			]
-		,		
+		,
 			field: "created"
 			title: "Created at"
 			type: "timestamp"

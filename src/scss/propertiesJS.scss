@@ -400,8 +400,8 @@ $buttonPJSBgColor: lighten($bgColor, 15%);
 				td:nth-child(1) {
 					position: relative;
 					font-weight: 600;
-					padding-right: 20px;
 					padding-bottom: 7px;
+					padding-left: 10px;
 					cursor: pointer;
 					@include user-select(none);
 					text-align: left;

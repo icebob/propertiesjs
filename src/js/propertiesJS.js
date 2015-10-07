@@ -89,14 +89,14 @@
         return function(i, editorSchema) {
           var EditorClass, editor, editorCell, input, nameCell, ref, ref1, tr, value;
           if (editorSchema.type === "group") {
-            ref = ui.generateGroupRow(_this, editorSchema), tr = ref[0], nameCell = ref[1], editorCell = ref[2];
+            ref = ui.generateGroupRow(_this, editorSchema, groupField), tr = ref[0], nameCell = ref[1], editorCell = ref[2];
             nameCell.on("click", function() {
               if (tr.hasClass("collapsed")) {
                 tr.removeClass("collapsed");
-                return tbody.find("tr[data-group=" + editorSchema.field + "]").show();
+                return tbody.find("tr.group-" + editorSchema.field).show();
               } else {
                 tr.addClass("collapsed");
-                return tbody.find("tr[data-group=" + editorSchema.field + "]").hide();
+                return tbody.find("tr.group-" + editorSchema.field).hide();
               }
             });
             tr.appendTo(tbody);
@@ -104,17 +104,14 @@
               _this.createEditors(editorSchema.editors, objs, tbody, editorSchema.field);
             }
             if (editorSchema.collapsed === true) {
-              tbody.find("tr[data-group=" + editorSchema.field + "]").hide();
+              tbody.find("tr.group-" + editorSchema.field).hide();
             }
             return;
           }
           if (objs.length > 1 && editorSchema.multiEdit === false) {
             return;
           }
-          ref1 = ui.generateEditorRow(_this, editorSchema), tr = ref1[0], nameCell = ref1[1], editorCell = ref1[2];
-          if (groupField != null) {
-            tr.attr("data-group", groupField);
-          }
+          ref1 = ui.generateEditorRow(_this, editorSchema, groupField), tr = ref1[0], nameCell = ref1[1], editorCell = ref1[2];
           EditorClass = PJSEditors[editorSchema.type];
           if (EditorClass) {
             editor = new EditorClass(_this, editorSchema, tr, nameCell, editorCell);

@@ -42,7 +42,7 @@ module.exports = class PJS
 		# Clear template
 		@container.empty()
 
-		if !_.isArray objs then objs = [objs]
+		if not _.isArray objs then objs = [objs]
 
 		@objectHandler = new PJSObjectHandler objs
 
@@ -69,7 +69,7 @@ module.exports = class PJS
 
 			@disableControlButtons()
 		
-		# Append to DOM
+		# Append table
 		@container.append table
 
 		@clearChangedFlag()
@@ -81,18 +81,18 @@ module.exports = class PJS
 			
 			if editorSchema.type is "group"
 				# Generate group TR
-				[tr, nameCell, editorCell] = ui.generateGroupRow @, editorSchema
+				[tr, nameCell, editorCell] = ui.generateGroupRow @, editorSchema, groupField
 
 				# Expand/collapse event handler
 				nameCell.on "click", ->
 					if tr.hasClass "collapsed"
 						# Expand
 						tr.removeClass "collapsed"
-						tbody.find("tr[data-group=#{editorSchema.field}]").show()
+						tbody.find("tr.group-#{editorSchema.field}").show()
 					else
 						# Collapse
 						tr.addClass "collapsed"
-						tbody.find("tr[data-group=#{editorSchema.field}]").hide()
+						tbody.find("tr.group-#{editorSchema.field}").hide()
 
 				tr.appendTo tbody
 
@@ -101,7 +101,7 @@ module.exports = class PJS
 					@createEditors editorSchema.editors, objs, tbody, editorSchema.field
 
 				if editorSchema.collapsed is true
-					tbody.find("tr[data-group=#{editorSchema.field}]").hide()
+					tbody.find("tr.group-#{editorSchema.field}").hide()
 
 				return
 
@@ -109,10 +109,7 @@ module.exports = class PJS
 			if objs.length > 1 and editorSchema.multiEdit is false then return
 			
 			# Create table rows for editor
-			[tr, nameCell, editorCell] = ui.generateEditorRow @, editorSchema
-
-			# TODO: move to UI
-			tr.attr "data-group", groupField if groupField?
+			[tr, nameCell, editorCell] = ui.generateEditorRow @, editorSchema, groupField
 
 			EditorClass = PJSEditors[editorSchema.type]
 			if EditorClass

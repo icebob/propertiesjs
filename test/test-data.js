@@ -126,10 +126,6 @@ module.exports.schema = {
       "default": false,
       multiEdit: true
     }, {
-      field: "themeColor",
-      title: "Theme color",
-      type: "color"
-    }, {
       type: "group",
       field: "body",
       title: "Body properties",
@@ -165,6 +161,10 @@ module.exports.schema = {
           multiEdit: true
         }
       ]
+    }, {
+      field: "themeColor",
+      title: "Theme color",
+      type: "color"
     }, {
       field: "description",
       title: "Description",

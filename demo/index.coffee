@@ -142,8 +142,43 @@ propertiesSchema = {
 					{ id: "es", name: "Español" }
 					{ id: "fr", name: "Français" }
 				]
-			]
+			]		
 		,
+			type: "group"
+			field: "body"
+			title: "Body properties",
+			collapsed: true,
+			editors: [
+				field: "body.weight"
+				title: "Body weight"
+				type: "number"
+				required: false
+				multiEdit: true
+				minValue: 1
+				maxValue: 200
+			,
+				field: "body.height"
+				title: "Body height"
+				type: "number"
+				required: false
+				multiEdit: true
+				minValue: 50
+				maxValue: 250	
+			,
+				field: "body.glasses"
+				title: "Wear glasses"
+				type: "boolean"
+				required: true
+				default: false
+				multiEdit: true	
+			,
+				field: "body.foot"
+				title: "Body foot"
+				type: "number"
+				required: false
+				multiEdit: true
+			]				
+		,		
 			field: "sendMessage"
 			title: "Send message to user"
 			styleClass: "fa fa-envelope"

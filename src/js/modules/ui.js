@@ -24,9 +24,12 @@
       tables = [$("<table/>").append(thead), $("<table/>").append(tbody), $("<table/>").append(tfoot)];
       return [tables, thead, tbody, tfoot];
     },
-    generateEditorRow: function(PJS, editor) {
+    generateEditorRow: function(PJS, editor, groupField) {
       var editorCell, nameCell, tr;
       tr = $("<tr/>").attr("data-field", editor.field);
+      if (groupField != null) {
+        tr.addClass("group-" + groupField);
+      }
       nameCell = $("<td/>").text(editor.title);
       if (editor.toolTip != null) {
         nameCell.prepend($("<span/>").addClass("toolTip").attr("data-title", editor.toolTip));

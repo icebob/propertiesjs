@@ -48,6 +48,9 @@ describe("Test UI helper methods", function() {
     ref1 = ui.generatePJSTable(pjs), table = ref1[0], thead = ref1[1], tbody = ref1[2], tfoot = ref1[3];
     expect(table).to.be.exist;
     expect(thead).to.be.exist;
+    expect(thead.find(".title")).to.be.length(1);
+    expect(thead.find(".title").text()).to.be.equal(schema.windowTitle);
+    expect(thead.find(".subTitle")).to.be.length(1);
     expect(tbody).to.be.exist;
     return expect(tfoot).to.be.exist;
   });
@@ -60,19 +63,17 @@ describe("Test UI helper methods", function() {
     ref1 = ui.generatePJSTable(pjs), table = ref1[0], thead = ref1[1], tbody = ref1[2], tfoot = ref1[3];
     expect(table).to.be.exist;
     expect(thead).to.be.exist;
-    expect(thead.find(".title")).to.be.length(1);
-    expect(thead.find(".subTitle")).to.be.length(1);
     expect(tbody).to.be.exist;
     expect(tfoot).to.be.exist;
     expect(tfoot.find("button.save")).to.be.length(1);
     return expect(tfoot.find("button.cancel")).to.be.length(1);
   });
-  return it("check generateEditorRow", function() {
+  it("check generateEditorRow", function() {
     var editor, editorCell, errorText, hintText, nameCell, objs, ref, ref1, ref2, schema, toolTip, tr;
     ref = testData.clone(), objs = ref[0], schema = ref[1];
     pjs = new PJS(".propertyEditor", schema, objs);
     editor = testData.getEditors(schema.editors, ["name"])[0];
-    ref1 = ui.generateEditorRow(pjs, editor), tr = ref1[0], nameCell = ref1[1], editorCell = ref1[2];
+    ref1 = ui.generateEditorRow(pjs, editor, "testgroup"), tr = ref1[0], nameCell = ref1[1], editorCell = ref1[2];
     expect(tr).to.be.exist;
     expect(nameCell).to.be.exist;
     expect(editorCell).to.be.exist;
@@ -81,6 +82,7 @@ describe("Test UI helper methods", function() {
     expect(tr.hasClass("required")).to.be["true"];
     expect(tr.hasClass("readonly")).to.be["false"];
     expect(tr.hasClass(editor.type)).to.be["true"];
+    expect(tr.hasClass("group-testgroup")).to.be["true"];
     toolTip = nameCell.find("span.toolTip");
     expect(toolTip).to.be.length(1);
     expect(toolTip.attr("data-title")).to.be.equal(editor.toolTip);
@@ -94,5 +96,33 @@ describe("Test UI helper methods", function() {
     expect(tr.hasClass("featured")).to.be["false"];
     expect(tr.hasClass("required")).to.be["false"];
     return expect(tr.hasClass("readonly")).to.be["true"];
+  });
+  it("check generateGroupRow", function() {
+    var editor, editorCell, nameCell, objs, ref, ref1, schema, tr;
+    ref = testData.clone(), objs = ref[0], schema = ref[1];
+    pjs = new PJS(".propertyEditor", schema, objs);
+    editor = testData.getEditors(schema.editors, ["body"])[0];
+    ref1 = ui.generateGroupRow(pjs, editor), tr = ref1[0], nameCell = ref1[1], editorCell = ref1[2];
+    expect(tr).to.be.exist;
+    expect(nameCell).to.be.exist;
+    expect(editorCell).to.be.exist;
+    expect(nameCell.find(".arrow")).to.be.length(1);
+    expect(tr.attr("data-field")).to.be.equal(editor.field);
+    expect(tr.hasClass("featured")).to.be["false"];
+    expect(tr.hasClass("required")).to.be["false"];
+    expect(tr.hasClass("collapsed")).to.be["false"];
+    expect(tr.hasClass(editor.type)).to.be["true"];
+    return expect(tr.hasClass("group")).to.be["true"];
+  });
+  return it("check generateGroupRow with collapsed", function() {
+    var editor, editorCell, nameCell, objs, ref, ref1, schema, tr;
+    ref = testData.clone(), objs = ref[0], schema = ref[1];
+    pjs = new PJS(".propertyEditor", schema, objs);
+    editor = testData.getEditors(schema.editors, ["body"])[0];
+    editor.collapsed = true;
+    ref1 = ui.generateGroupRow(pjs, editor), tr = ref1[0], nameCell = ref1[1], editorCell = ref1[2];
+    expect(tr.attr("data-field")).to.be.equal(editor.field);
+    expect(tr.hasClass("collapsed")).to.be["true"];
+    return expect(tr.hasClass("group")).to.be["true"];
   });
 });

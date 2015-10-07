@@ -99,7 +99,7 @@ describe "Test PJS in NON Live mode", ->
 		expect(pjs.objectHandler.objs[0]).to.be.equal objs[0]
 		expect(pjs.schema).to.be.deep.equal schema
 
-		editor = pjs.editors[11]
+		editor = pjs.editors[10]
 		prevValue = objs[0].body.weight
 
 		expect(pjs.workObject.body.weight).to.be.equal prevValue
@@ -203,6 +203,34 @@ describe "Test PJS windowTitles", ->
 		expect(pjs).to.be.exist
 		expect($(".propertyEditor").find("thead .subTitle")).to.be.length 1
 		expect($(".propertyEditor").find("thead .subTitle").text()).to.be.equal "This is a subtitle"
+
+
+describe "Test PJS grouping", ->
+
+	pjs = null
+	objs = null
+	schema = null
+	pe = null
+
+	before -> testData.createDivs(@test.parent.title)
+
+	beforeEach -> 
+		[objs, schema] = testData.clone()
+		pe = $ ".propertyEditor"
+
+	it "check group item", ->
+		group = testData.getEditors schema.editors, ["body"]
+		expect(group).to.be.length 1
+
+	it "check group row in DOM", ->
+		pjs = new PJS ".propertyEditor", schema, objs[0] 
+		group = testData.getEditors(schema.editors, ["body"])[0]
+
+		expect(pjs).to.be.exist
+		tr = $(".propertyEditor").find("tbody tr.group")
+		expect(tr).to.be.length 1
+
+		expect($(".propertyEditor").find("tbody tr.group-body")).to.be.length group.editors.length
 
 describe "Test jQuery plugin mode", ->
 

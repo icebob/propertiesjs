@@ -47,15 +47,16 @@ module.exports =
 
 		return [tables, thead, tbody, tfoot]
 
-	generateEditorRow: (PJS, editor) ->
+	generateEditorRow: (PJS, editor, groupField) ->
 
 		tr = $("<tr/>").attr "data-field", editor.field
+		tr.addClass "group-" + groupField if groupField?
+
 		nameCell = $("<td/>").text editor.title
 		
 		# Tooltip text with question mark
 		if editor.toolTip?
 			nameCell.prepend $("<span/>").addClass("toolTip").attr("data-title", editor.toolTip)
-		
 		
 		tr.append nameCell
 		tr.addClass("featured") if editor.featured is true
@@ -73,7 +74,8 @@ module.exports =
 	generateGroupRow: (PJS, editor) ->
 
 		tr = $("<tr/>").attr "data-field", editor.field
-		tr.addClass("group")
+		tr.addClass "group"
+
 		nameCell = $("<td/>").text editor.title
 		nameCell.append $("<span />").addClass "arrow"
 		

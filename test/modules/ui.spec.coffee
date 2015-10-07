@@ -47,6 +47,10 @@ describe "Test UI helper methods", ->
 
 		expect(table).to.be.exist
 		expect(thead).to.be.exist
+		expect(thead.find(".title")).to.be.length 1
+		expect(thead.find(".title").text()).to.be.equal schema.windowTitle
+		expect(thead.find(".subTitle")).to.be.length 1
+
 		expect(tbody).to.be.exist
 		expect(tfoot).to.be.exist
 
@@ -61,8 +65,6 @@ describe "Test UI helper methods", ->
 
 		expect(table).to.be.exist
 		expect(thead).to.be.exist
-		expect(thead.find(".title")).to.be.length 1
-		expect(thead.find(".subTitle")).to.be.length 1
 
 		expect(tbody).to.be.exist
 		expect(tfoot).to.be.exist
@@ -76,7 +78,7 @@ describe "Test UI helper methods", ->
 
 		editor = testData.getEditors(schema.editors, ["name"])[0]
 
-		[tr, nameCell, editorCell] = ui.generateEditorRow pjs, editor
+		[tr, nameCell, editorCell] = ui.generateEditorRow pjs, editor, "testgroup"
 
 		expect(tr).to.be.exist
 		expect(nameCell).to.be.exist
@@ -87,6 +89,7 @@ describe "Test UI helper methods", ->
 		expect(tr.hasClass("required")).to.be.true
 		expect(tr.hasClass("readonly")).to.be.false
 		expect(tr.hasClass(editor.type)).to.be.true
+		expect(tr.hasClass("group-testgroup")).to.be.true
 
 		toolTip = nameCell.find("span.toolTip")
 		expect(toolTip).to.be.length 1
@@ -106,3 +109,36 @@ describe "Test UI helper methods", ->
 		expect(tr.hasClass("required")).to.be.false
 		expect(tr.hasClass("readonly")).to.be.true
 
+
+	it "check generateGroupRow", ->
+		[objs, schema] = testData.clone()
+		pjs = new PJS(".propertyEditor", schema, objs)
+
+		editor = testData.getEditors(schema.editors, ["body"])[0]
+
+		[tr, nameCell, editorCell] = ui.generateGroupRow pjs, editor
+
+		expect(tr).to.be.exist
+		expect(nameCell).to.be.exist
+		expect(editorCell).to.be.exist
+
+		expect(nameCell.find(".arrow")).to.be.length 1
+
+		expect(tr.attr("data-field")).to.be.equal editor.field
+		expect(tr.hasClass("featured")).to.be.false
+		expect(tr.hasClass("required")).to.be.false
+		expect(tr.hasClass("collapsed")).to.be.false
+		expect(tr.hasClass(editor.type)).to.be.true
+		expect(tr.hasClass("group")).to.be.true
+
+	it "check generateGroupRow with collapsed", ->
+		[objs, schema] = testData.clone()
+		pjs = new PJS(".propertyEditor", schema, objs)
+
+		editor = testData.getEditors(schema.editors, ["body"])[0]
+		editor.collapsed = true
+
+		[tr, nameCell, editorCell] = ui.generateGroupRow pjs, editor
+		expect(tr.attr("data-field")).to.be.equal editor.field
+		expect(tr.hasClass("collapsed")).to.be.true
+		expect(tr.hasClass("group")).to.be.true

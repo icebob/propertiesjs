@@ -1,12 +1,12 @@
 /**
  * propertiesjs - Javascript properties editor for browsers
- * @version v1.2.2
+ * @version v1.3.0
  * @link https://github.com/icebob/propertiesjs
  * @license MIT
  * Copyright (c) 2015 Icebob
  * 
  * 
- * Build Date: Wed Oct 07 2015 18:23:58 GMT+0200 (Central Europe Daylight Time)
+ * Build Date: Wed Oct 07 2015 22:13:49 GMT+0200 (Central Europe Daylight Time)
  * 
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -101,14 +101,14 @@
         return function(i, editorSchema) {
           var EditorClass, editor, editorCell, input, nameCell, ref, ref1, tr, value;
           if (editorSchema.type === "group") {
-            ref = ui.generateGroupRow(_this, editorSchema), tr = ref[0], nameCell = ref[1], editorCell = ref[2];
+            ref = ui.generateGroupRow(_this, editorSchema, groupField), tr = ref[0], nameCell = ref[1], editorCell = ref[2];
             nameCell.on("click", function() {
               if (tr.hasClass("collapsed")) {
                 tr.removeClass("collapsed");
-                return tbody.find("tr[data-group=" + editorSchema.field + "]").show();
+                return tbody.find("tr.group-" + editorSchema.field).show();
               } else {
                 tr.addClass("collapsed");
-                return tbody.find("tr[data-group=" + editorSchema.field + "]").hide();
+                return tbody.find("tr.group-" + editorSchema.field).hide();
               }
             });
             tr.appendTo(tbody);
@@ -116,17 +116,14 @@
               _this.createEditors(editorSchema.editors, objs, tbody, editorSchema.field);
             }
             if (editorSchema.collapsed === true) {
-              tbody.find("tr[data-group=" + editorSchema.field + "]").hide();
+              tbody.find("tr.group-" + editorSchema.field).hide();
             }
             return;
           }
           if (objs.length > 1 && editorSchema.multiEdit === false) {
             return;
           }
-          ref1 = ui.generateEditorRow(_this, editorSchema), tr = ref1[0], nameCell = ref1[1], editorCell = ref1[2];
-          if (groupField != null) {
-            tr.attr("data-group", groupField);
-          }
+          ref1 = ui.generateEditorRow(_this, editorSchema, groupField), tr = ref1[0], nameCell = ref1[1], editorCell = ref1[2];
           EditorClass = PJSEditors[editorSchema.type];
           if (EditorClass) {
             editor = new EditorClass(_this, editorSchema, tr, nameCell, editorCell);
@@ -26244,9 +26241,12 @@ return jQuery;
       tables = [$("<table/>").append(thead), $("<table/>").append(tbody), $("<table/>").append(tfoot)];
       return [tables, thead, tbody, tfoot];
     },
-    generateEditorRow: function(PJS, editor) {
+    generateEditorRow: function(PJS, editor, groupField) {
       var editorCell, nameCell, tr;
       tr = $("<tr/>").attr("data-field", editor.field);
+      if (groupField != null) {
+        tr.addClass("group-" + groupField);
+      }
       nameCell = $("<td/>").text(editor.title);
       if (editor.toolTip != null) {
         nameCell.prepend($("<span/>").addClass("toolTip").attr("data-title", editor.toolTip));
