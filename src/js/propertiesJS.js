@@ -1,12 +1,3 @@
-
-/*
- * properties.js - Javascript properties editor for browsers
- * @version v1.1.0
- * @link https://github.com/icebob/propertiesjs
- * @license MIT
- * Copyright (c) 2015 Icebob
- */
-
 (function() {
   var $, Emitter, PJS, PJSEditors, PJSObjectHandler, _, ui;
 
