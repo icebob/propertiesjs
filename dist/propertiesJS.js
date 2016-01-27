@@ -6,7 +6,7 @@
  * Copyright (c) 2016 Icebob
  * 
  * 
- * Build Date: Mon Jan 18 2016 12:55:24 GMT+0100 (Közép-európai téli idő )
+ * Build Date: Wed Jan 27 2016 15:22:26 GMT+0100 (Közép-európai téli idő )
  * 
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -25811,7 +25811,7 @@ return jQuery;
       this.values = this.getListValues();
       _.each(this.values, (function(_this) {
         return function(option) {
-          return _this.input.append($("<option/>").attr("value", typeof option === "string" ? option : option.id).text(typeof option === "string" ? option : option.name));
+          return _this.input.append($("<option/>").data("pjs-obj", option).attr("value", typeof option === "string" ? option : option.id).text(typeof option === "string" ? option : option.name));
         };
       })(this));
       this.input.on("change", (function(_this) {
@@ -25831,7 +25831,13 @@ return jQuery;
     };
 
     PJSSelectEditor.prototype.getInputValue = function() {
-      return this.input.val();
+      var item;
+      item = this.getSelectedValueObject();
+      if (typeof item === "string") {
+        return item;
+      } else if (typeof item === "object") {
+        return item.id;
+      }
     };
 
     PJSSelectEditor.prototype.setInputValue = function(newValue) {
@@ -25840,19 +25846,11 @@ return jQuery;
     };
 
     PJSSelectEditor.prototype.getSelectedValueObject = function() {
-      var index, value;
-      value = this.getInputValue();
-      index = _.findIndex(this.values, function(item) {
-        if (typeof item === "string") {
-          return item === value;
-        } else {
-          return item.id === value;
-        }
-      });
-      if (index !== -1) {
-        return this.values[index];
-      } else {
-        return null;
+      var item, selected;
+      selected = this.input.find("option:selected");
+      if (selected.length > 0) {
+        item = selected.data('pjs-obj');
+        return item;
       }
     };
 

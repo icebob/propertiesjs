@@ -25,7 +25,7 @@
       this.values = this.getListValues();
       _.each(this.values, (function(_this) {
         return function(option) {
-          return _this.input.append($("<option/>").attr("value", typeof option === "string" ? option : option.id).text(typeof option === "string" ? option : option.name));
+          return _this.input.append($("<option/>").data("pjs-obj", option).attr("value", typeof option === "string" ? option : option.id).text(typeof option === "string" ? option : option.name));
         };
       })(this));
       this.input.on("change", (function(_this) {
@@ -45,7 +45,13 @@
     };
 
     PJSSelectEditor.prototype.getInputValue = function() {
-      return this.input.val();
+      var item;
+      item = this.getSelectedValueObject();
+      if (typeof item === "string") {
+        return item;
+      } else if (typeof item === "object") {
+        return item.id;
+      }
     };
 
     PJSSelectEditor.prototype.setInputValue = function(newValue) {
@@ -54,19 +60,11 @@
     };
 
     PJSSelectEditor.prototype.getSelectedValueObject = function() {
-      var index, value;
-      value = this.getInputValue();
-      index = _.findIndex(this.values, function(item) {
-        if (typeof item === "string") {
-          return item === value;
-        } else {
-          return item.id === value;
-        }
-      });
-      if (index !== -1) {
-        return this.values[index];
-      } else {
-        return null;
+      var item, selected;
+      selected = this.input.find("option:selected");
+      if (selected.length > 0) {
+        item = selected.data('pjs-obj');
+        return item;
       }
     };
 

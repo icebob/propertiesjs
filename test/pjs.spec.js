@@ -28,11 +28,11 @@ describe("Test PJS in Live mode", function() {
     expect(pjs).to.be.exist;
     expect(pjs.container).to.be.length(1);
     expect(pjs.objectHandler).to.be.exist;
-    expect(pjs.objectHandler.objs).to.be.Array;
+    expect(pjs.objectHandler.objs).to.be["instanceof"](Array);
     expect(pjs.objectHandler.objs).to.be.length(1);
     expect(pjs.objectHandler.objs[0]).to.be.equal(objs[0]);
     expect(pjs.schema).to.be.deep.equal(schema);
-    expect(pjs.editors).to.be.Array;
+    expect(pjs.editors).to.be["instanceof"](Array);
     expect(pjs.changed).to.be.False;
     expect(pjs.on).to.be.exist;
     return expect(pjs.off).to.be.exist;

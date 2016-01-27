@@ -28,11 +28,9 @@ describe("Test UI helper methods", function() {
   beforeEach(function() {});
   afterEach(function() {});
   it("check getContainer", function() {
-    expect(ui.getContainer).to.be.Function;
+    expect(ui.getContainer).to.be["instanceof"](Function);
     expect(ui.getContainer()).to.be.unDefined;
-    expect(ui.getContainer(".propertyEditor")).to.be.Array;
     expect(ui.getContainer(".propertyEditor")).to.be.length(1);
-    expect(ui.getContainer($(".propertyEditor"))).to.be.Array;
     return expect(ui.getContainer($(".propertyEditor"))).to.be.length(1);
   });
   it("check getContainer class name added", function() {

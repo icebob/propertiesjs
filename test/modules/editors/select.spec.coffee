@@ -108,10 +108,11 @@ describe "Test PJSSelectEditor", ->
 		expect(objs[0][editor.fieldName]).to.be.equal "Female"
 		
 		input.val(null).trigger("change")
-		expect(pjs.workObject[editor.fieldName]).to.be.null
-		expect(editor.getSelectedValueObject()).to.be.null
-		expect(objs[0][editor.fieldName]).to.be.null
-		
+		expect(input.val()).to.be.equal null
+		expect(pjs.workObject[editor.fieldName]).to.be.undefined
+		expect(editor.getSelectedValueObject()).to.be.undefined
+		expect(objs[0][editor.fieldName]).to.be.undefined
+
 
 	it "check PJSSelectEditor (required) with 2 object", ->
 		schema.editors = testData.getEditors schema.editors, ["nativeLang"]
@@ -172,7 +173,38 @@ describe "Test PJSSelectEditor", ->
 		expect(objs[3][editor.fieldName]).to.be.equal s		
 
 		input.val(null).trigger("change")
-		expect(pjs.workObject[editor.fieldName]).to.be.null
-		expect(editor.getSelectedValueObject()).to.be.null
-		expect(objs[2][editor.fieldName]).to.be.null
-		expect(objs[3][editor.fieldName]).to.be.null
+		expect(pjs.workObject[editor.fieldName]).to.be.undefined
+		expect(editor.getSelectedValueObject()).to.be.undefined
+		expect(objs[2][editor.fieldName]).to.be.undefined
+		expect(objs[3][editor.fieldName]).to.be.undefined
+
+	it "check PJSSelectEditor (not required) with function values", ->
+		schema.editors = testData.getEditors schema.editors, ["favoriteMovie"]
+		pjs = new PJS ".propertyEditor", schema, objs[0] 
+
+		expect(pjs).to.be.exist
+		expect(pjs.objectHandler.objs).to.be.length 1
+		expect(pjs.editors).to.be.length 1
+
+		# favoriteMovie editor
+		editor = pjs.editors[0]
+		settings = editor.settings
+		tr = pe.find "tbody tr:eq(0)"
+		input = tr.find "select"
+		options = input.find "option"
+
+		expect(settings.values).to.be.a('function')
+		expect(editor.values).to.be.instanceof(Array)
+
+		# Check input change trigger
+		input.val(2).trigger("change")
+		expect(pjs.workObject[editor.fieldName]).to.be.equal 2
+		expect(editor.getSelectedValueObject()).to.be.equal editor.values[1]
+		expect(objs[0][editor.fieldName]).to.be.equal 2
+		
+		input.val(null).trigger("change")
+		expect(input.val()).to.be.null
+		expect(pjs.workObject[editor.fieldName]).to.be.undefined
+		expect(editor.getSelectedValueObject()).to.be.undefined
+		expect(objs[0][editor.fieldName]).to.be.undefined
+

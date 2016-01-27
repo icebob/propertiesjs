@@ -20,11 +20,11 @@ describe "Test PJSObjectHandler methods", ->
 	it "check constructor & setObjs", ->
 		expect(objectHandler).to.be.exist
 		expect(objectHandler.objs).to.be.exist
-		expect(objectHandler.objs).to.be.Array
+		expect(objectHandler.objs).to.be.instanceof(Array)
 		expect(objectHandler.objs).to.be.length 4
 
 		objectHandler.setObjects [objs[0], objs[2]]
-		expect(objectHandler.objs).to.be.Array
+		expect(objectHandler.objs).to.be.instanceof(Array)
 		expect(objectHandler.objs).to.be.length 2
 
 

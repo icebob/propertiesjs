@@ -46,7 +46,6 @@ describe("Test PJSSliderEditor", function() {
     input = tr.find("input");
     expect(pjs.objectHandler.objs[0][settings.field]).to.be.equal(5);
     expect(editor.valueChanged(3)).to.be["true"];
-    expect(pjs.objectHandler.objs[0][settings.field]).to.be.Number;
     expect(pjs.objectHandler.objs[0][settings.field]).to.be.equal(3);
     expect(editor.valueChanged(-2)).to.be["false"];
     expect(editor.errors).to.be.length(1);

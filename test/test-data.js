@@ -223,6 +223,32 @@ module.exports.schema = {
       multiEdit: true,
       values: ["HTML5", "CSS3", "Javascript", "ES6", "Coffeescript", "ReactJS", "AngularJS", "SASS/SCSS", "Less"]
     }, {
+      field: "favoriteMovie",
+      title: "Favorite movie",
+      type: "select",
+      required: false,
+      multiEdit: true,
+      values: function() {
+        return [
+          {
+            id: 1,
+            name: "Matrix"
+          }, {
+            id: 2,
+            name: "Inception"
+          }, {
+            id: 3,
+            name: "Kill Bill"
+          }, {
+            id: 4,
+            name: "Mission Impossible"
+          }, {
+            id: 5,
+            name: "Interstellar"
+          }
+        ];
+      }
+    }, {
       field: "created",
       title: "Created at",
       type: "timestamp",

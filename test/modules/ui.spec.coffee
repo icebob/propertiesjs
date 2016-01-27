@@ -24,12 +24,9 @@ describe "Test UI helper methods", ->
 
 
 	it "check getContainer", ->
-		expect(ui.getContainer).to.be.Function
+		expect(ui.getContainer).to.be.instanceof(Function)
 		expect(ui.getContainer()).to.be.unDefined
-		expect(ui.getContainer(".propertyEditor")).to.be.Array
 		expect(ui.getContainer(".propertyEditor")).to.be.length 1
-
-		expect(ui.getContainer($(".propertyEditor"))).to.be.Array
 		expect(ui.getContainer($(".propertyEditor"))).to.be.length 1		
 
 	it "check getContainer class name added", ->

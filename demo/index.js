@@ -132,7 +132,7 @@ propertiesSchema = {
           field: "settings.nativeLang",
           title: "Native language",
           type: "select",
-          required: true,
+          required: false,
           multiEdit: true,
           values: [
             {

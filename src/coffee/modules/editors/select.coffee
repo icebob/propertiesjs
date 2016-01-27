@@ -20,7 +20,7 @@ module.exports = class PJSSelectEditor extends PJSEditor
 
 		# Create options
 		_.each @values, (option) =>
-			@input.append $("<option/>").attr("value", if typeof(option) is "string" then option else option.id).text(if typeof(option) is "string" then option else option.name)
+			@input.append $("<option/>").data("pjs-obj", option).attr("value", if typeof(option) is "string" then option else option.id).text(if typeof(option) is "string" then option else option.name)
 
 		# Event handlers
 		@input.on "change", => @valueChanged @getInputValue()
@@ -34,22 +34,20 @@ module.exports = class PJSSelectEditor extends PJSEditor
 		else if _.isArray @settings.values
 			return [].concat @settings.values
 
-	getInputValue: -> @input.val()
+	getInputValue: -> 
+		item = @getSelectedValueObject()
+		if typeof(item) is "string" 
+			return item 
+		else if typeof(item) is "object" 
+			return item.id
 
 	setInputValue: (newValue) -> 
 		super newValue
 		@input.val newValue
 
 	getSelectedValueObject: ->
-		value = @getInputValue()
+		selected = @input.find("option:selected")
 
-		index = _.findIndex @values, (item) ->
-			if typeof(item) is "string"
-				item == value
-			else
-				item.id == value
-
-		if index isnt -1
-			return @values[index]
-		else
-			return null
+		if selected.length > 0
+			item = selected.data 'pjs-obj'
+			return item
