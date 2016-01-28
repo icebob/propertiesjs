@@ -132,7 +132,7 @@ propertiesSchema = {
           field: "settings.nativeLang",
           title: "Native language",
           type: "select",
-          required: false,
+          required: true,
           multiEdit: true,
           values: [
             {
@@ -159,38 +159,42 @@ propertiesSchema = {
       field: "body",
       title: "Body properties",
       collapsed: true,
-      editors: [
-        {
-          field: "body.weight",
-          title: "Body weight",
-          type: "number",
-          required: false,
-          multiEdit: true,
-          minValue: 1,
-          maxValue: 200
-        }, {
-          field: "body.height",
-          title: "Body height",
-          type: "number",
-          required: false,
-          multiEdit: true,
-          minValue: 50,
-          maxValue: 250
-        }, {
-          field: "body.glasses",
-          title: "Wear glasses",
-          type: "boolean",
-          required: true,
-          "default": false,
-          multiEdit: true
-        }, {
-          field: "body.foot",
-          title: "Body foot",
-          type: "number",
-          required: false,
-          multiEdit: true
-        }
-      ]
+      editors: (function(_this) {
+        return function(pjs, schema, objs) {
+          return [
+            {
+              field: "body.weight",
+              title: "Body weight",
+              type: "number",
+              required: false,
+              multiEdit: true,
+              minValue: 1,
+              maxValue: 200
+            }, {
+              field: "body.height",
+              title: "Body height",
+              type: "number",
+              required: false,
+              multiEdit: true,
+              minValue: 50,
+              maxValue: 250
+            }, {
+              field: "body.glasses",
+              title: "Wear glasses",
+              type: "boolean",
+              required: true,
+              "default": false,
+              multiEdit: true
+            }, {
+              field: "body.foot",
+              title: "Body foot",
+              type: "number",
+              required: false,
+              multiEdit: true
+            }
+          ];
+        };
+      })(this)
     }, {
       field: "sendMessage",
       title: "Send message to user",

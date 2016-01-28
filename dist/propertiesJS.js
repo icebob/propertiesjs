@@ -6,7 +6,7 @@
  * Copyright (c) 2016 Icebob
  * 
  * 
- * Build Date: Wed Jan 27 2016 15:22:26 GMT+0100 (Közép-európai téli idő )
+ * Build Date: Thu Jan 28 2016 13:06:29 GMT+0100 (Közép-európai téli idő )
  * 
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -90,7 +90,7 @@
     PJS.prototype.createEditors = function(editors, objs, tbody, groupField) {
       return $.each(editors, (function(_this) {
         return function(i, editorSchema) {
-          var EditorClass, editor, editorCell, input, nameCell, ref, ref1, tr, value;
+          var EditorClass, childEditors, editor, editorCell, input, nameCell, ref, ref1, tr, value;
           if (editorSchema.type === "group") {
             ref = ui.generateGroupRow(_this, editorSchema, groupField), tr = ref[0], nameCell = ref[1], editorCell = ref[2];
             nameCell.on("click", function() {
@@ -103,8 +103,15 @@
               }
             });
             tr.appendTo(tbody);
-            if (editorSchema.editors && editorSchema.editors.length > 0) {
-              _this.createEditors(editorSchema.editors, objs, tbody, editorSchema.field);
+            if (editorSchema.editors) {
+              if (_.isFunction(editorSchema.editors)) {
+                childEditors = editorSchema.editors(_this, _this.schema, objs);
+              } else {
+                childEditors = editorSchema.editors;
+              }
+              if (childEditors && childEditors.length > 0) {
+                _this.createEditors(childEditors, objs, tbody, editorSchema.field);
+              }
             }
             if (editorSchema.collapsed === true) {
               tbody.find("tr.group-" + editorSchema.field).hide();

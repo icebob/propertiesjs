@@ -78,7 +78,7 @@
     PJS.prototype.createEditors = function(editors, objs, tbody, groupField) {
       return $.each(editors, (function(_this) {
         return function(i, editorSchema) {
-          var EditorClass, editor, editorCell, input, nameCell, ref, ref1, tr, value;
+          var EditorClass, childEditors, editor, editorCell, input, nameCell, ref, ref1, tr, value;
           if (editorSchema.type === "group") {
             ref = ui.generateGroupRow(_this, editorSchema, groupField), tr = ref[0], nameCell = ref[1], editorCell = ref[2];
             nameCell.on("click", function() {
@@ -91,8 +91,15 @@
               }
             });
             tr.appendTo(tbody);
-            if (editorSchema.editors && editorSchema.editors.length > 0) {
-              _this.createEditors(editorSchema.editors, objs, tbody, editorSchema.field);
+            if (editorSchema.editors) {
+              if (_.isFunction(editorSchema.editors)) {
+                childEditors = editorSchema.editors(_this, _this.schema, objs);
+              } else {
+                childEditors = editorSchema.editors;
+              }
+              if (childEditors && childEditors.length > 0) {
+                _this.createEditors(childEditors, objs, tbody, editorSchema.field);
+              }
             }
             if (editorSchema.collapsed === true) {
               tbody.find("tr.group-" + editorSchema.field).hide();

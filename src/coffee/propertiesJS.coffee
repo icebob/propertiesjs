@@ -89,8 +89,15 @@ module.exports = class PJS
 				tr.appendTo tbody
 
 				# Create editors from group
-				if editorSchema.editors and editorSchema.editors.length > 0
-					@createEditors editorSchema.editors, objs, tbody, editorSchema.field
+				if editorSchema.editors 
+					if _.isFunction editorSchema.editors
+						childEditors = editorSchema.editors this, this.schema, objs
+					else
+						childEditors = editorSchema.editors
+
+					if childEditors and childEditors.length > 0
+						@createEditors childEditors, objs, tbody, editorSchema.field
+
 
 				if editorSchema.collapsed is true
 					tbody.find("tr.group-#{editorSchema.field}").hide()
