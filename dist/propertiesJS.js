@@ -6,7 +6,7 @@
  * Copyright (c) 2016 Icebob
  * 
  * 
- * Build Date: Thu Jan 28 2016 13:06:29 GMT+0100 (Közép-európai téli idő )
+ * Build Date: Mon Feb 01 2016 12:33:45 GMT+0100 (Közép-európai téli idő )
  * 
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -310,7 +310,7 @@
 
 }).call(this);
 
-},{"./modules/editors":26,"./modules/objects":34,"./modules/ui":35,"event-emitter":2,"jquery":17,"lodash":18}],2:[function(require,module,exports){
+},{"./modules/editors":27,"./modules/objects":35,"./modules/ui":36,"event-emitter":2,"jquery":17,"lodash":18}],2:[function(require,module,exports){
 'use strict';
 
 var d        = require('d')
@@ -25601,6 +25601,66 @@ return jQuery;
 
 },{"../editor":20,"jquery":17,"lodash":18}],25:[function(require,module,exports){
 (function() {
+  var $, PJSColorPickerEditor, PJSEditor, _,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  _ = require("lodash");
+
+  $ = require("jquery");
+
+  PJSEditor = require("../editor");
+
+  module.exports = PJSColorPickerEditor = (function(superClass) {
+    extend(PJSColorPickerEditor, superClass);
+
+    function PJSColorPickerEditor() {
+      return PJSColorPickerEditor.__super__.constructor.apply(this, arguments);
+    }
+
+    PJSColorPickerEditor.prototype.createInput = function() {
+      var e;
+      this.input = $("<input/>").attr("type", this.settings.type);
+      if (this.settings.required === true) {
+        this.input.attr("required", "required");
+      }
+      try {
+        this.input.colorPicker({
+          renderCallback: function(elm, toggled) {
+            if (toggled === false) {
+              return this.valueChanged(this.getInputValue());
+            }
+          }
+        });
+      } catch (_error) {
+        e = _error;
+        console.warn("Tiny color picker library is missing. Please download from http://www.dematte.at/tinyColorPicker/ and load the script in the HTML head section!");
+      }
+      this.input.on("change", (function(_this) {
+        return function() {
+          return _this.valueChanged(_this.getInputValue());
+        };
+      })(this));
+      return this.input;
+    };
+
+    PJSColorPickerEditor.prototype.getInputValue = function() {
+      return this.input.val();
+    };
+
+    PJSColorPickerEditor.prototype.setInputValue = function(newValue) {
+      PJSColorPickerEditor.__super__.setInputValue.call(this, newValue);
+      return this.input.val(newValue);
+    };
+
+    return PJSColorPickerEditor;
+
+  })(PJSEditor);
+
+}).call(this);
+
+},{"../editor":20,"jquery":17,"lodash":18}],26:[function(require,module,exports){
+(function() {
   var $, PJSDateEditor, PJSEditor, _, moment,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
@@ -25657,7 +25717,7 @@ return jQuery;
 
 }).call(this);
 
-},{"../editor":20,"jquery":17,"lodash":18,"moment":19}],26:[function(require,module,exports){
+},{"../editor":20,"jquery":17,"lodash":18,"moment":19}],27:[function(require,module,exports){
 (function() {
   module.exports["boolean"] = require("./boolean");
 
@@ -25689,11 +25749,13 @@ return jQuery;
 
   module.exports["color"] = require("./color");
 
+  module.exports["colorpicker"] = require("./colorpicker");
+
   module.exports["slider"] = require("./slider");
 
 }).call(this);
 
-},{"./boolean":21,"./button":22,"./checklist":23,"./color":24,"./date":25,"./label":27,"./number":28,"./select":29,"./slider":30,"./text":31,"./textarea":32,"./timestamp":33}],27:[function(require,module,exports){
+},{"./boolean":21,"./button":22,"./checklist":23,"./color":24,"./colorpicker":25,"./date":26,"./label":28,"./number":29,"./select":30,"./slider":31,"./text":32,"./textarea":33,"./timestamp":34}],28:[function(require,module,exports){
 (function() {
   var $, PJSEditor, PJSLabelEditor, _,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -25732,7 +25794,7 @@ return jQuery;
 
 }).call(this);
 
-},{"../editor":20,"jquery":17,"lodash":18}],28:[function(require,module,exports){
+},{"../editor":20,"jquery":17,"lodash":18}],29:[function(require,module,exports){
 (function() {
   var $, PJSNumberEditor, PJSTextEditor, _,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -25790,7 +25852,7 @@ return jQuery;
 
 }).call(this);
 
-},{"./text":31,"jquery":17,"lodash":18}],29:[function(require,module,exports){
+},{"./text":32,"jquery":17,"lodash":18}],30:[function(require,module,exports){
 (function() {
   var $, PJSEditor, PJSSelectEditor, _,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -25867,7 +25929,7 @@ return jQuery;
 
 }).call(this);
 
-},{"../editor":20,"jquery":17,"lodash":18}],30:[function(require,module,exports){
+},{"../editor":20,"jquery":17,"lodash":18}],31:[function(require,module,exports){
 (function() {
   var $, PJSNumberEditor, PJSSliderEditor, _, moment,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -25903,7 +25965,7 @@ return jQuery;
 
 }).call(this);
 
-},{"./number":28,"jquery":17,"lodash":18,"moment":19}],31:[function(require,module,exports){
+},{"./number":29,"jquery":17,"lodash":18,"moment":19}],32:[function(require,module,exports){
 (function() {
   var $, PJSEditor, PJSTextEditor, _,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -25974,7 +26036,7 @@ return jQuery;
 
 }).call(this);
 
-},{"../editor":20,"jquery":17,"lodash":18}],32:[function(require,module,exports){
+},{"../editor":20,"jquery":17,"lodash":18}],33:[function(require,module,exports){
 (function() {
   var $, PJSEditor, PJSTextAreaEditor, _,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -26030,7 +26092,7 @@ return jQuery;
 
 }).call(this);
 
-},{"../editor":20,"jquery":17,"lodash":18}],33:[function(require,module,exports){
+},{"../editor":20,"jquery":17,"lodash":18}],34:[function(require,module,exports){
 (function() {
   var $, PJSEditor, PJSLabelEditor, PJSTimestampEditor, _, moment,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -26078,7 +26140,7 @@ return jQuery;
 
 }).call(this);
 
-},{"../editor":20,"./label":27,"jquery":17,"lodash":18,"moment":19}],34:[function(require,module,exports){
+},{"../editor":20,"./label":28,"jquery":17,"lodash":18,"moment":19}],35:[function(require,module,exports){
 (function() {
   var PJSObjectHandler, _,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -26210,7 +26272,7 @@ return jQuery;
 
 }).call(this);
 
-},{"lodash":18}],35:[function(require,module,exports){
+},{"lodash":18}],36:[function(require,module,exports){
 (function() {
   var $;
 

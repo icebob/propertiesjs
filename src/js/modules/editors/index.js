@@ -29,6 +29,8 @@
 
   module.exports["color"] = require("./color");
 
+  module.exports["colorpicker"] = require("./colorpicker");
+
   module.exports["slider"] = require("./slider");
 
 }).call(this);

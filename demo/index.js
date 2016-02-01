@@ -118,6 +118,18 @@ propertiesSchema = {
           field: "settings.themeColor",
           title: "Color of theme",
           type: "color",
+          required: true,
+          multiEdit: true
+        }, {
+          field: "settings.fontColor",
+          title: "Color of text",
+          type: "color",
+          required: false,
+          multiEdit: true
+        }, {
+          field: "settings.backgroundColor",
+          title: "Color wih tinyColorPicker",
+          type: "colorpicker",
           required: false,
           multiEdit: true
         }, {
@@ -240,6 +252,7 @@ obj1 = {
   skills: ["Chemist", "Teacher", "Clever"],
   settings: {
     themeColor: "#fab000",
+    backgroundColor: "#FF3300",
     motto: "Say my name!"
   },
   sendMessage: function() {
