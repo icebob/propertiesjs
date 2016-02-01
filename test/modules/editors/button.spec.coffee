@@ -1,4 +1,3 @@
-$			= require("jquery")
 _			= require("lodash")
 moment 		= require("moment")
 PJS 		= require "../../../src/js/propertiesJS"

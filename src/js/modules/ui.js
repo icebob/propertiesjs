@@ -1,8 +1,4 @@
 (function() {
-  var $;
-
-  $ = require("jquery");
-
   module.exports = {
     getContainer: function(c) {
       if (c != null) {

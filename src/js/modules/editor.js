@@ -1,9 +1,7 @@
 (function() {
-  var $, Emitter, PJSEditor, _;
+  var Emitter, PJSEditor, _;
 
   _ = require("lodash");
-
-  $ = require("jquery");
 
   Emitter = require("event-emitter");
 

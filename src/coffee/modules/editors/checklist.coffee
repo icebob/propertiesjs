@@ -1,5 +1,4 @@
 _			= require "lodash"
-$			= require "jquery"
 PJSEditor 	= require "../editor"
 
 module.exports = class PJSCheckListEditor extends PJSEditor

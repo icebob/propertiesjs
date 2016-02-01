@@ -1,10 +1,8 @@
-var $, _, chai, testData, ui;
+var _, chai, testData, ui;
 
 chai = require("chai").expect;
 
 _ = require("lodash");
-
-$ = require("jquery");
 
 ui = require("../../src/js/modules/ui.js");
 

@@ -128,8 +128,8 @@ propertiesSchema = {
           multiEdit: true
         }, {
           field: "settings.backgroundColor",
-          title: "Color wih tinyColorPicker",
-          type: "colorpicker",
+          title: "Color wih spectrum",
+          type: "spectrum",
           required: false,
           multiEdit: true
         }, {

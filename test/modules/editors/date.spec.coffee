@@ -1,5 +1,4 @@
 expect 		= require("chai").expect
-$			= require("jquery")
 moment 		= require("moment")
 PJS 		= require "../../../src/js/propertiesJS"
 testData	= require "../../test-data"

@@ -29,7 +29,7 @@
 
   module.exports["color"] = require("./color");
 
-  module.exports["colorpicker"] = require("./colorpicker");
+  module.exports["spectrum"] = require("./spectrum");
 
   module.exports["slider"] = require("./slider");
 

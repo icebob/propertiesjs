@@ -1,5 +1,4 @@
 expect 		= require("chai").expect
-$			= require("jquery")
 PJS 		= require "../src/js/propertiesJS"
 testData	= require "./test-data"
 
@@ -239,11 +238,11 @@ describe "Test jQuery plugin mode", ->
 	it "check jQuery plugin registration", (done) ->
 		[objs, schema] = testData.clone()
 
-		expect(window.jQuery.fn.propertiesJS).to.be.exist
-		window.jQuery(".propertyEditor").propertiesJS schema, objs[0]
-		expect(window.jQuery(".propertyEditor tbody")).to.be.length 1
+		expect(window.$.fn.propertiesJS).to.be.exist
+		window.$(".propertyEditor").propertiesJS schema, objs[0]
+		expect(window.$(".propertyEditor tbody")).to.be.length 1
 
-		pjs = $(".propertyEditor").data("propertiesJS")
+		pjs = window.$(".propertyEditor").data("propertiesJS")
 		expect(pjs).to.be.exist
 		editor = pjs.editors[0]
 

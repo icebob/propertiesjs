@@ -1,8 +1,6 @@
-var $, PJS, expect, testData;
+var PJS, expect, testData;
 
 expect = require("chai").expect;
-
-$ = require("jquery");
 
 PJS = require("../src/js/propertiesJS");
 
@@ -227,10 +225,10 @@ describe("Test jQuery plugin mode", function() {
   it("check jQuery plugin registration", function(done) {
     var editor, objs, pjs, ref, schema;
     ref = testData.clone(), objs = ref[0], schema = ref[1];
-    expect(window.jQuery.fn.propertiesJS).to.be.exist;
-    window.jQuery(".propertyEditor").propertiesJS(schema, objs[0]);
-    expect(window.jQuery(".propertyEditor tbody")).to.be.length(1);
-    pjs = $(".propertyEditor").data("propertiesJS");
+    expect(window.$.fn.propertiesJS).to.be.exist;
+    window.$(".propertyEditor").propertiesJS(schema, objs[0]);
+    expect(window.$(".propertyEditor tbody")).to.be.length(1);
+    pjs = window.$(".propertyEditor").data("propertiesJS");
     expect(pjs).to.be.exist;
     editor = pjs.editors[0];
     pjs.on(editor.fieldName + "-changed", function(_editor, _newValue, _obj) {

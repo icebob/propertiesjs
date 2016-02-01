@@ -1,5 +1,4 @@
 _				= require "lodash"
-$				= require "jquery"
 PJSTextEditor 	= require("./text")
 
 module.exports = class PJSNumberEditor extends PJSTextEditor

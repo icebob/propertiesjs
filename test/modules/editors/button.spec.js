@@ -1,6 +1,4 @@
-var $, PJS, _, chai, expect, moment, sinon, sinonChai, testData;
-
-$ = require("jquery");
+var PJS, _, chai, expect, moment, sinon, sinonChai, testData;
 
 _ = require("lodash");
 

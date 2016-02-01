@@ -1,8 +1,6 @@
-var $, PJS, PJSEditor, expect, testData;
+var PJS, PJSEditor, expect, testData;
 
 expect = require("chai").expect;
-
-$ = require("jquery");
 
 PJS = require("../../src/js/propertiesJS");
 

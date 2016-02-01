@@ -1,7 +1,5 @@
 (function() {
-  var $, Emitter, PJS, PJSEditors, PJSObjectHandler, _, ui;
-
-  $ = require("jquery");
+  var Emitter, PJS, PJSEditors, PJSObjectHandler, _, ui;
 
   _ = require("lodash");
 
@@ -113,7 +111,7 @@
           EditorClass = PJSEditors[editorSchema.type];
           if (EditorClass) {
             editor = new EditorClass(_this, editorSchema, tr, nameCell, editorCell);
-            input = editor.createInput(tr);
+            input = editor.createInput(tr, editorCell, nameCell);
             if (input != null) {
               if (editorSchema.type !== "button") {
                 value = _this.objectHandler.getValueFromObjects(editor.fieldName, editorSchema["default"]);
@@ -141,31 +139,6 @@
           } else {
             console.warn("Invalid editor type: " + editorSchema.type);
           }
-
-          /*
-          			switch editor.type
-          				 * Color -> spectrum
-          				when "color"
-          					input = $("<input/>").attr("type", "text").appendTo td
-          					input.attr("required", "required") if editor.required?
-          					
-          					 * Helper span
-          					helper = $("<span/>").addClass("helper").appendTo td
-          					setHelperText = (value) -> helper.text value || ""
-          					
-          					 * Set value
-          					value = getObjectsValue editor.field
-          					input.val value
-          					setHelperText value
-          					
-          					 * Spectrum init
-          					input.spectrum
-          						 * Event handlers
-          						change: (color) ->
-          							value = color.toHexString()
-          							setHelperText color.toHexString()
-          							valueChanged value
-           */
           tr.appendTo(tbody);
           return true;
         };
@@ -278,12 +251,8 @@
 
   })();
 
-  if ((window.jQuery == null) && ($ != null)) {
-    window.jQuery = $;
-  }
-
-  if (window.jQuery) {
-    window.jQuery.fn.propertiesJS = function(schema, objs) {
+  if (window.$) {
+    window.$.fn.propertiesJS = function(schema, objs) {
       return $(this).each(function() {
         var pjs;
         pjs = new PJS($(this), schema, objs);

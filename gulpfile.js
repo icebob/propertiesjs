@@ -179,6 +179,7 @@ gulp.task('dev', ['jade', 'sass', 'sass:demo', 'coffee', 'coffee:demo', 'build',
  * Testing
  */
 var testFiles = [
+	'node_modules/jquery/dist/jquery.min.js',
 	'src/js/**/*.js',
 	'test/**/*.spec.js'
 ];
@@ -234,8 +235,7 @@ gulp.task('build', ["sass:min", "coffee"], function () {
 	// set up the browserify instance on a task basis
 	var b = browserify({
 		entries: './src/js/propertiesJS.js',
-		debug: false,
-		external: ['jquery']
+		debug: false
 	});
 
  	return b.bundle()

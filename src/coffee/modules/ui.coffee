@@ -1,5 +1,3 @@
-$ = require "jquery"
-
 module.exports = 
 
 	getContainer: (c) -> 

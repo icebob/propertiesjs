@@ -1,6 +1,4 @@
-var $, _;
-
-$ = require("jquery");
+var _;
 
 _ = require("lodash");
 

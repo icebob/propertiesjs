@@ -1,8 +1,6 @@
-var $, PJS, expect, moment, testData;
+var PJS, expect, moment, testData;
 
 expect = require("chai").expect;
-
-$ = require("jquery");
 
 moment = require("moment");
 

@@ -1,5 +1,4 @@
 expect 		= require("chai").expect
-$			= require "jquery"
 _			= require "lodash"
 PJS 		= require "../../../src/js/propertiesJS"
 testData	= require "../../test-data"

@@ -1,4 +1,3 @@
-$			= require("jquery")
 _			= require("lodash")
 
 module.exports.schema = {

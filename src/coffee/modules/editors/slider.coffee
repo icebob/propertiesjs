@@ -1,5 +1,4 @@
 _			= require "lodash"
-$			= require "jquery"
 moment		= require "moment"
 PJSNumberEditor 	= require "./number"
 

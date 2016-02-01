@@ -1,5 +1,4 @@
 _			= require "lodash"
-$			= require "jquery"
 Emitter		= require "event-emitter"
 
 #window.PJSEditors = {}

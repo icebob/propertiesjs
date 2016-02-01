@@ -1,4 +1,3 @@
-$					= require "jquery"
 _					= require "lodash"
 ui 					= require "./modules/ui"
 Emitter				= require "event-emitter"
@@ -116,7 +115,7 @@ module.exports = class PJS
 				editor = new EditorClass @, editorSchema, tr, nameCell, editorCell
 
 				# Create input
-				input = editor.createInput(tr)
+				input = editor.createInput(tr, editorCell, nameCell)
 				if input?
 
 					if editorSchema.type isnt "button"
@@ -151,33 +150,6 @@ module.exports = class PJS
 
 			else
 				console.warn "Invalid editor type: " + editorSchema.type
-
-			###
-			switch editor.type
-				# Color -> spectrum
-				when "color"
-					input = $("<input/>").attr("type", "text").appendTo td
-					input.attr("required", "required") if editor.required?
-					
-					# Helper span
-					helper = $("<span/>").addClass("helper").appendTo td
-					setHelperText = (value) -> helper.text value || ""
-					
-					# Set value
-					value = getObjectsValue editor.field
-					input.val value
-					setHelperText value
-					
-					# Spectrum init
-					input.spectrum
-						# Event handlers
-						change: (color) ->
-							value = color.toHexString()
-							setHelperText color.toHexString()
-							valueChanged value
-				
-				
-			###
 
 			# Add editor cell to tr to tbody
 			tr.appendTo tbody
@@ -269,9 +241,8 @@ module.exports = class PJS
 		@clearChangedFlag()
 
 # jQuery plugin registration
-if not window.jQuery? and $? then window.jQuery = $ # under testing
-if window.jQuery
-	window.jQuery.fn.propertiesJS = (schema, objs)->
+if window.$
+	window.$.fn.propertiesJS = (schema, objs)->
 		return $(@).each -> 
 			pjs = new PJS $(@), schema, objs
 			$(@).data("propertiesJS", pjs)

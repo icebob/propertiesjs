@@ -1,6 +1,5 @@
 chai				= require("chai").expect
 _	 				= require "lodash"
-$					= require "jquery"
 ui 					= require "../../src/js/modules/ui.js"
 testData			= require "../test-data"
 

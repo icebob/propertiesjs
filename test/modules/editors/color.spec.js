@@ -1,8 +1,6 @@
-var $, PJS, _, expect, testData;
+var PJS, _, expect, testData;
 
 expect = require("chai").expect;
-
-$ = require("jquery");
 
 _ = require("lodash");
 
