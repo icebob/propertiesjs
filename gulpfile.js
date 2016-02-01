@@ -180,6 +180,7 @@ gulp.task('dev', ['jade', 'sass', 'sass:demo', 'coffee', 'coffee:demo', 'build',
  */
 var testFiles = [
 	'node_modules/jquery/dist/jquery.min.js',
+	'libraries/**/*.*',
 	'src/js/**/*.js',
 	'test/**/*.spec.js'
 ];

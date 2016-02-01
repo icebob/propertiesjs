@@ -1,12 +1,12 @@
 /**
  * propertiesjs - Javascript properties editor for browsers
- * @version v1.3.0
+ * @version v1.4.0
  * @link https://github.com/icebob/propertiesjs
  * @license MIT
  * Copyright (c) 2016 Icebob
  * 
  * 
- * Build Date: Mon Feb 01 2016 13:29:23 GMT+0100 (Közép-európai téli idő )
+ * Build Date: Mon Feb 01 2016 14:19:25 GMT+0100 (Közép-európai téli idő )
  * 
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -16666,7 +16666,7 @@ module.exports = function (searchString/*, position*/) {
 
     PJSSpectrumEditor.prototype.createInput = function(tr, editorCell, nameCell) {
       var e, setHelperText;
-      this.input = $("<input/>").attr("type", "text");
+      this.input = $("<input/>").attr("type", this.settings.type);
       if (this.settings.required === true) {
         this.input.attr("required", "required");
       }
@@ -16680,7 +16680,7 @@ module.exports = function (searchString/*, position*/) {
         this.input.spectrum({
           showInput: true,
           showAlpha: true,
-          allowEmpty: true,
+          allowEmpty: !this.settings.required,
           preferredFormat: "hex",
           change: (function(_this) {
             return function(color) {
@@ -16708,7 +16708,9 @@ module.exports = function (searchString/*, position*/) {
 
     PJSSpectrumEditor.prototype.setInputValue = function(newValue) {
       PJSSpectrumEditor.__super__.setInputValue.call(this, newValue);
-      this.input.spectrum("set", newValue);
+      if (this.input.spectrum != null) {
+        this.input.spectrum("set", newValue);
+      }
       return this.setHelperText();
     };
 

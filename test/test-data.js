@@ -164,6 +164,10 @@ module.exports.schema = {
       title: "Theme color",
       type: "color"
     }, {
+      field: "backgroundColor",
+      title: "Background color",
+      type: "spectrum"
+    }, {
       field: "description",
       title: "Description",
       type: "textarea",
@@ -309,6 +313,7 @@ module.exports.objects = [
     sex: "Male",
     skills: ["Javascript", "Coffeescript", "AngularJS"],
     themeColor: "#fab000",
+    backgroundColor: "rgba(128, 56, 20, 0.6)",
     onchanged: function() {
       return console.log("John's value changed");
     },

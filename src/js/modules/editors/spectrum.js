@@ -16,7 +16,7 @@
 
     PJSSpectrumEditor.prototype.createInput = function(tr, editorCell, nameCell) {
       var e, setHelperText;
-      this.input = $("<input/>").attr("type", "text");
+      this.input = $("<input/>").attr("type", this.settings.type);
       if (this.settings.required === true) {
         this.input.attr("required", "required");
       }
@@ -30,7 +30,7 @@
         this.input.spectrum({
           showInput: true,
           showAlpha: true,
-          allowEmpty: true,
+          allowEmpty: !this.settings.required,
           preferredFormat: "hex",
           change: (function(_this) {
             return function(color) {
@@ -58,7 +58,9 @@
 
     PJSSpectrumEditor.prototype.setInputValue = function(newValue) {
       PJSSpectrumEditor.__super__.setInputValue.call(this, newValue);
-      this.input.spectrum("set", newValue);
+      if (this.input.spectrum != null) {
+        this.input.spectrum("set", newValue);
+      }
       return this.setHelperText();
     };
 

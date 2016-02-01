@@ -5,7 +5,7 @@ module.exports = class PJSSpectrumEditor extends PJSEditor
 
 	createInput: (tr, editorCell, nameCell) ->
 		# Create input
-		@input = $("<input/>").attr("type", "text")
+		@input = $("<input/>").attr("type", @settings.type)
 		@input.attr("required", "required") if @settings.required is true
 
 		editorCell.append @input
@@ -20,7 +20,7 @@ module.exports = class PJSSpectrumEditor extends PJSEditor
 			@input.spectrum
 				showInput: true
 				showAlpha: true
-				allowEmpty: true
+				allowEmpty: not @settings.required
 				#chooseText: "Choose"
 				#cancelText: "Cancel"
 				preferredFormat: "hex"
@@ -38,7 +38,8 @@ module.exports = class PJSSpectrumEditor extends PJSEditor
 
 	setInputValue: (newValue) -> 
 		super newValue
-		@input.spectrum "set", newValue
+		if @input.spectrum?
+			@input.spectrum "set", newValue
 		@setHelperText()
 
 	# Helper
