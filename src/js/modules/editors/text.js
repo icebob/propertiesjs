@@ -22,6 +22,9 @@
       if (this.settings.required === true) {
         this.input.attr("required", "required");
       }
+      if (this.settings.readonly === true) {
+        this.input.attr("readonly", "readonly");
+      }
       if ((this.settings.maxLength != null) && this.settings.maxLength > 0) {
         this.input.attr("maxlength", this.settings.maxLength);
       }

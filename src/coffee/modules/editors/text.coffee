@@ -8,6 +8,7 @@ module.exports = class PJSTextEditor extends PJSEditor
 		@input = $("<input/>").attr("type", @settings.type)
 		@input.attr("placeholder", @settings.placeHolder) if @settings.placeHolder?
 		@input.attr("required", "required") if @settings.required is true
+		@input.attr("readonly", "readonly") if @settings.readonly is true
 		@input.attr("maxlength", @settings.maxLength) if @settings.maxLength? and @settings.maxLength > 0
 		@input.attr("pattern", @settings.pattern) if @settings.pattern?
 		

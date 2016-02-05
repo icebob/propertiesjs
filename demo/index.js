@@ -29,6 +29,7 @@ propertiesSchema = {
       toolTip: "This is the user's real born name",
       type: "text",
       required: false,
+      readonly: true,
       multiEdit: false
     }, {
       field: "email",
