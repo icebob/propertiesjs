@@ -13,6 +13,6 @@ module.exports = class PJSLabelEditor extends PJSEditor
 	getInputValue: -> @input.text()
 
 	setInputValue: (newValue) -> 
-		super newValue
+		newValue = super newValue
 		@input.text newValue
 

@@ -57,7 +57,7 @@
     };
 
     PJSSpectrumEditor.prototype.setInputValue = function(newValue) {
-      PJSSpectrumEditor.__super__.setInputValue.call(this, newValue);
+      newValue = PJSSpectrumEditor.__super__.setInputValue.call(this, newValue);
       if (this.input.spectrum != null) {
         this.input.spectrum("set", newValue);
       }

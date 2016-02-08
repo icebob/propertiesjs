@@ -37,7 +37,7 @@
     };
 
     PJSColorEditor.prototype.setInputValue = function(newValue) {
-      PJSColorEditor.__super__.setInputValue.call(this, newValue);
+      newValue = PJSColorEditor.__super__.setInputValue.call(this, newValue);
       this.input.val(newValue);
       return this.setHelperText();
     };

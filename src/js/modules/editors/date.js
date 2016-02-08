@@ -43,7 +43,7 @@
     };
 
     PJSDateEditor.prototype.setInputValue = function(newValue) {
-      PJSDateEditor.__super__.setInputValue.call(this, newValue);
+      newValue = PJSDateEditor.__super__.setInputValue.call(this, newValue);
       return this.input.val(moment(newValue, this.settings.format).format(this.baseFormat));
     };
 

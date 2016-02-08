@@ -37,7 +37,7 @@ module.exports = class PJSSpectrumEditor extends PJSEditor
 	getInputValue: -> @lastValue
 
 	setInputValue: (newValue) -> 
-		super newValue
+		newValue = super newValue
 		if @input.spectrum?
 			@input.spectrum "set", newValue
 		@setHelperText()

@@ -24,7 +24,7 @@
     };
 
     PJSLabelEditor.prototype.setInputValue = function(newValue) {
-      PJSLabelEditor.__super__.setInputValue.call(this, newValue);
+      newValue = PJSLabelEditor.__super__.setInputValue.call(this, newValue);
       return this.input.text(newValue);
     };
 

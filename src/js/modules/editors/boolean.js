@@ -33,7 +33,7 @@
     };
 
     PJSBooleanEditor.prototype.setInputValue = function(newValue) {
-      PJSBooleanEditor.__super__.setInputValue.call(this, newValue);
+      newValue = PJSBooleanEditor.__super__.setInputValue.call(this, newValue);
       this.input.prop("checked", newValue);
       this.setHelperText();
       return this;

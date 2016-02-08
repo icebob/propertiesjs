@@ -42,6 +42,9 @@
     };
 
     PJSEditor.prototype.setInputValue = function(value) {
+      if (this.settings["formatter"] != null) {
+        value = this.settings.formatter(value, this);
+      }
       return this.lastValue = value;
     };
 

@@ -53,7 +53,7 @@
     };
 
     PJSSelectEditor.prototype.setInputValue = function(newValue) {
-      PJSSelectEditor.__super__.setInputValue.call(this, newValue);
+      newValue = PJSSelectEditor.__super__.setInputValue.call(this, newValue);
       return this.input.val(newValue);
     };
 

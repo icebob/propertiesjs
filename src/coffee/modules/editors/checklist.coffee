@@ -98,7 +98,7 @@ module.exports = class PJSCheckListEditor extends PJSEditor
 		return @selectedValues		
 
 	setInputValue: (newValues) -> 
-		super newValues
+		newValue = super newValues
 
 		@selectedValues = newValues || []
 

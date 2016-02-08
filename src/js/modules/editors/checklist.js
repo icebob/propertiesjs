@@ -124,7 +124,8 @@
     };
 
     PJSCheckListEditor.prototype.setInputValue = function(newValues) {
-      PJSCheckListEditor.__super__.setInputValue.call(this, newValues);
+      var newValue;
+      newValue = PJSCheckListEditor.__super__.setInputValue.call(this, newValues);
       this.selectedValues = newValues || [];
       this.createDropDownList();
       return this.refreshMainText();

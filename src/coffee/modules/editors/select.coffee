@@ -41,7 +41,7 @@ module.exports = class PJSSelectEditor extends PJSEditor
 			return item.id
 
 	setInputValue: (newValue) -> 
-		super newValue
+		newValue = super newValue
 		@input.val newValue
 
 	getSelectedValueObject: ->

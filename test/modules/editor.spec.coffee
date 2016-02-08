@@ -178,3 +178,23 @@ describe "Test abstract editor", ->
 
 			editorActive.valueChanged(true)
 			expect(editorAge.isEnabled()).to.be.false
+
+		it "check PJS editor formatter", ->
+			schema.editors = testData.getEditors schema.editors, ["distance"]
+			pjs = new PJS ".propertyEditor", schema, objs[0]
+			editor = pjs.editors[0]
+			settings = editor.settings
+			tr = pe.find "tbody tr:eq(0)"
+			input = tr.find "input"
+
+			# Set formatter
+			editor.settings.formatter = (value, e) -> 
+				expect(value).to.be.equal 1230
+				expect(e).to.be.equal editor
+				
+				return "1km 230m"
+
+			# Set value
+			editor.setInputValue 1230
+
+			expect(input.val()).to.be.equal "1km 230m"

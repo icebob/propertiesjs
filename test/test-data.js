@@ -251,6 +251,11 @@ module.exports.schema = {
         ];
       }
     }, {
+      field: "distance",
+      title: "Distance",
+      type: "text",
+      readonly: true
+    }, {
       field: "created",
       title: "Created at",
       type: "timestamp",

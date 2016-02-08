@@ -21,7 +21,7 @@ module.exports = class PJSColorEditor extends PJSEditor
 	getInputValue: -> @input.val()
 
 	setInputValue: (newValue) -> 
-		super newValue
+		newValue = super newValue
 		@input.val newValue
 		@setHelperText()
 

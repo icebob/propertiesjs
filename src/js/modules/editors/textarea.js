@@ -41,7 +41,7 @@
     };
 
     PJSTextAreaEditor.prototype.setInputValue = function(newValue) {
-      PJSTextAreaEditor.__super__.setInputValue.call(this, newValue);
+      newValue = PJSTextAreaEditor.__super__.setInputValue.call(this, newValue);
       return this.input.val(newValue);
     };
 

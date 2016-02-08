@@ -154,7 +154,7 @@ describe("Test abstract editor", function() {
       });
       return editor.valueChanged("555");
     });
-    return it("check PJS auto disable/enable editors", function() {
+    it("check PJS auto disable/enable editors", function() {
       var editorActive, editorAge;
       schema.editors = testData.getEditors(schema.editors, ["age", "active"]);
       pjs = new PJS(".propertyEditor", schema, objs[0]);
@@ -166,6 +166,22 @@ describe("Test abstract editor", function() {
       expect(editorAge.isEnabled()).to.be["true"];
       editorActive.valueChanged(true);
       return expect(editorAge.isEnabled()).to.be["false"];
+    });
+    return it("check PJS editor formatter", function() {
+      var editor, input, settings, tr;
+      schema.editors = testData.getEditors(schema.editors, ["distance"]);
+      pjs = new PJS(".propertyEditor", schema, objs[0]);
+      editor = pjs.editors[0];
+      settings = editor.settings;
+      tr = pe.find("tbody tr:eq(0)");
+      input = tr.find("input");
+      editor.settings.formatter = function(value, e) {
+        expect(value).to.be.equal(1230);
+        expect(e).to.be.equal(editor);
+        return "1km 230m";
+      };
+      editor.setInputValue(1230);
+      return expect(input.val()).to.be.equal("1km 230m");
     });
   });
 });

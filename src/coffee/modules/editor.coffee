@@ -28,7 +28,11 @@ module.exports = class PJSEditor
 
 	getInputValue: -> throw new Error("Abstract method!")
 
-	setInputValue: (value) -> @lastValue = value
+	setInputValue: (value) -> 
+		if @settings["formatter"]?
+			value = @settings.formatter value, @
+
+		return @lastValue = value
 
 	# Change editor value from outside
 	changeValue: (value, trigger = true) ->

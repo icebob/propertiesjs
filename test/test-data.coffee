@@ -219,7 +219,11 @@ module.exports.schema = {
 					{ id: 5, name: "Interstellar" }
 				]
 		,
-
+			field: "distance"
+			title: "Distance"
+			type: "text"
+			readonly: true			
+		,
 			field: "created"
 			title: "Created at"
 			type: "timestamp"

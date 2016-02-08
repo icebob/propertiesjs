@@ -20,7 +20,7 @@ module.exports = class PJSBooleanEditor extends PJSEditor
 	getInputValue: -> @input.prop "checked"
 
 	setInputValue: (newValue) -> 
-		super newValue
+		newValue = super newValue
 		@input.prop "checked", newValue
 		@setHelperText()
 

@@ -23,6 +23,6 @@ module.exports = class PJSDateEditor extends PJSEditor
 	getMomentValue: -> moment @input.val(), @baseFormat
 
 	setInputValue: (newValue) -> 
-		super newValue
+		newValue = super newValue
 		@input.val moment(newValue, @settings.format).format @baseFormat
 
