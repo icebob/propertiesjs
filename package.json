@@ -1,6 +1,6 @@
 {
   "name": "propertiesjs",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Javascript properties editor for browsers",
   "main": "dist/propertiesJS.js",
   "homepage": "https://github.com/icebob/propertiesjs",
@@ -25,6 +25,7 @@
     "url": "https://github.com/icebob/propertiesjs.git"
   },
   "devDependencies": {
+    "async": "1.5.2",
     "browser-sync": "^2.6.4",
     "browserify": "^9.0.8",
     "browserify-istanbul": "^0.2.1",

@@ -1,12 +1,12 @@
 /**
  * propertiesjs - Javascript properties editor for browsers
- * @version v1.4.0
+ * @version v1.4.1
  * @link https://github.com/icebob/propertiesjs
  * @license MIT
  * Copyright (c) 2016 Icebob
  * 
  * 
- * Build Date: Mon Feb 08 2016 16:21:59 GMT+0100 (Közép-európai téli idő )
+ * Build Date: Fri Feb 12 2016 15:23:16 GMT+0100 (Közép-európai téli idő )
  * 
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -15913,6 +15913,9 @@ module.exports = function (searchString/*, position*/) {
     };
 
     PJSEditor.prototype.setInputValue = function(value) {
+      if (this.settings["formatter"] != null) {
+        value = this.settings.formatter(value, this);
+      }
       return this.lastValue = value;
     };
 
@@ -16074,7 +16077,7 @@ module.exports = function (searchString/*, position*/) {
     };
 
     PJSBooleanEditor.prototype.setInputValue = function(newValue) {
-      PJSBooleanEditor.__super__.setInputValue.call(this, newValue);
+      newValue = PJSBooleanEditor.__super__.setInputValue.call(this, newValue);
       this.input.prop("checked", newValue);
       this.setHelperText();
       return this;
@@ -16276,7 +16279,8 @@ module.exports = function (searchString/*, position*/) {
     };
 
     PJSCheckListEditor.prototype.setInputValue = function(newValues) {
-      PJSCheckListEditor.__super__.setInputValue.call(this, newValues);
+      var newValue;
+      newValue = PJSCheckListEditor.__super__.setInputValue.call(this, newValues);
       this.selectedValues = newValues || [];
       this.createDropDownList();
       return this.refreshMainText();
@@ -16336,7 +16340,7 @@ module.exports = function (searchString/*, position*/) {
     };
 
     PJSColorEditor.prototype.setInputValue = function(newValue) {
-      PJSColorEditor.__super__.setInputValue.call(this, newValue);
+      newValue = PJSColorEditor.__super__.setInputValue.call(this, newValue);
       this.input.val(newValue);
       return this.setHelperText();
     };
@@ -16397,7 +16401,7 @@ module.exports = function (searchString/*, position*/) {
     };
 
     PJSDateEditor.prototype.setInputValue = function(newValue) {
-      PJSDateEditor.__super__.setInputValue.call(this, newValue);
+      newValue = PJSDateEditor.__super__.setInputValue.call(this, newValue);
       return this.input.val(moment(newValue, this.settings.format).format(this.baseFormat));
     };
 
@@ -16472,7 +16476,7 @@ module.exports = function (searchString/*, position*/) {
     };
 
     PJSLabelEditor.prototype.setInputValue = function(newValue) {
-      PJSLabelEditor.__super__.setInputValue.call(this, newValue);
+      newValue = PJSLabelEditor.__super__.setInputValue.call(this, newValue);
       return this.input.text(newValue);
     };
 
@@ -16594,7 +16598,7 @@ module.exports = function (searchString/*, position*/) {
     };
 
     PJSSelectEditor.prototype.setInputValue = function(newValue) {
-      PJSSelectEditor.__super__.setInputValue.call(this, newValue);
+      newValue = PJSSelectEditor.__super__.setInputValue.call(this, newValue);
       return this.input.val(newValue);
     };
 
@@ -16707,7 +16711,7 @@ module.exports = function (searchString/*, position*/) {
     };
 
     PJSSpectrumEditor.prototype.setInputValue = function(newValue) {
-      PJSSpectrumEditor.__super__.setInputValue.call(this, newValue);
+      newValue = PJSSpectrumEditor.__super__.setInputValue.call(this, newValue);
       if (this.input.spectrum != null) {
         this.input.spectrum("set", newValue);
       }
@@ -16771,7 +16775,7 @@ module.exports = function (searchString/*, position*/) {
     };
 
     PJSTextEditor.prototype.setInputValue = function(newValue) {
-      PJSTextEditor.__super__.setInputValue.call(this, newValue);
+      newValue = PJSTextEditor.__super__.setInputValue.call(this, newValue);
       return this.input.val(newValue);
     };
 
@@ -16840,7 +16844,7 @@ module.exports = function (searchString/*, position*/) {
     };
 
     PJSTextAreaEditor.prototype.setInputValue = function(newValue) {
-      PJSTextAreaEditor.__super__.setInputValue.call(this, newValue);
+      newValue = PJSTextAreaEditor.__super__.setInputValue.call(this, newValue);
       return this.input.val(newValue);
     };
 

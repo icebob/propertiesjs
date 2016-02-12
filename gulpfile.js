@@ -3,6 +3,7 @@
 var path            = require('path');
 var fs 				= require('fs');
 var exec 			= require('child_process').exec;
+var async 			= require("async");
 
 var browserSync     = require('browser-sync');
 var reload          = browserSync.reload;
@@ -277,22 +278,28 @@ gulp.task('release', function (done) {
     var pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
     var tag = 'v' + pkg.version;
     var message = 'Release ' + tag;
-    var execute = [
+    var cmds = [
         'git add .',
         'git commit -m "Release ' + tag + '"',
         'git tag ' + tag + ' -m "Release ' + tag + '"',
         'git push -u origin master',
         'git push -u origin master --tags',
         'npm publish'
-    ].join('\n');
+    ];
 
-    console.log("1");
-    exec(execute, function( error, stdout, stderr) 
-	{
-		console.log(stdout);
-		if ( error != null ) {
-			console.log(stderr);
-		}
-		done();
-	});
+    async.eachSeries(cmds, function(cmd, cb) {
+    	console.log("Execute: " + cmd);
+		exec(cmd, function( error, stdout, stderr) 
+		{
+			console.log(stdout);
+			if ( error != null ) {
+				console.error(stderr);
+				cb(error);
+			}
+			cb();
+		});
+
+    },  function(error) {
+    	done();
+    });
 });
