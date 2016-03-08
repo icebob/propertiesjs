@@ -46,7 +46,10 @@ gulp.task('browser-sync', function() {
 });
 
 gulp.task('clean:css', function(done) {
-  $.del('src/css/**', done);
+  if (fs.existsSync('src/css'))
+  	$.del('src/css/**', done);
+  else
+  	done();
 });
 
 // Sass task
