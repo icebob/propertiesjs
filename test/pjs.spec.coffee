@@ -98,7 +98,7 @@ describe "Test PJS in NON Live mode", ->
 		expect(pjs.objectHandler.objs[0]).to.be.equal objs[0]
 		expect(pjs.schema).to.be.deep.equal schema
 
-		editor = pjs.editors[10]
+		editor = pjs.editors[11]
 		prevValue = objs[0].body.weight
 
 		expect(pjs.workObject.body.weight).to.be.equal prevValue

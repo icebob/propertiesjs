@@ -97,6 +97,14 @@ module.exports.schema = {
 			default: true
 			multiEdit: true	
 		,
+			field: "avatar"
+			title: "Avatar"
+			type: "image"
+			required: false
+			multiEdit: false
+			preview: true
+			browse: true			
+		,
 			field: "retired"
 			title: "Retired"
 			type: "boolean"
@@ -278,6 +286,7 @@ module.exports.objects = [
 		ratings: 5
 		nativeLang: "en"
 		sex: "Male"
+		avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/peterlandt/128.jpg"
 		skills: ["Javascript", "Coffeescript", "AngularJS"]
 		themeColor: "#fab000"
 		backgroundColor: "rgba(128, 56, 20, 0.6)"

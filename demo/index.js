@@ -87,6 +87,12 @@ propertiesSchema = {
       "default": false,
       multiEdit: true
     }, {
+      field: "avatar",
+      title: "Avatar",
+      type: "image",
+      required: false,
+      multiEdit: false
+    }, {
       field: "created",
       title: "Created at",
       type: "timestamp",
@@ -249,6 +255,7 @@ obj1 = {
   born: "California, USA",
   dob: "1956-03-07",
   status: true,
+  avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/peterlandt/128.jpg",
   created: "2015-03-30 22:49:32",
   skills: ["Chemist", "Teacher", "Clever"],
   settings: {
