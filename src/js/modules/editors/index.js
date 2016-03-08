@@ -27,6 +27,8 @@
 
   module.exports["number"] = require("./number");
 
+  module.exports["image"] = require("./image");
+
   module.exports["color"] = require("./color");
 
   module.exports["spectrum"] = require("./spectrum");

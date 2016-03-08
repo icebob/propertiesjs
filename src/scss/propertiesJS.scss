@@ -240,6 +240,16 @@ $buttonPJSBgColor: lighten($bgColor, 15%);
 
 				} // .timestamp
 
+				&.image {
+					.preview {
+						margin-top: 10px;
+						height: 100px;
+						background-repeat: no-repeat;
+						background-size: contain;
+						background-position: center center;						
+					}
+				} // .image
+
 				&.boolean input {
 					height: 20px;
   					vertical-align: middle;

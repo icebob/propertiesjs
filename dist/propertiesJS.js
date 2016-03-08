@@ -6,7 +6,7 @@
  * Copyright (c) 2016 Icebob
  * 
  * 
- * Build Date: Tue Mar 08 2016 13:33:06 GMT+0100 (Közép-európai téli idő )
+ * Build Date: Tue Mar 08 2016 15:10:28 GMT+0100 (Közép-európai téli idő )
  * 
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -279,7 +279,7 @@
 
 }).call(this);
 
-},{"./modules/editors":25,"./modules/objects":34,"./modules/ui":35,"event-emitter":2,"lodash":17}],2:[function(require,module,exports){
+},{"./modules/editors":26,"./modules/objects":35,"./modules/ui":36,"event-emitter":2,"lodash":17}],2:[function(require,module,exports){
 'use strict';
 
 var d        = require('d')
@@ -19501,6 +19501,81 @@ module.exports = function (searchString/*, position*/) {
 
 },{"../editor":19,"lodash":17,"moment":18}],25:[function(require,module,exports){
 (function() {
+  var PJSEditor, PJSImageEditor, _,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  _ = require("lodash");
+
+  PJSEditor = require("../editor");
+
+  module.exports = PJSImageEditor = (function(superClass) {
+    extend(PJSImageEditor, superClass);
+
+    function PJSImageEditor() {
+      return PJSImageEditor.__super__.constructor.apply(this, arguments);
+    }
+
+    PJSImageEditor.prototype.createInput = function() {
+      this.input = $("<input/>").attr("type", "text");
+      if (this.settings.required === true) {
+        this.input.attr("required", "required");
+      }
+      if (this.settings.browse !== false) {
+        this.fileInput = $("<input />").attr("type", "file").on("change", (function(_this) {
+          return function(event) {
+            var reader;
+            reader = new FileReader();
+            reader.onload = function(e) {
+              _this.setInputValue(e.target.result);
+              return _this.valueChanged(e.target.result);
+            };
+            if (event.target.files && event.target.files.length > 0) {
+              return reader.readAsDataURL(event.target.files[0]);
+            }
+          };
+        })(this));
+      }
+      if (this.settings.preview !== false) {
+        this.preview = $("<div/>").addClass("preview");
+      }
+      this.input.on("change", (function(_this) {
+        return function() {
+          _this.valueChanged(_this.getInputValue());
+          return _this.setPreview(_this.getInputValue());
+        };
+      })(this));
+      return [this.input, this.fileInput, this.preview];
+    };
+
+    PJSImageEditor.prototype.getInputValue = function() {
+      return this.input.val();
+    };
+
+    PJSImageEditor.prototype.setInputValue = function(newValue) {
+      newValue = PJSImageEditor.__super__.setInputValue.call(this, newValue);
+      this.input.val(newValue);
+      return this.setPreview(newValue);
+    };
+
+    PJSImageEditor.prototype.setPreview = function(val) {
+      if (this.settings.preview !== false) {
+        if (val != null) {
+          return this.preview.css({
+            "background-image": 'url(' + val + ')'
+          });
+        }
+      }
+    };
+
+    return PJSImageEditor;
+
+  })(PJSEditor);
+
+}).call(this);
+
+},{"../editor":19,"lodash":17}],26:[function(require,module,exports){
+(function() {
   module.exports["boolean"] = require("./boolean");
 
   module.exports["button"] = require("./button");
@@ -19529,6 +19604,8 @@ module.exports = function (searchString/*, position*/) {
 
   module.exports["number"] = require("./number");
 
+  module.exports["image"] = require("./image");
+
   module.exports["color"] = require("./color");
 
   module.exports["spectrum"] = require("./spectrum");
@@ -19537,7 +19614,7 @@ module.exports = function (searchString/*, position*/) {
 
 }).call(this);
 
-},{"./boolean":20,"./button":21,"./checklist":22,"./color":23,"./date":24,"./label":26,"./number":27,"./select":28,"./slider":29,"./spectrum":30,"./text":31,"./textarea":32,"./timestamp":33}],26:[function(require,module,exports){
+},{"./boolean":20,"./button":21,"./checklist":22,"./color":23,"./date":24,"./image":25,"./label":27,"./number":28,"./select":29,"./slider":30,"./spectrum":31,"./text":32,"./textarea":33,"./timestamp":34}],27:[function(require,module,exports){
 (function() {
   var PJSEditor, PJSLabelEditor, _,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -19574,7 +19651,7 @@ module.exports = function (searchString/*, position*/) {
 
 }).call(this);
 
-},{"../editor":19,"lodash":17}],27:[function(require,module,exports){
+},{"../editor":19,"lodash":17}],28:[function(require,module,exports){
 (function() {
   var PJSNumberEditor, PJSTextEditor, _,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -19630,7 +19707,7 @@ module.exports = function (searchString/*, position*/) {
 
 }).call(this);
 
-},{"./text":31,"lodash":17}],28:[function(require,module,exports){
+},{"./text":32,"lodash":17}],29:[function(require,module,exports){
 (function() {
   var PJSEditor, PJSSelectEditor, _,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -19705,7 +19782,7 @@ module.exports = function (searchString/*, position*/) {
 
 }).call(this);
 
-},{"../editor":19,"lodash":17}],29:[function(require,module,exports){
+},{"../editor":19,"lodash":17}],30:[function(require,module,exports){
 (function() {
   var PJSNumberEditor, PJSSliderEditor, _, moment,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -19739,7 +19816,7 @@ module.exports = function (searchString/*, position*/) {
 
 }).call(this);
 
-},{"./number":27,"lodash":17,"moment":18}],30:[function(require,module,exports){
+},{"./number":28,"lodash":17,"moment":18}],31:[function(require,module,exports){
 (function() {
   var PJSEditor, PJSSpectrumEditor, _,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -19816,7 +19893,7 @@ module.exports = function (searchString/*, position*/) {
 
 }).call(this);
 
-},{"../editor":19,"lodash":17}],31:[function(require,module,exports){
+},{"../editor":19,"lodash":17}],32:[function(require,module,exports){
 (function() {
   var PJSEditor, PJSTextEditor, _,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -19888,7 +19965,7 @@ module.exports = function (searchString/*, position*/) {
 
 }).call(this);
 
-},{"../editor":19,"lodash":17}],32:[function(require,module,exports){
+},{"../editor":19,"lodash":17}],33:[function(require,module,exports){
 (function() {
   var PJSEditor, PJSTextAreaEditor, _,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -19942,7 +20019,7 @@ module.exports = function (searchString/*, position*/) {
 
 }).call(this);
 
-},{"../editor":19,"lodash":17}],33:[function(require,module,exports){
+},{"../editor":19,"lodash":17}],34:[function(require,module,exports){
 (function() {
   var PJSEditor, PJSLabelEditor, PJSTimestampEditor, _, moment,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -19988,7 +20065,7 @@ module.exports = function (searchString/*, position*/) {
 
 }).call(this);
 
-},{"../editor":19,"./label":26,"lodash":17,"moment":18}],34:[function(require,module,exports){
+},{"../editor":19,"./label":27,"lodash":17,"moment":18}],35:[function(require,module,exports){
 (function() {
   var PJSObjectHandler, _,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -20120,7 +20197,7 @@ module.exports = function (searchString/*, position*/) {
 
 }).call(this);
 
-},{"lodash":17}],35:[function(require,module,exports){
+},{"lodash":17}],36:[function(require,module,exports){
 (function() {
   module.exports = {
     getContainer: function(c) {

@@ -18,6 +18,8 @@ var $ 				= require('gulp-load-plugins')({
 						pattern: ['gulp-*', 'del']
 					});
 
+var pkg = require('./package.json');
+
 var banner = ['/**',
   ' * <%= pkg.name %> - <%= pkg.description %>',
   ' * @version v<%= pkg.version %>',
@@ -45,11 +47,9 @@ gulp.task('browser-sync', function() {
 	});
 });
 
-gulp.task('clean:css', function(done) {
+gulp.task('clean:css', function() {
   if (fs.existsSync('src/css'))
-  	$.del('src/css/**', done);
-  else
-  	done();
+  	$.del.sync('src/css/**');
 });
 
 // Sass task
@@ -149,7 +149,7 @@ gulp.task('default', ['build']);
 
 // Develop task (compile + watch + reload)
 gulp.task('dev', ['jade', 'sass', 'sass:demo', 'coffee', 'coffee:demo', 'build', 'browser-sync'], function () {
-	$.watch(['src/css/*.css', 'demo/*.css'], function(file) {
+	$.watch(['dist/*.css', 'demo/*.css'], function(file) {
 		reload(file.path);
 	});
 
@@ -164,13 +164,22 @@ gulp.task('dev', ['jade', 'sass', 'sass:demo', 'coffee', 'coffee:demo', 'build',
 		gulp.start('jade');
 	});
 	$.watch('src/coffee/**/*.coffee', function() {
+		console.log("Coffee changed. Run build...");
 		gulp.start('build');
 	});
 	$.watch('demo/*.coffee', function() {
 		gulp.start('coffee:demo');
 	});
 	$.watch('src/scss/*.scss', function() {
-		gulp.start('sass');
+		gulp.start('sass', function() {
+			gulp.src('src/css/*.css')
+				.pipe($.header(banner, { pkg : pkg } ))
+				.pipe(gulp.dest("dist"));
+
+			gulp.src('src/css/*.map')
+				.pipe(gulp.dest("dist"));
+
+		});
 	});
 	$.watch('demo/*.scss', function() {
 		gulp.start('sass:demo');
@@ -226,9 +235,8 @@ gulp.task('karma', ["sass", "coffee", "coffee:test"], function() {
  * Build
  */
 
-var pkg = require('./package.json');
-
 gulp.task('build', ["sass:min", "coffee"], function () {
+	console.log("Building...");
 
 	gulp.src('src/css/*.css')
 		.pipe($.header(banner, { pkg : pkg } ))
