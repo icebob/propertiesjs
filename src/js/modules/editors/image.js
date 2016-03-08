@@ -29,6 +29,7 @@
               return _this.valueChanged(e.target.result);
             };
             if (event.target.files && event.target.files.length > 0) {
+              console.log(event.target.files[0]);
               return reader.readAsDataURL(event.target.files[0]);
             }
           };

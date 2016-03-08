@@ -18,6 +18,7 @@ module.exports = class PJSImageEditor extends PJSEditor
 					@valueChanged e.target.result
 
 				if event.target.files and event.target.files.length > 0
+					console.log event.target.files[0]
 					reader.readAsDataURL event.target.files[0]
 
 
