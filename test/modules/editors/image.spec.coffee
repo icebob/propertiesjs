@@ -65,3 +65,18 @@ describe "Test PJSImageEditor", ->
 
 		expect(preview).to.be.length 1
 		expect(button).to.be.length 0
+
+	###
+	it "check browse file", ->
+		schema.editors = testData.getEditors schema.editors, ["avatar"]
+
+		pjs = new PJS ".propertyEditor", schema, objs[0] 
+
+		tr = pe.find "tbody tr:eq(0)"
+		button = tr.find "input[type=file]"
+
+		file = button[0]
+		expect(file).to.be.exists
+		file.files.push new File([], "image.jpg")
+		button.trigger("change")
+	###
