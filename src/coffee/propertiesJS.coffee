@@ -70,9 +70,10 @@ module.exports = class PJS
 	createEditors: (editors, objs, tbody, groupField) ->
 		$.each editors, (i, editorSchema) =>
 			
+			# It is a group
 			if editorSchema.type is "group"
 				# Generate group TR
-				[tr, nameCell, editorCell] = ui.generateGroupRow @, editorSchema, groupField
+				[tr, nameCell] = ui.generateGroupRow @, editorSchema, groupField
 
 				# Expand/collapse event handler
 				nameCell.on "click", ->

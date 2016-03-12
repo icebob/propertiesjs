@@ -418,6 +418,10 @@ $buttonPJSBgColor: lighten($bgColor, 15%);
 					@include user-select(none);
 					text-align: left;
 
+					i {
+						margin-right: 5px;
+					}
+
 					.arrow {
 						/*position: absolute;
 						right: 2px;

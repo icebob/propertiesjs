@@ -47,11 +47,15 @@
       return [tr, nameCell, editorCell];
     },
     generateGroupRow: function(PJS, editor) {
-      var editorCell, nameCell, tr;
+      var nameCell, tr;
       tr = $("<tr/>").attr("data-field", editor.field);
       tr.addClass("group");
-      nameCell = $("<td/>").text(editor.title);
+      nameCell = $("<td/>").attr("colspan", 2);
+      nameCell.append($("<span />").text(editor.title));
       nameCell.append($("<span />").addClass("arrow"));
+      if (editor.iconStyleClass != null) {
+        nameCell.prepend($("<i/>").addClass(editor.iconStyleClass));
+      }
       if (editor.toolTip != null) {
         nameCell.prepend($("<span/>").addClass("toolTip").attr("data-title", editor.toolTip));
       }
@@ -66,8 +70,7 @@
         tr.addClass("collapsed");
       }
       tr.addClass(editor.type);
-      editorCell = $("<td/>").addClass(editor.type).appendTo(tr);
-      return [tr, nameCell, editorCell];
+      return [tr, nameCell];
     }
   };
 

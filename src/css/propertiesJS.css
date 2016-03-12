@@ -314,6 +314,9 @@
   user-select: none;
   text-align: left;
 }
+.propertyEditor table tr.group td:nth-child(1) i, .propertyEditorOld table tr.group td:nth-child(1) i {
+  margin-right: 5px;
+}
 .propertyEditor table tr.group td:nth-child(1) .arrow, .propertyEditorOld table tr.group td:nth-child(1) .arrow {
   /*position: absolute;
   right: 2px;

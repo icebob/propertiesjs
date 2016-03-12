@@ -74,8 +74,12 @@ module.exports =
 		tr = $("<tr/>").attr "data-field", editor.field
 		tr.addClass "group"
 
-		nameCell = $("<td/>").text editor.title
+		nameCell = $("<td/>").attr "colspan", 2
+		nameCell.append $("<span />").text editor.title
 		nameCell.append $("<span />").addClass "arrow"
+
+		if editor.iconStyleClass?
+			nameCell.prepend $("<i/>").addClass editor.iconStyleClass
 		
 		# Tooltip text with question mark
 		if editor.toolTip?
@@ -88,6 +92,6 @@ module.exports =
 		tr.addClass("collapsed") if editor.collapsed is true
 		tr.addClass(editor.type)
 			
-		editorCell = $("<td/>").addClass(editor.type).appendTo tr
+		# editorCell = $("<td/>").addClass(editor.type).appendTo tr
 
-		return [tr, nameCell, editorCell]		
+		return [tr, nameCell]		

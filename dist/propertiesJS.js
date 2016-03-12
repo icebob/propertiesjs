@@ -6,7 +6,7 @@
  * Copyright (c) 2016 Icebob
  * 
  * 
- * Build Date: Sat Mar 12 2016 14:43:42 GMT+0100 (Central Europe Standard Time)
+ * Build Date: Sat Mar 12 2016 15:08:59 GMT+0100 (Central Europe Standard Time)
  * 
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -90,7 +90,7 @@
         return function(i, editorSchema) {
           var EditorClass, childEditors, editor, editorCell, input, nameCell, ref, ref1, tr, value;
           if (editorSchema.type === "group") {
-            ref = ui.generateGroupRow(_this, editorSchema, groupField), tr = ref[0], nameCell = ref[1], editorCell = ref[2];
+            ref = ui.generateGroupRow(_this, editorSchema, groupField), tr = ref[0], nameCell = ref[1];
             nameCell.on("click", function() {
               if (tr.hasClass("collapsed")) {
                 tr.removeClass("collapsed");
@@ -20253,11 +20253,15 @@ module.exports = function (searchString/*, position*/) {
       return [tr, nameCell, editorCell];
     },
     generateGroupRow: function(PJS, editor) {
-      var editorCell, nameCell, tr;
+      var nameCell, tr;
       tr = $("<tr/>").attr("data-field", editor.field);
       tr.addClass("group");
-      nameCell = $("<td/>").text(editor.title);
+      nameCell = $("<td/>").attr("colspan", 2);
+      nameCell.append($("<span />").text(editor.title));
       nameCell.append($("<span />").addClass("arrow"));
+      if (editor.iconStyleClass != null) {
+        nameCell.prepend($("<i/>").addClass(editor.iconStyleClass));
+      }
       if (editor.toolTip != null) {
         nameCell.prepend($("<span/>").addClass("toolTip").attr("data-title", editor.toolTip));
       }
@@ -20272,8 +20276,7 @@ module.exports = function (searchString/*, position*/) {
         tr.addClass("collapsed");
       }
       tr.addClass(editor.type);
-      editorCell = $("<td/>").addClass(editor.type).appendTo(tr);
-      return [tr, nameCell, editorCell];
+      return [tr, nameCell];
     }
   };
 

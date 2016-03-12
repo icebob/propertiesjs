@@ -94,14 +94,17 @@ describe("Test UI helper methods", function() {
     return expect(tr.hasClass("readonly")).to.be["true"];
   });
   it("check generateGroupRow", function() {
-    var editor, editorCell, nameCell, objs, ref, ref1, schema, tr;
+    var editor, nameCell, objs, ref, ref1, schema, tr;
     ref = testData.clone(), objs = ref[0], schema = ref[1];
     pjs = new PJS(".propertyEditor", schema, objs);
     editor = testData.getEditors(schema.editors, ["body"])[0];
-    ref1 = ui.generateGroupRow(pjs, editor), tr = ref1[0], nameCell = ref1[1], editorCell = ref1[2];
+    editor.iconStyleClass = void 0;
+    ref1 = ui.generateGroupRow(pjs, editor), tr = ref1[0], nameCell = ref1[1];
     expect(tr).to.be.exist;
     expect(nameCell).to.be.exist;
-    expect(editorCell).to.be.exist;
+    expect(nameCell.attr("colspan")).to.be.equal("2");
+    expect(nameCell.find("i")).to.be.length(0);
+    expect(nameCell.find("span:eq(0)").text()).to.be.equal(editor.title);
     expect(nameCell.find(".arrow")).to.be.length(1);
     expect(tr.attr("data-field")).to.be.equal(editor.field);
     expect(tr.hasClass("featured")).to.be["false"];
@@ -109,6 +112,16 @@ describe("Test UI helper methods", function() {
     expect(tr.hasClass("collapsed")).to.be["false"];
     expect(tr.hasClass(editor.type)).to.be["true"];
     return expect(tr.hasClass("group")).to.be["true"];
+  });
+  it("check generateGroupRow with icon", function() {
+    var editor, nameCell, objs, ref, ref1, schema, tr;
+    ref = testData.clone(), objs = ref[0], schema = ref[1];
+    pjs = new PJS(".propertyEditor", schema, objs);
+    editor = testData.getEditors(schema.editors, ["body"])[0];
+    editor.iconStyleClass = "fa fa-user";
+    ref1 = ui.generateGroupRow(pjs, editor), tr = ref1[0], nameCell = ref1[1];
+    expect(nameCell.find("i")).to.be.length(1);
+    return expect(nameCell.find("i").attr("class")).to.be.equal(editor.iconStyleClass);
   });
   return it("check generateGroupRow with collapsed", function() {
     var editor, editorCell, nameCell, objs, ref, ref1, schema, tr;

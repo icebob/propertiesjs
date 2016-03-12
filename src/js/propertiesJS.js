@@ -78,7 +78,7 @@
         return function(i, editorSchema) {
           var EditorClass, childEditors, editor, editorCell, input, nameCell, ref, ref1, tr, value;
           if (editorSchema.type === "group") {
-            ref = ui.generateGroupRow(_this, editorSchema, groupField), tr = ref[0], nameCell = ref[1], editorCell = ref[2];
+            ref = ui.generateGroupRow(_this, editorSchema, groupField), tr = ref[0], nameCell = ref[1];
             nameCell.on("click", function() {
               if (tr.hasClass("collapsed")) {
                 tr.removeClass("collapsed");

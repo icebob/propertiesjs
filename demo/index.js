@@ -112,7 +112,7 @@ propertiesSchema = {
       type: "group",
       field: "settings",
       title: "Other settings",
-      styleClass: "fa fa-group",
+      iconStyleClass: "fa fa-group",
       collapsed: false,
       editors: [
         {
@@ -178,7 +178,7 @@ propertiesSchema = {
       type: "group",
       field: "body",
       title: "Body properties",
-      styleClass: "fa fa-user",
+      iconStyleClass: "fa fa-user",
       collapsed: true,
       editors: (function(_this) {
         return function(pjs, schema, objs) {

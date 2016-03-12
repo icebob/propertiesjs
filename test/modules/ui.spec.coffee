@@ -111,13 +111,16 @@ describe "Test UI helper methods", ->
 		pjs = new PJS(".propertyEditor", schema, objs)
 
 		editor = testData.getEditors(schema.editors, ["body"])[0]
+		editor.iconStyleClass = undefined
 
-		[tr, nameCell, editorCell] = ui.generateGroupRow pjs, editor
+		[tr, nameCell] = ui.generateGroupRow pjs, editor
 
 		expect(tr).to.be.exist
 		expect(nameCell).to.be.exist
-		expect(editorCell).to.be.exist
 
+		expect(nameCell.attr("colspan")).to.be.equal "2"
+		expect(nameCell.find("i")).to.be.length 0
+		expect(nameCell.find("span:eq(0)").text()).to.be.equal editor.title
 		expect(nameCell.find(".arrow")).to.be.length 1
 
 		expect(tr.attr("data-field")).to.be.equal editor.field
@@ -126,6 +129,18 @@ describe "Test UI helper methods", ->
 		expect(tr.hasClass("collapsed")).to.be.false
 		expect(tr.hasClass(editor.type)).to.be.true
 		expect(tr.hasClass("group")).to.be.true
+
+	it "check generateGroupRow with icon", ->
+		[objs, schema] = testData.clone()
+		pjs = new PJS(".propertyEditor", schema, objs)
+
+		editor = testData.getEditors(schema.editors, ["body"])[0]
+		editor.iconStyleClass = "fa fa-user"
+
+		[tr, nameCell] = ui.generateGroupRow pjs, editor
+
+		expect(nameCell.find("i")).to.be.length 1
+		expect(nameCell.find("i").attr("class")).to.be.equal editor.iconStyleClass
 
 	it "check generateGroupRow with collapsed", ->
 		[objs, schema] = testData.clone()
