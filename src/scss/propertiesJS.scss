@@ -247,6 +247,8 @@ $buttonPJSBgColor: lighten($bgColor, 15%);
 						background-repeat: no-repeat;
 						background-size: contain;
 						background-position: center center;						
+						border: 1px solid lighten($bgColor, 10%);
+						@include border-radius(3px);
 					}
 				} // .image
 
