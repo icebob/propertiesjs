@@ -6,7 +6,7 @@
  * Copyright (c) 2016 Icebob
  * 
  * 
- * Build Date: Sat Mar 12 2016 14:47:15 GMT+0100 (Central Europe Standard Time)
+ * Build Date: Sat Mar 12 2016 14:48:42 GMT+0100 (Central Europe Standard Time)
  * 
  */
 .propertyEditor table thead tr th .title, .propertyEditorOld table thead tr th .title, .propertyEditor table tr td, .propertyEditorOld table tr td, .propertyEditor table tr td:nth-child(1) .toolTip:hover:after, .propertyEditorOld table tr td:nth-child(1) .toolTip:hover:after, .propertyEditor table tr td:nth-child(2) input:not([type="checkbox"]), .propertyEditor table tr td:nth-child(2) textarea, .propertyEditor table tr td:nth-child(2) select, .propertyEditor table tr td:nth-child(2) .checklist, .propertyEditorOld table tr td:nth-child(2) input:not([type="checkbox"]), .propertyEditorOld table tr td:nth-child(2) textarea, .propertyEditorOld table tr td:nth-child(2) select, .propertyEditorOld table tr td:nth-child(2) .checklist, .propertyEditor table tr td:nth-child(2) button.function, .propertyEditorOld table tr td:nth-child(2) button.function, .propertyEditor .pjsButtons button, .propertyEditorOld .pjsButtons button {
@@ -190,7 +190,7 @@
   display: block;
 }
 .propertyEditor table tr td:nth-child(2).image .preview, .propertyEditorOld table tr td:nth-child(2).image .preview {
-  margin-top: 10px;
+  margin-top: 5px;
   height: 100px;
   background-repeat: no-repeat;
   background-size: contain;
