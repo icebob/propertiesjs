@@ -44,5 +44,10 @@ module.exports = class PJSImageEditor extends PJSEditor
 	# Helper
 	setPreview: (val) -> 
 		if @settings.preview isnt false
-			if val?
-				@preview.css "background-image": 'url(' + val + ')'
+			if val? and val isnt ""
+				@preview.css 
+					"background-image": 'url(' + val + ')'
+					"display": "block"
+			else
+				@preview.css 
+					"display": "none"

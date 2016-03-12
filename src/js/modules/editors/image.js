@@ -59,9 +59,14 @@
 
     PJSImageEditor.prototype.setPreview = function(val) {
       if (this.settings.preview !== false) {
-        if (val != null) {
+        if ((val != null) && val !== "") {
           return this.preview.css({
-            "background-image": 'url(' + val + ')'
+            "background-image": 'url(' + val + ')',
+            "display": "block"
+          });
+        } else {
+          return this.preview.css({
+            "display": "none"
           });
         }
       }
