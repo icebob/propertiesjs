@@ -65,7 +65,6 @@
   },
   "dependencies": {
     "event-emitter": "0.3.4",
-    "jquery": "2.2.0",
     "lodash": "4.3.0",
     "moment": "2.11.2"
   }
