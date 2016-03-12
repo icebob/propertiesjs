@@ -113,8 +113,9 @@ propertiesSchema = {
 		,
 			type: "group"
 			field: "settings"
-			title: "Other settings",
-			collapsed: false,
+			title: "Other settings"
+			styleClass: "fa fa-group"
+			collapsed: false
 			editors: [
 				field: "settings.isActor"
 				title: "Is an actor?"
@@ -166,6 +167,7 @@ propertiesSchema = {
 			type: "group"
 			field: "body"
 			title: "Body properties",
+			styleClass: "fa fa-user"
 			collapsed: true,
 			editors: (pjs, schema, objs) =>
 				return [
