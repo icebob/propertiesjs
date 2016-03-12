@@ -305,7 +305,7 @@ gulp.task('release', function (done) {
 			console.log(stdout);
 			if ( error != null ) {
 				console.error(stderr);
-				cb(error);
+				return cb(error);
 			}
 			cb();
 		});
