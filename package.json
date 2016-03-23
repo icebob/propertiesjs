@@ -1,6 +1,6 @@
 {
   "name": "propertiesjs",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "description": "Javascript properties editor for browsers",
   "main": "dist/propertiesJS.js",
   "homepage": "https://github.com/icebob/propertiesjs",
