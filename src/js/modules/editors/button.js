@@ -23,7 +23,7 @@
         this.input.append($("<span/>").text(this.settings.title));
         this.tr.find("td:eq(0)").text("");
         this.input.on("click", (function(_this) {
-          return function() {
+          return function(event) {
             if (_this.settings.schemaFunction === true) {
               if (_this.settings["onclick"]) {
                 _this.settings.onclick(_this.PJS.objectHandler.objs);
@@ -31,7 +31,9 @@
             } else {
               _this.PJS.objectHandler.callFunctionInObjects(_this.fieldName);
             }
-            return _this.PJS.emit("function-" + _this.fieldName, _this, _this.PJS.objectHandler.objs);
+            _this.PJS.emit("function-" + _this.fieldName, _this, _this.PJS.objectHandler.objs);
+            event.preventDefault();
+            return false;
           };
         })(this));
       }

@@ -15,13 +15,16 @@ module.exports = class PJSButtonEditor extends PJSEditor
 			@tr.find("td:eq(0)").text("")
 		
 			# Event handlers
-			@input.on "click", =>	
+			@input.on "click", (event) =>	
 				if @settings.schemaFunction is true
 					@settings.onclick(@PJS.objectHandler.objs) if @settings["onclick"]
 				else
 					@PJS.objectHandler.callFunctionInObjects @fieldName
 
 				@PJS.emit "function-" + @fieldName, @, @PJS.objectHandler.objs
+
+				event.preventDefault()
+				return false
 		
 		return @input
 

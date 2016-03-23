@@ -6,7 +6,7 @@
  * Copyright (c) 2016 Icebob
  * 
  * 
- * Build Date: Wed Mar 23 2016 09:55:32 GMT+0100 (Közép-európai téli idő )
+ * Build Date: Wed Mar 23 2016 10:06:59 GMT+0100 (Közép-európai téli idő )
  * 
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -81,14 +81,12 @@
         this.disableControlButtons();
       }
       this.container.append(table);
-      this.container.on("keydown", ":input:not(textarea)", (function(_this) {
-        return function(event) {
-          if (event.keyCode === 13) {
-            event.preventDefault();
-            return false;
-          }
-        };
-      })(this));
+      this.container.on("keydown", ":input:not(textarea)", function(event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          return false;
+        }
+      });
       this.clearChangedFlag();
       return this;
     }
@@ -19223,7 +19221,7 @@ module.exports = function (searchString/*, position*/) {
         this.input.append($("<span/>").text(this.settings.title));
         this.tr.find("td:eq(0)").text("");
         this.input.on("click", (function(_this) {
-          return function() {
+          return function(event) {
             if (_this.settings.schemaFunction === true) {
               if (_this.settings["onclick"]) {
                 _this.settings.onclick(_this.PJS.objectHandler.objs);
@@ -19231,7 +19229,9 @@ module.exports = function (searchString/*, position*/) {
             } else {
               _this.PJS.objectHandler.callFunctionInObjects(_this.fieldName);
             }
-            return _this.PJS.emit("function-" + _this.fieldName, _this, _this.PJS.objectHandler.objs);
+            _this.PJS.emit("function-" + _this.fieldName, _this, _this.PJS.objectHandler.objs);
+            event.preventDefault();
+            return false;
           };
         })(this));
       }
