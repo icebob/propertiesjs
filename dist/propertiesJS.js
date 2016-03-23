@@ -6,12 +6,12 @@
  * Copyright (c) 2016 Icebob
  * 
  * 
- * Build Date: Wed Mar 23 2016 10:31:54 GMT+0100 (Közép-európai téli idő )
+ * Build Date: Wed Mar 23 2016 11:29:38 GMT+0100 (Közép-európai téli idő )
  * 
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function() {
-  var Emitter, PJS, PJSEditors, PJSObjectHandler, _, ui;
+  var Emitter, PJS, PJSEditors, PJSObjectHandler, _, store, ui;
 
   _ = require("lodash");
 
@@ -22,6 +22,8 @@
   PJSObjectHandler = require("./modules/objects");
 
   PJSEditors = require("./modules/editors");
+
+  store = require("./modules/store");
 
   module.exports = PJS = (function() {
     PJS.prototype.container = null;
@@ -94,16 +96,18 @@
     PJS.prototype.createEditors = function(editors, objs, tbody, groupField) {
       return $.each(editors, (function(_this) {
         return function(i, editorSchema) {
-          var EditorClass, childEditors, editor, editorCell, input, nameCell, ref, ref1, tr, value;
+          var EditorClass, childEditors, editor, editorCell, input, nameCell, ref, ref1, state, tr, value;
           if (editorSchema.type === "group") {
             ref = ui.generateGroupRow(_this, editorSchema, groupField), tr = ref[0], nameCell = ref[1];
             nameCell.on("click", function() {
               if (tr.hasClass("collapsed")) {
                 tr.removeClass("collapsed");
-                return tbody.find("tr.group-" + editorSchema.field).show();
+                tbody.find("tr.group-" + editorSchema.field).show();
+                return store.setGroupState(editorSchema.field, false);
               } else {
                 tr.addClass("collapsed");
-                return tbody.find("tr.group-" + editorSchema.field).hide();
+                tbody.find("tr.group-" + editorSchema.field).hide();
+                return store.setGroupState(editorSchema.field, true);
               }
             });
             tr.appendTo(tbody);
@@ -117,7 +121,8 @@
                 _this.createEditors(childEditors, objs, tbody, editorSchema.field);
               }
             }
-            if (editorSchema.collapsed === true) {
+            state = store.getGroupState(editorSchema.field, editorSchema.collapsed === true);
+            if (state) {
               tbody.find("tr.group-" + editorSchema.field).hide();
             }
             return;
@@ -285,7 +290,7 @@
 
 }).call(this);
 
-},{"./modules/editors":26,"./modules/objects":35,"./modules/ui":36,"event-emitter":2,"lodash":17}],2:[function(require,module,exports){
+},{"./modules/editors":26,"./modules/objects":35,"./modules/store":36,"./modules/ui":37,"event-emitter":2,"lodash":17}],2:[function(require,module,exports){
 'use strict';
 
 var d        = require('d')
@@ -20238,6 +20243,24 @@ module.exports = function (searchString/*, position*/) {
 }).call(this);
 
 },{"lodash":17}],36:[function(require,module,exports){
+(function() {
+  window.PJSGroupStates = {};
+
+  module.exports = {
+    getGroupState: function(name, defValue) {
+      if (window.PJSGroupStates[name] != null) {
+        return window.PJSGroupStates[name];
+      }
+      return defValue;
+    },
+    setGroupState: function(name, state) {
+      return window.PJSGroupStates[name] = state;
+    }
+  };
+
+}).call(this);
+
+},{}],37:[function(require,module,exports){
 (function() {
   module.exports = {
     getContainer: function(c) {

@@ -1,5 +1,5 @@
 (function() {
-  var Emitter, PJS, PJSEditors, PJSObjectHandler, _, ui;
+  var Emitter, PJS, PJSEditors, PJSObjectHandler, _, store, ui;
 
   _ = require("lodash");
 
@@ -10,6 +10,8 @@
   PJSObjectHandler = require("./modules/objects");
 
   PJSEditors = require("./modules/editors");
+
+  store = require("./modules/store");
 
   module.exports = PJS = (function() {
     PJS.prototype.container = null;
@@ -82,16 +84,18 @@
     PJS.prototype.createEditors = function(editors, objs, tbody, groupField) {
       return $.each(editors, (function(_this) {
         return function(i, editorSchema) {
-          var EditorClass, childEditors, editor, editorCell, input, nameCell, ref, ref1, tr, value;
+          var EditorClass, childEditors, editor, editorCell, input, nameCell, ref, ref1, state, tr, value;
           if (editorSchema.type === "group") {
             ref = ui.generateGroupRow(_this, editorSchema, groupField), tr = ref[0], nameCell = ref[1];
             nameCell.on("click", function() {
               if (tr.hasClass("collapsed")) {
                 tr.removeClass("collapsed");
-                return tbody.find("tr.group-" + editorSchema.field).show();
+                tbody.find("tr.group-" + editorSchema.field).show();
+                return store.setGroupState(editorSchema.field, false);
               } else {
                 tr.addClass("collapsed");
-                return tbody.find("tr.group-" + editorSchema.field).hide();
+                tbody.find("tr.group-" + editorSchema.field).hide();
+                return store.setGroupState(editorSchema.field, true);
               }
             });
             tr.appendTo(tbody);
@@ -105,7 +109,8 @@
                 _this.createEditors(childEditors, objs, tbody, editorSchema.field);
               }
             }
-            if (editorSchema.collapsed === true) {
+            state = store.getGroupState(editorSchema.field, editorSchema.collapsed === true);
+            if (state) {
               tbody.find("tr.group-" + editorSchema.field).hide();
             }
             return;

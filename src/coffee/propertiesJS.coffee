@@ -3,6 +3,7 @@ ui 					= require "./modules/ui"
 Emitter				= require "event-emitter"
 PJSObjectHandler 	= require "./modules/objects"
 PJSEditors 			= require "./modules/editors"
+store				= require "./modules/store"
 
 # --- CREATE PROPERTY EDITOR CLASS ---	
 module.exports = class PJS 
@@ -87,10 +88,12 @@ module.exports = class PJS
 						# Expand
 						tr.removeClass "collapsed"
 						tbody.find("tr.group-#{editorSchema.field}").show()
+						store.setGroupState editorSchema.field, false
 					else
 						# Collapse
 						tr.addClass "collapsed"
 						tbody.find("tr.group-#{editorSchema.field}").hide()
+						store.setGroupState editorSchema.field, true
 
 				tr.appendTo tbody
 
@@ -105,7 +108,9 @@ module.exports = class PJS
 						@createEditors childEditors, objs, tbody, editorSchema.field
 
 
-				if editorSchema.collapsed is true
+				# Set group state
+				state = store.getGroupState editorSchema.field, editorSchema.collapsed is true
+				if state
 					tbody.find("tr.group-#{editorSchema.field}").hide()
 
 				return
