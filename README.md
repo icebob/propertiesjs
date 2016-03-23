@@ -15,6 +15,7 @@ PropertiesJS is a javascript property editor, writtern in [Coffeescript](http://
 
 [![Screenshot](https://pbs.twimg.com/media/CDq8pKxWYAAVm5v.png)](http://codepen.io/icebob/full/ZGYMWx/)
 
+[Try it on the JSFiddle](https://jsfiddle.net/icebob/pk5vkgzp/)
 
 ## Features
 - multiple object editing
