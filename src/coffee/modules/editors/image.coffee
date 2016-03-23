@@ -24,7 +24,12 @@ module.exports = class PJSImageEditor extends PJSEditor
 
 		# Preview
 		if @settings.preview isnt false
-			@preview = $("<div/>").addClass("preview")
+			removeButton = $("<div/>").addClass("remove").attr("title", "Remove image").on "click", => 
+				@input.val("")
+				@fileInput.val("")
+				@input.trigger "change"
+
+			@preview = $("<div/>").addClass("preview").append removeButton
 		
 		# Event handlers
 		@input.on "change", => 
