@@ -63,6 +63,12 @@ module.exports = class PJS
 		# Append table
 		@container.append table
 
+		@container.on "keydown", ":input:not(textarea)", (event) ->
+			if event.keyCode is 13
+				event.preventDefault()
+				return false
+
+
 		@clearChangedFlag()
 
 		return @

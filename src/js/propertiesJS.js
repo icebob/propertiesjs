@@ -69,6 +69,12 @@
         this.disableControlButtons();
       }
       this.container.append(table);
+      this.container.on("keydown", ":input:not(textarea)", function(event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          return false;
+        }
+      });
       this.clearChangedFlag();
       return this;
     }

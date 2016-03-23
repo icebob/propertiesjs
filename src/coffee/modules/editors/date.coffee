@@ -15,6 +15,12 @@ module.exports = class PJSDateEditor extends PJSEditor
 		# Event handlers
 		@input.on "change", => @valueChanged @getInputValue()
 
+		@input.on "keydown", (event) =>
+			if event.keyCode is 13
+				event.preventDefault()
+				@input.trigger "change"
+				return false
+
 		return @input
 
 

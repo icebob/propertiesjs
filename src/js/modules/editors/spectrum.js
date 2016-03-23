@@ -15,7 +15,7 @@
     }
 
     PJSSpectrumEditor.prototype.createInput = function(tr, editorCell, nameCell) {
-      var e, error, setHelperText;
+      var e, setHelperText;
       this.input = $("<input/>").attr("type", this.settings.type);
       if (this.settings.required === true) {
         this.input.attr("required", "required");
@@ -45,8 +45,8 @@
             };
           })(this)
         });
-      } catch (error) {
-        e = error;
+      } catch (_error) {
+        e = _error;
         console.warn("Spectrum color library is missing. Please download from http://bgrins.github.io/spectrum/ and load the script in the HTML head section!");
       }
       return [];

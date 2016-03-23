@@ -31,6 +31,15 @@
           return _this.valueChanged(_this.getInputValue());
         };
       })(this));
+      this.input.on("keydown", (function(_this) {
+        return function(event) {
+          if (event.keyCode === 13) {
+            event.preventDefault();
+            _this.input.trigger("change");
+            return false;
+          }
+        };
+      })(this));
       return this.input;
     };
 

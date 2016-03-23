@@ -16,7 +16,6 @@ module.exports = class PJSTextAreaEditor extends PJSEditor
 
 		return @input
 
-
 	getInputValue: -> @input.val()
 
 	setInputValue: (newValue) -> 
