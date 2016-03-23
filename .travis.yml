@@ -4,5 +4,5 @@ node_js:
     - "0.12"
 before_script:
   - npm install -g gulp 
-  - npm install phantomjs
+  - npm install phantomjs@1.9.8
   - npm install -g karma
