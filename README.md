@@ -2,10 +2,9 @@
 [![Build Status](https://travis-ci.org/icebob/propertiesjs.svg)](https://travis-ci.org/icebob/propertiesjs)
 [![Dependency Status](https://img.shields.io/david/icebob/propertiesjs.svg)](https://david-dm.org/icebob/propertiesjs)
 [![Codacy Badge](https://www.codacy.com/project/badge/7c7e3a15825f411f8dd395a8893fc08e)](https://www.codacy.com/app/mereg-norbert/propertiesjs)
+[![Downloads](https://img.shields.io/npm/dt/propertiesjs.svg)](https://www.npmjs.com/package/propertiesjs)
 
 PropertiesJS is a javascript property editor, writtern in [Coffeescript](http://coffeescript.org/).
-
-[![](https://img.shields.io/gratipay/icebob.svg)](https://gratipay.com/icebob)
 
 ## Demo
 [Codepen demo #1](http://codepen.io/icebob/full/WvezpR/)
@@ -19,7 +18,7 @@ PropertiesJS is a javascript property editor, writtern in [Coffeescript](http://
 
 ## Features
 - multiple object editing
-- 11 editors
+- 12 editors
 - live editing mode
 - support validation
 - change, save, validate event
@@ -29,6 +28,8 @@ PropertiesJS is a javascript property editor, writtern in [Coffeescript](http://
 
 ## Dependencies
 - [jQuery](http://www.jquery.com)
+- [Spectrum color picker (included)](https://bgrins.github.io/spectrum/)
+- [Moment.js (included)](http://momentjs.com/)
 
 ## Installation
 #### NPM
@@ -92,5 +93,3 @@ PropertiesJS is available under the [MIT license](https://tldrlegal.com/license/
 Copyright (C) 2015 Icebob
 
 [![@icebob](https://img.shields.io/badge/github-icebob-green.svg)](https://github.com/icebob) [![@icebob](https://img.shields.io/badge/twitter-Icebobcsi-blue.svg)](https://twitter.com/Icebobcsi)
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/icebob/propertiesjs/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
