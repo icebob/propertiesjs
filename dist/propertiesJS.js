@@ -6,7 +6,7 @@
  * Copyright (c) 2016 Icebob
  * 
  * 
- * Build Date: Wed Mar 23 2016 11:38:17 GMT+0100 (Közép-európai téli idő )
+ * Build Date: Wed Mar 23 2016 16:06:47 GMT+0100 (Közép-európai téli idő )
  * 
  */
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -19570,6 +19570,15 @@ module.exports = function (searchString/*, position*/) {
         })(this));
         this.preview = $("<div/>").addClass("preview").append(removeButton);
       }
+      this.input.on("keydown", (function(_this) {
+        return function(event) {
+          if (event.keyCode === 13) {
+            event.preventDefault();
+            _this.input.trigger("change");
+            return false;
+          }
+        };
+      })(this));
       this.input.on("change", (function(_this) {
         return function() {
           _this.valueChanged(_this.getInputValue());
