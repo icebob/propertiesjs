@@ -4,7 +4,7 @@
 [![Codacy Badge](https://www.codacy.com/project/badge/7c7e3a15825f411f8dd395a8893fc08e)](https://www.codacy.com/app/mereg-norbert/propertiesjs)
 [![Downloads](https://img.shields.io/npm/dt/propertiesjs.svg)](https://www.npmjs.com/package/propertiesjs)
 
-PropertiesJS is a javascript property editor, writtern in [Coffeescript](http://coffeescript.org/).
+PropertiesJS is a javascript property editor, written in [Coffeescript](http://coffeescript.org/).
 
 ## Demo
 [Codepen demo #1](http://codepen.io/icebob/full/WvezpR/)
