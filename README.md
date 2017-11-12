@@ -1,3 +1,5 @@
+# UNMAINTAINED. [vue-form-generator](https://github.com/icebob/vue-form-generator) is the successor.
+
 # PropertiesJS [![NPM version](https://img.shields.io/npm/v/propertiesjs.svg)](https://www.npmjs.com/package/propertiesjs)
 [![Build Status](https://travis-ci.org/icebob/propertiesjs.svg)](https://travis-ci.org/icebob/propertiesjs)
 [![Dependency Status](https://img.shields.io/david/icebob/propertiesjs.svg)](https://david-dm.org/icebob/propertiesjs)
